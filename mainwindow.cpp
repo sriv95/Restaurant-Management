@@ -47,5 +47,8 @@ void RestuarantManagement::on_RefreshBtn_clicked()
 
 }
 
+void RestuarantManagement::on_CheckBills_clicked()
+{
 
+}
 
