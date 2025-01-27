@@ -11,6 +11,16 @@ public:
     RestuarantManagement(QWidget *parent = nullptr);
     ~RestuarantManagement();
 
+private slots:
+
+    void on_RefreshBtn_clicked();
+
+    void SetSelectingTable(QString);
+
+    int GetSelectingTableNo();
+
+    void on_TableBtn_clicked();
+
 private:
     Ui::RestuarantManagementClass ui;
 };
