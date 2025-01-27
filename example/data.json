@@ -1,14 +1,36 @@
 {
     "Tables": [
-        {"No": 1},{"Seats": 2},{"Reserved": ""},{"Bills": [["Menu#1","Menu#2"],[1,1],[0,0]]},
-        {"No": 2},{"Seats": 4},{"Reserved": ""},{"Bills": [["Menu#1","Menu#2","Menu#3","Menu#4"],[1,1,1,1],[10,0,0,0]]}
+        {
+            "No": 1,
+            "Seats": 2,
+            "Reserved": "",
+            "Bills": [["Menu#1","Menu#2"],[1,1],[0,0]]
+        },
+        {
+            "No": 2,
+            "Seats": 4,
+            "Reserved": "",
+            "Bills": [["Menu#1","Menu#2","Menu#3","Menu#4"],[1,1,1,1],[10,0,0,0]]
+        },
+        {
+            "No": 3,
+            "Seats": 4,
+            "Reserved": "17:00",
+            "Bills": [[""],[],[]]
+        },
+        {
+            "No": 4,
+            "Seats": 0,
+            "Reserved": "",
+            "Bills": [[""],[],[]]
+        }
     ],
-    "Menus": [
-        {"Menu#1": 50},
-        {"Menu#2": 20},
-        {"Menu#3": 30},
-        {"Menu#4": 40}
-    ],
+    "Menus": {
+        "Menu#1": 50,
+        "Menu#2": 20,
+        "Menu#3": 30,
+        "Menu#4": 40
+    },
     "Stocks": [
 
     ],
