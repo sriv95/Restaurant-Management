@@ -45,7 +45,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Restuarant Management</string>
+     <string>My Restuarant Manager</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
@@ -132,7 +132,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_7">
+         <widget class="QPushButton" name="Analysis">
           <property name="minimumSize">
            <size>
             <width>150</width>
@@ -140,12 +140,12 @@
            </size>
           </property>
           <property name="text">
-           <string>PushButton</string>
+           <string>Analysis</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_6">
+         <widget class="QPushButton" name="Statement">
           <property name="minimumSize">
            <size>
             <width>150</width>
@@ -153,12 +153,12 @@
            </size>
           </property>
           <property name="text">
-           <string>PushButton</string>
+           <string>Statement</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QPushButton" name="Employee">
           <property name="minimumSize">
            <size>
             <width>150</width>
@@ -166,12 +166,12 @@
            </size>
           </property>
           <property name="text">
-           <string>PushButton</string>
+           <string>Employee</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="EditMenu">
           <property name="minimumSize">
            <size>
             <width>150</width>
@@ -179,12 +179,12 @@
            </size>
           </property>
           <property name="text">
-           <string>PushButton</string>
+           <string>Edit Menu</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="Stocks">
           <property name="minimumSize">
            <size>
             <width>150</width>
@@ -192,7 +192,7 @@
            </size>
           </property>
           <property name="text">
-           <string>PushButton</string>
+           <string>Stocks</string>
           </property>
          </widget>
         </item>
@@ -395,7 +395,7 @@
       <item>
        <layout class="QVBoxLayout" name="RightSide">
         <property name="spacing">
-         <number>0</number>
+         <number>20</number>
         </property>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -435,20 +435,29 @@
          </layout>
         </item>
         <item>
-         <spacer name="verticalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Orientation::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
+         <widget class="QFrame" name="frame_2">
+          <property name="minimumSize">
            <size>
-            <width>20</width>
-            <height>40</height>
+            <width>0</width>
+            <height>600</height>
            </size>
           </property>
-         </spacer>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255)</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Shape::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Shadow::Raised</enum>
+          </property>
+         </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_5">
+         <widget class="QPushButton" name="CheckBills">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="minimumSize">
            <size>
             <width>150</width>
