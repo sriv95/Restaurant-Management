@@ -1,0 +1,24 @@
+{
+    "Tables": [
+        {"No": 1},{"Seats": 2},{"Reserved": ""},{"Bills": [["Menu#1","Menu#2"],[1,1],[0,0]]},
+        {"No": 2},{"Seats": 4},{"Reserved": ""},{"Bills": [["Menu#1","Menu#2","Menu#3","Menu#4"],[1,1,1,1],[10,0,0,0]]}
+    ],
+    "Menus": [
+        {"Menu#1": 50},
+        {"Menu#2": 20},
+        {"Menu#3": 30},
+        {"Menu#4": 40}
+    ],
+    "Stocks": [
+
+    ],
+    "Employee": [
+
+    ],
+    "Statement": [
+
+    ],
+    "Reservation": [
+        
+    ]
+}
