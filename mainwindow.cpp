@@ -28,18 +28,19 @@ int RestuarantManagement::GetSelectingTableNo(){
 
 void RestuarantManagement::SetSelectingTable(QString no){
     ui.SelectingTable->setText(QString(no));
-
 }
 
 void RestuarantManagement::on_TableBtn_clicked()
 {
     QPushButton *buttonSender = qobject_cast<QPushButton*>(sender());
-    if (buttonSender) {
-        QString buttonText = buttonSender->text(); // Get the text from the button
+    QString buttonText = buttonSender->text(); // Get the text from the button
+    //Crash handling
+    if(buttonText.length()>=7){
         SetSelectingTable(buttonText[6]);
     }
-}
 
+    // buttonSender->setText("Table#"+QString(buttonText[6])+"\n .."); //⚠️needs getTableStatus
+}
 
 void RestuarantManagement::on_RefreshBtn_clicked()
 {
