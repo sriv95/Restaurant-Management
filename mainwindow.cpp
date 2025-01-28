@@ -77,6 +77,6 @@ void RestuarantManagement::on_OpenTableBtn_clicked()
 }
 
 void RestuarantManagement::onTableReturnValue(const QString &data){
-    ui.Table_1->setText(QString(data));
+    // ui.Table_1->setText(QString(data));
 }
 
