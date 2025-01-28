@@ -25,6 +25,8 @@ private slots:
 
     void setMainBtnVisible(bool);
 
+    void on_OpenTableBtn_clicked();
+
 private:
     Ui::RestuarantManagementClass ui;
 };

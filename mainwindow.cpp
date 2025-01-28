@@ -49,13 +49,11 @@ void RestuarantManagement::SetSelectingTable(QString no){
 void RestuarantManagement::on_TableBtn_clicked()
 {
     QPushButton *buttonSender = qobject_cast<QPushButton*>(sender());
-    QString buttonText = buttonSender->text(); // Get the text from the button
-    //Crash handling
-    if(buttonText.length()>=7){
-        SetSelectingTable(buttonText[6]);
-    }
+    QString buttonName = buttonSender->objectName(); // Get the name from the button
+    QString table_no = buttonName.split("_").last();
+    SetSelectingTable(table_no);
 
-    // buttonSender->setText("Table#"+QString(buttonText[6])+"\n .."); //⚠️needs getTableStatus
+    // buttonSender->setText("Table#"+table_no+"\n .."); //⚠️needs getTableStatus
 }
 
 void RestuarantManagement::on_RefreshBtn_clicked()
@@ -66,5 +64,11 @@ void RestuarantManagement::on_RefreshBtn_clicked()
 void RestuarantManagement::on_CheckBills_clicked()
 {
     ui.Receipt->setVisible(!ui.Receipt->isVisible()); //Checkbill
+}
+
+
+void RestuarantManagement::on_OpenTableBtn_clicked()
+{
+
 }
 
