@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include <json.hpp>
+#include <opentabledialog.h>
 
 using namespace std;
 
@@ -71,6 +72,11 @@ void RestuarantManagement::on_OpenTableBtn_clicked()
 {
     OpenTableDialog OpenTableDialog;
     OpenTableDialog.setModal(true);
+    connect(&OpenTableDialog, &OpenTableDialog::returnValue, this, &RestuarantManagement::onTableReturnValue);
     OpenTableDialog.exec();
+}
+
+void RestuarantManagement::onTableReturnValue(const QString &data){
+    ui.Table_1->setText(QString(data));
 }
 

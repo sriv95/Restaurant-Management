@@ -2,7 +2,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_mainwindow.h"
-#include "opentabledialog.h"
+#include <opentabledialog.h>
 
 class RestuarantManagement : public QMainWindow
 {
@@ -28,6 +28,9 @@ private slots:
 
     void on_OpenTableBtn_clicked();
 
+    void onTableReturnValue(const QString &data);
+
 private:
     Ui::RestuarantManagementClass ui;
+    OpenTableDialog *openTableDialog; // Declare OpenTableDialog as a member
 };

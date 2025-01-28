@@ -15,8 +15,13 @@ public:
     explicit OpenTableDialog(QWidget *parent = nullptr);
     ~OpenTableDialog();
 
+signals:
+    void returnValue(const QString &data);
+
 private slots:
     void on_numBtn_clicked();
+
+    void on_openTable_clicked();
 
 private:
     Ui::OpenTableDialog *ui;
