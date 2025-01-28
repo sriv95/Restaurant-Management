@@ -11,10 +11,6 @@ OpenTableDialog::OpenTableDialog(QWidget *parent)
     connect(ui->two, &QPushButton::clicked, this, &OpenTableDialog::on_numBtn_clicked);
     connect(ui->three, &QPushButton::clicked, this, &OpenTableDialog::on_numBtn_clicked);
     connect(ui->four, &QPushButton::clicked, this, &OpenTableDialog::on_numBtn_clicked);
-
-    connect(this,&OpenTableDialog::finished,this,[this](){
-        emit returnValue(ui->TextInput->toPlainText());
-    });
 }
 
 OpenTableDialog::~OpenTableDialog()
@@ -32,6 +28,7 @@ void OpenTableDialog::on_numBtn_clicked()
 
 void OpenTableDialog::on_openTable_clicked()
 {
-
+    emit returnValue(ui->TextInput->toPlainText());
+    this->close();
 }
 
