@@ -390,6 +390,13 @@
           </property>
          </widget>
         </item>
+        <item row="4" column="3">
+         <widget class="QPushButton" name="ReserveBtn">
+          <property name="text">
+           <string>Reserve</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
       <item>
@@ -892,7 +899,7 @@ font: 800 10pt &quot;Segoe UI&quot;;</string>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="CheckBills">
+         <widget class="QPushButton" name="RBtn">
           <property name="enabled">
            <bool>true</bool>
           </property>
@@ -903,7 +910,7 @@ font: 800 10pt &quot;Segoe UI&quot;;</string>
            </size>
           </property>
           <property name="text">
-           <string>Check Bills</string>
+           <string>Open Table</string>
           </property>
          </widget>
         </item>
