@@ -12,14 +12,17 @@ SOURCES += \
     func/stocks.cpp \
     func/tables.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    opentabledialog.cpp
 
 HEADERS += \
     json.hpp \
-    mainwindow.h
+    mainwindow.h \
+    opentabledialog.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    opentabledialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

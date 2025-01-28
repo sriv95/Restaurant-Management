@@ -69,6 +69,8 @@ void RestuarantManagement::on_CheckBills_clicked()
 
 void RestuarantManagement::on_OpenTableBtn_clicked()
 {
-
+    OpenTableDialog OpenTableDialog;
+    OpenTableDialog.setModal(true);
+    OpenTableDialog.exec();
 }
 
