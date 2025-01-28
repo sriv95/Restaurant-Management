@@ -23,6 +23,31 @@
             "Seats": 0,
             "Reserved": "",
             "Bills": [[""],[],[]]
+        },{
+            "No": 5,
+            "Seats": 0,
+            "Reserved": "",
+            "Bills": [[""],[],[]]
+        },{
+            "No": 6,
+            "Seats": 0,
+            "Reserved": "",
+            "Bills": [[""],[],[]]
+        },{
+            "No": 7,
+            "Seats": 0,
+            "Reserved": "",
+            "Bills": [[""],[],[]]
+        },{
+            "No": 8,
+            "Seats": 0,
+            "Reserved": "",
+            "Bills": [[""],[],[]]
+        },{
+            "No": 9,
+            "Seats": 0,
+            "Reserved": "",
+            "Bills": [[""],[],[]]
         }
     ],
     "Menus": {
