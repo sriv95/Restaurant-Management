@@ -383,19 +383,78 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
-         <widget class="QPushButton" name="RefreshBtn">
-          <property name="text">
-           <string>Refresh</string>
-          </property>
-         </widget>
-        </item>
         <item row="4" column="3">
          <widget class="QPushButton" name="ReserveBtn">
           <property name="text">
            <string>Reserve</string>
           </property>
          </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QPushButton" name="OpenTableBtn">
+          <property name="text">
+           <string>Open Table</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>15</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+              <pointsize>12</pointsize>
+              <italic>false</italic>
+              <fontweight>ExtraBold</fontweight>
+             </font>
+            </property>
+            <property name="text">
+             <string>Last Updated:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="LastUpdate">
+            <property name="maximumSize">
+             <size>
+              <width>1000</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+              <pointsize>12</pointsize>
+              <italic>false</italic>
+              <fontweight>ExtraBold</fontweight>
+             </font>
+            </property>
+            <property name="text">
+             <string>3 seconds ago</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="RefreshBtn">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Refresh</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>
@@ -894,12 +953,78 @@ font: 800 10pt &quot;Segoe UI&quot;;</string>
               </property>
              </widget>
             </item>
+            <item>
+             <widget class="QLabel" name="Receipt_label_9">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>325</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Segoe UI</family>
+                <pointsize>10</pointsize>
+                <italic>false</italic>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color: rgb(0, 0, 0)</string>
+              </property>
+              <property name="text">
+               <string>THANK YOU</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignmentFlag::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="Receipt_label_10">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>325</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Segoe UI</family>
+                <pointsize>10</pointsize>
+                <italic>false</italic>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color: rgb(0, 0, 0)</string>
+              </property>
+              <property name="text">
+               <string>**************************************************************</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignmentFlag::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
            </layout>
           </widget>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="RBtn">
+         <widget class="QPushButton" name="CheckBills">
           <property name="enabled">
            <bool>true</bool>
           </property>
@@ -910,7 +1035,7 @@ font: 800 10pt &quot;Segoe UI&quot;;</string>
            </size>
           </property>
           <property name="text">
-           <string>Open Table</string>
+           <string>Check Bills</string>
           </property>
          </widget>
         </item>

@@ -3,7 +3,11 @@
 
 using namespace std;
 
-
+void RestuarantManagement::setMainBtnVisible(bool tf){
+    ui.CheckBills->setVisible(tf);
+    ui.ReserveBtn->setVisible(tf);
+    ui.OpenTableBtn->setVisible(tf);
+}
 
 RestuarantManagement::RestuarantManagement(QWidget *parent)
     : QMainWindow(parent)
@@ -21,8 +25,7 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
     connect(ui.Table_9, &QPushButton::clicked, this, &RestuarantManagement::on_TableBtn_clicked);
 
     ui.Receipt->hide();
-    ui.RBtn->hide();
-    ui.ReserveBtn->hide();
+    setMainBtnVisible(false);
 }
 
 RestuarantManagement::~RestuarantManagement()
@@ -35,13 +38,11 @@ int RestuarantManagement::GetSelectingTableNo(){
 void RestuarantManagement::SetSelectingTable(QString no){
     if(ui.SelectingTable->text()!=no) {
         ui.SelectingTable->setText(QString(no));
-        ui.RBtn->show();
-        ui.ReserveBtn->show();
+        setMainBtnVisible(true);
     }
     else {
         ui.SelectingTable->setText(QString('0'));
-        ui.RBtn->hide();
-        ui.ReserveBtn->hide();
+        setMainBtnVisible(false);
     }
 }
 
@@ -62,7 +63,7 @@ void RestuarantManagement::on_RefreshBtn_clicked()
 
 }
 
-void RestuarantManagement::on_RBtn_clicked()
+void RestuarantManagement::on_CheckBills_clicked()
 {
     ui.Receipt->setVisible(!ui.Receipt->isVisible()); //Checkbill
 }

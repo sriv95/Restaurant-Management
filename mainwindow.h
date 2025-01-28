@@ -21,7 +21,9 @@ private slots:
 
     void on_TableBtn_clicked();
 
-    void on_RBtn_clicked();
+    void on_CheckBills_clicked();
+
+    void setMainBtnVisible(bool);
 
 private:
     Ui::RestuarantManagementClass ui;
