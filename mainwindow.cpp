@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include <json.hpp>
 #include <opentabledialog.h>
 
 using namespace std;
