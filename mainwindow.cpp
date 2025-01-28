@@ -17,6 +17,9 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
     connect(ui.Table_7, &QPushButton::clicked, this, &RestuarantManagement::on_TableBtn_clicked);
     connect(ui.Table_8, &QPushButton::clicked, this, &RestuarantManagement::on_TableBtn_clicked);
     connect(ui.Table_9, &QPushButton::clicked, this, &RestuarantManagement::on_TableBtn_clicked);
+
+    ui.Receipt->hide();
+    ui.CheckBills->hide();
 }
 
 RestuarantManagement::~RestuarantManagement()
@@ -27,7 +30,14 @@ int RestuarantManagement::GetSelectingTableNo(){
 }
 
 void RestuarantManagement::SetSelectingTable(QString no){
-    ui.SelectingTable->setText(QString(no));
+    if(ui.SelectingTable->text()!=no) {
+        ui.SelectingTable->setText(QString(no));
+        ui.CheckBills->show();
+    }
+    else {
+        ui.SelectingTable->setText(QString('0'));
+        ui.CheckBills->hide();
+    }
 }
 
 void RestuarantManagement::on_TableBtn_clicked()
@@ -49,6 +59,6 @@ void RestuarantManagement::on_RefreshBtn_clicked()
 
 void RestuarantManagement::on_CheckBills_clicked()
 {
-
+    ui.Receipt->setVisible(!ui.Receipt->isVisible());
 }
 
