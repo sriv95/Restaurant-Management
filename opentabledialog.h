@@ -15,6 +15,9 @@ public:
     explicit OpenTableDialog(QWidget *parent = nullptr);
     ~OpenTableDialog();
 
+private slots:
+    void on_numBtn_clicked();
+
 private:
     Ui::OpenTableDialog *ui;
 };
