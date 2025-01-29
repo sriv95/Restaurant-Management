@@ -28,7 +28,11 @@ private slots:
 
     void on_OpenTableBtn_clicked();
 
-    void onTableReturnValue(const QString &data);
+    void onTableReturnValue(const QString &);
+
+    void on_ReserveBtn_clicked();
+
+    // void onReserveReturnValue(const QString &);
 
 private:
     Ui::RestuarantManagementClass ui;

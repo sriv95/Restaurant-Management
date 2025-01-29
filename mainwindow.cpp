@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include <opentabledialog.h>
+#include <reserve.h>
 
 using namespace std;
 
@@ -76,6 +77,19 @@ void RestuarantManagement::on_OpenTableBtn_clicked()
 }
 
 void RestuarantManagement::onTableReturnValue(const QString &data){
-    // ui.Table_1->setText(QString(data));
+    QString x = data; //handle unused variable
+    qDebug("x");
 }
 
+
+void RestuarantManagement::on_ReserveBtn_clicked()
+{
+    reserve reserve;
+    reserve.setModal(true);
+    //connect returnValue
+    reserve.exec();
+}
+
+// void RestuarantManagement::onReserveReturnValue(const QString &data){
+
+// }
