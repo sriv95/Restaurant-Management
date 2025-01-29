@@ -21,7 +21,9 @@ signals:
 private slots:
     void on_numBtn_clicked();
 
-    void on_openTable_clicked();
+    void on_buttonBox_accepted();
+
+    void on_buttonBox_rejected();
 
 private:
     Ui::OpenTableDialog *ui;

@@ -25,10 +25,13 @@ void OpenTableDialog::on_numBtn_clicked()
     ui->TextInput->setPlainText(buttonText);
 }
 
-
-void OpenTableDialog::on_openTable_clicked()
+void OpenTableDialog::on_buttonBox_accepted()
 {
     emit returnValue(ui->TextInput->toPlainText());
     this->close();
 }
 
+void OpenTableDialog::on_buttonBox_rejected()
+{
+    this->close();
+}
