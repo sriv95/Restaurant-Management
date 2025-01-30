@@ -36,7 +36,7 @@ void setAllData(json &Data){
 }
 
 int lenData(json &Data){
-    int i;
+    int i=0;
     for (auto it = Data.begin(); it != Data.end(); ++it) {
         i++;
     }
