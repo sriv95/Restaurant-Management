@@ -1,1 +1,2 @@
 # Restaurant-Management
+#Stock-Functions??
