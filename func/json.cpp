@@ -2,7 +2,7 @@
 #include <fstream>
 #include <iomanip>
 
-string PATH="example/data.json";
+string PATH="data.json";
 
 void getData(json &Data,string key){
     //get data
