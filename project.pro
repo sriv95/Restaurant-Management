@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui widgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -15,19 +15,23 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     opentabledialog.cpp \
-    reserve.cpp
+    reserve.cpp \
+    stockwindow.cpp \
 
 HEADERS += \
     header/json.h \
     header/nlohmann-json.hpp \
     mainwindow.h \
     opentabledialog.h \
-    reserve.h
+    reserve.h \
+    stockwindow.h \
 
 FORMS += \
     mainwindow.ui \
     opentabledialog.ui \
-    reserve.ui
+    reserve.ui \
+    stockwindow.ui \
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
