@@ -32,7 +32,7 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
 RestuarantManagement::~RestuarantManagement()
 {}
 
-int RestuarantManagement::GetSelectingTableNo(){
+int RestuarantManagement::GetSelectingTableNo(){ // edited by fong
     return ui.SelectingTable->text().toInt();
 }
 
@@ -57,9 +57,16 @@ void RestuarantManagement::on_TableBtn_clicked()
     // buttonSender->setText("Table#"+table_no+"\n .."); //⚠️needs getTableStatus
 }
 
-void RestuarantManagement::on_RefreshBtn_clicked()
-{
+// void RestuarantManagement::updateTablesStatus(string TablesStatus[] ) // added by fong
+// {
 
+// }
+
+
+void RestuarantManagement::on_RefreshBtn_clicked()  //Edited by fong
+{
+    //json Tables;
+    //getData(Tables,"Tables");
 }
 
 void RestuarantManagement::on_CheckBills_clicked()
@@ -76,9 +83,10 @@ void RestuarantManagement::on_OpenTableBtn_clicked()
     OpenTableDialog.exec();
 }
 
-void RestuarantManagement::onTableReturnValue(const QString &data){
+void RestuarantManagement::onTableReturnValue(const QString &data){ //fong
     QString x = data; //handle unused variable
     qDebug("x");
+
 }
 
 
