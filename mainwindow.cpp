@@ -5,6 +5,8 @@
 
 using namespace std;
 
+int Table_Count = 9;
+
 void RestuarantManagement::setMainBtnVisible(bool tf){
     ui.CheckBills->setVisible(tf);
     ui.ReserveBtn->setVisible(tf);
@@ -16,15 +18,12 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
 {
     ui.setupUi(this);
 
-    connect(ui.Table_1, &QPushButton::clicked, this, &RestuarantManagement::on_TableBtn_clicked);
-    connect(ui.Table_2, &QPushButton::clicked, this, &RestuarantManagement::on_TableBtn_clicked);
-    connect(ui.Table_3, &QPushButton::clicked, this, &RestuarantManagement::on_TableBtn_clicked);
-    connect(ui.Table_4, &QPushButton::clicked, this, &RestuarantManagement::on_TableBtn_clicked);
-    connect(ui.Table_5, &QPushButton::clicked, this, &RestuarantManagement::on_TableBtn_clicked);
-    connect(ui.Table_6, &QPushButton::clicked, this, &RestuarantManagement::on_TableBtn_clicked);
-    connect(ui.Table_7, &QPushButton::clicked, this, &RestuarantManagement::on_TableBtn_clicked);
-    connect(ui.Table_8, &QPushButton::clicked, this, &RestuarantManagement::on_TableBtn_clicked);
-    connect(ui.Table_9, &QPushButton::clicked, this, &RestuarantManagement::on_TableBtn_clicked);
+    for(int i=1;i<=Table_Count;++i){
+        QString btnName = QString("Table_").append(QString::number(i));
+        QPushButton *button = this->findChild<QPushButton *>(btnName);
+        if(button) connect(button, &QPushButton::clicked, this, &RestuarantManagement::on_TableBtn_clicked);
+        else  qDebug()<<"Error: Button Not Found (Button Name: "<<btnName<<")";
+    }
 
     ui.Receipt->hide();
     setMainBtnVisible(false);
