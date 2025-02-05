@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    employee.cpp \
     func/json.cpp \
     func/stocks.cpp \
     func/tables.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
     reserve.cpp
 
 HEADERS += \
+    employee.h \
     header/json.h \
     header/nlohmann-json.hpp \
     mainwindow.h \
@@ -25,6 +27,7 @@ HEADERS += \
     reserve.h
 
 FORMS += \
+    employee.ui \
     mainwindow.ui \
     opentabledialog.ui \
     reserve.ui

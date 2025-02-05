@@ -2,6 +2,9 @@
 #include <header/json.h>
 #include <opentabledialog.h>
 #include <reserve.h>
+#include <QDebug>
+#include <QDir>
+#include <employee.h>
 
 using namespace std;
 
@@ -15,7 +18,7 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
-
+    qDebug()<<"Current Directory is: "<<QDir::currentPath();
     connect(ui.Table_1, &QPushButton::clicked, this, &RestuarantManagement::on_TableBtn_clicked);
     connect(ui.Table_2, &QPushButton::clicked, this, &RestuarantManagement::on_TableBtn_clicked);
     connect(ui.Table_3, &QPushButton::clicked, this, &RestuarantManagement::on_TableBtn_clicked);
@@ -94,3 +97,10 @@ void RestuarantManagement::on_ReserveBtn_clicked()
 // void RestuarantManagement::onReserveReturnValue(const QString &data){
 
 // }
+
+void RestuarantManagement::on_Employee_clicked()
+{
+    employee dialog(this);
+    dialog.exec();
+}
+
