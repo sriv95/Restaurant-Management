@@ -2,7 +2,7 @@
 #include <fstream>
 #include <iomanip>
 
-string PATH = "C:/Users/Admin/OneDrive/Desktop/My-Restaurant-Manager/data.json";
+string PATH="data.json";
 
 void getData(json &Data,string key){
     //get data
@@ -36,7 +36,7 @@ void setAllData(json &Data){
 }
 
 int lenData(json &Data){
-    int i = 0;
+    int i=0;
     for (auto it = Data.begin(); it != Data.end(); ++it) {
         i++;
     }

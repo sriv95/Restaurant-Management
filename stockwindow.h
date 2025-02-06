@@ -5,23 +5,13 @@
 #include <QVector>
 #include <QTableWidgetItem>
 #include "header\json.h"
-#include <string>
+
 
 using namespace std;
 
 namespace Ui {
 class StockWindow;
 }
-
-
-struct StockItem {
-    std::string name;
-    double quantity;
-
-
-    StockItem() : name(""), quantity(0.0) {}
-    StockItem(const std::string& n, double q) : name(n), quantity(q) {}
-};
 
 
 class StockWindow : public QWidget
@@ -45,8 +35,8 @@ private slots:
 
 private:
     Ui::StockWindow *ui;
-    QVector<StockItem> stocks;
     json stockJson;
+
 
     void refreshTable();
     void loadfromjson();
