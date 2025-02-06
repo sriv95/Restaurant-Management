@@ -1,0 +1,269 @@
+{
+    "Employee": [
+        {
+            "Age": 50,
+            "Gender": "Male",
+            "Job": "Manager",
+            "Name": "Tony Stark",
+            "Salary": 100000
+        },
+        {
+            "Age": 100,
+            "Gender": "Male",
+            "Job": "Chef",
+            "Name": "Steve Roger",
+            "Salary": 50000
+        },
+        {
+            "Age": 40,
+            "Gender": "Male",
+            "Job": "Prep",
+            "Name": "Bruce Banner",
+            "Salary": 40000
+        },
+        {
+            "Age": 28,
+            "Gender": "Male",
+            "Job": "Dishwasher",
+            "Name": "Peter Parker",
+            "Salary": 20000
+        },
+        {
+            "Age": 28,
+            "Gender": "Female",
+            "Job": "Cashier",
+            "Name": "Mary Jane",
+            "Salary": 10000
+        },
+        {
+            "Age": 20,
+            "Gender": "Male",
+            "Job": "Server",
+            "Name": "Miles Morales",
+            "Salary": 15000
+        },
+        {
+            "Age": 35,
+            "Gender": "Female",
+            "Job": "Server",
+            "Name": "Natasha Romanoff",
+            "Salary": 15000
+        },
+        {
+            "Age": 1500,
+            "Gender": "Male",
+            "Job": "Bartender",
+            "Name": "Thor Odinson",
+            "Salary": 30000
+        },
+        {
+            "Age": 3000,
+            "Gender": "Male",
+            "Job": "Janitor",
+            "Name": "Thanos",
+            "Salary": 35000
+        }
+    ],
+    "Menus": [
+        [
+            "Menu#1",
+            50
+        ],
+        [
+            "Menu#2",
+            40
+        ],
+        [
+            "Menu#1",
+            30
+        ],
+        [
+            "Menu#4",
+            5
+        ]
+    ],
+    "Reservation": [
+        [
+            9,
+            "17:00",
+            "John",
+            "081-012-6789"
+        ]
+    ],
+    "Statement": [
+        [
+            "Menu#1",
+            1,
+            50
+        ],
+        [
+            "Eggs",
+            100,
+            -300
+        ]
+    ],
+    "Stocks": [
+        [
+            "Egg",
+            200.0
+        ],
+        [
+            "Cabbage",
+            100.0
+        ],
+        [
+            "Carrot",
+            30.0
+        ],
+        [
+            "Chicken Meat",
+            80.0
+        ],
+        [
+            "Beef",
+            50.0
+        ],
+        [
+            "Pork",
+            150.0
+        ],
+        [
+            "Cheese",
+            20.0
+        ],
+        [
+            "Fish",
+            35.0
+        ]
+    ],
+    "Tables": [
+        {
+            "Bills": [
+                [
+                    "Menu#1",
+                    "Menu#2"
+                ],
+                [
+                    1,
+                    1
+                ],
+                [
+                    0,
+                    0
+                ]
+            ],
+            "No": 1,
+            "Reserved": "",
+            "Seats": 2
+        },
+        {
+            "Bills": [
+                [
+                    "Menu#1",
+                    "Menu#2",
+                    "Menu#3",
+                    "Menu#4"
+                ],
+                [
+                    1,
+                    1,
+                    1,
+                    1
+                ],
+                [
+                    10,
+                    0,
+                    0,
+                    0
+                ]
+            ],
+            "No": 2,
+            "Reserved": "",
+            "Seats": 4
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 3,
+            "Reserved": "17:00",
+            "Seats": 4
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 4,
+            "Reserved": "",
+            "Seats": 0
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 5,
+            "Reserved": "",
+            "Seats": 0
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 6,
+            "Reserved": "",
+            "Seats": 0
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 7,
+            "Reserved": "",
+            "Seats": 0
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 8,
+            "Reserved": "",
+            "Seats": 0
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 9,
+            "Reserved": "",
+            "Seats": 0
+        }
+    ]
+}
