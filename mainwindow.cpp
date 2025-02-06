@@ -17,6 +17,7 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
 {
     ui.setupUi(this);
 
+
     connect(ui.Table_1, &QPushButton::clicked, this, &RestuarantManagement::on_TableBtn_clicked);
     connect(ui.Table_2, &QPushButton::clicked, this, &RestuarantManagement::on_TableBtn_clicked);
     connect(ui.Table_3, &QPushButton::clicked, this, &RestuarantManagement::on_TableBtn_clicked);
@@ -112,4 +113,5 @@ void RestuarantManagement::on_Stocks_clicked()
     stockWin->raise();
     stockWin->activateWindow();
 }
+
 
