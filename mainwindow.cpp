@@ -82,7 +82,7 @@ void RestuarantManagement::on_OpenTableBtn_clicked()
 
 void RestuarantManagement::onTableReturnValue(const QString &data){
     QString x = data; //handle unused variable
-    qDebug("x");
+    qDebug() << x;
 }
 
 
@@ -100,7 +100,7 @@ void RestuarantManagement::on_ReserveBtn_clicked()
 
 void RestuarantManagement::on_Employee_clicked()
 {
-    employee dialog(this);
-    dialog.exec();
+    employee employee(this);
+    employee.exec();
 }
 
