@@ -5,6 +5,7 @@
 #include <header/json.h>
 #include <string>
 #include <cstdlib>
+#include <QMessageBox>
 
 using namespace std;
 
@@ -53,7 +54,6 @@ void employee::Refresh_TableData()
 void employee::on_Refresh_Button_clicked()
 {
     Refresh_TableData();
-    ui->Status_Block->setText("");
 }
 
 void employee::on_Add_Button_clicked()
@@ -104,8 +104,7 @@ bool employee::Check_empty_cell_in_table() // return True ถ้ามีช่�
         {
             if (ui->Table->item(i,j) == nullptr or ui->Table->item(i,j)->text().isEmpty())
             {
-                QString text = "❗Save failed.❗ Row " + QString::number(i+1) + " have empty cell.";
-                ui->Status_Block->setText(text);
+                QMessageBox::about(this , "❗warning❗" , "❗Save failed.❗There is an empty cell in row " + QString::number(i+1) + ".");
                 return true;
             }
         }
@@ -127,8 +126,7 @@ bool employee::Check_Correct_DataType_in_cell() // return True ถ้า DataTyp
                 ui->Table->item(i,j)->text().toInt(&test_value);
                 if (test_value == false)
                 {
-                    QString text = "❗Save failed.❗ Data type of Item (" + QString::number(i+1) + "," + QString::fromStdString(Employee_Keys[j]) + ") is incorrect.";
-                    ui->Status_Block->setText(text);
+                    QMessageBox::about(this , "❗warning❗" , "❗Save failed.❗ Invalid data type in row " + QString::number(i+1) + ", column " + QString::number(j+1) + "(Age). It should be an integer." );
                     return false;
                 }
                 break;
@@ -136,8 +134,7 @@ bool employee::Check_Correct_DataType_in_cell() // return True ถ้า DataTyp
                 ui->Table->item(i,j)->text().toDouble(&test_value);
                 if (test_value == false)
                 {
-                    QString text = "❗Save failed.❗ Data type of Item (" + QString::number(i+1) + "," + QString::fromStdString(Employee_Keys[j]) + ") is incorrect.";
-                    ui->Status_Block->setText(text);
+                    QMessageBox::about(this , "❗warning❗" , "❗Save failed.❗ Invalid data type in row " + QString::number(i+1) + ", column " + QString::number(j+1) + "(Salary). It should be a number." );
                     return false;
                 }
                 break;
@@ -178,7 +175,14 @@ void employee::on_Save_Button_clicked()
             }
 
             setData(employee , "Employee");
-            ui->Status_Block->setText("Save successful.");
+
+            QMessageBox Save_successful_Message;
+            Save_successful_Message.setWindowTitle("🎉🥳✅✅🥳🎉");
+            Save_successful_Message.setText("✅🟢🥳🎉-Save successful-🎉🥳🟢✅");
+            Save_successful_Message.setWindowFlags(Qt::Popup);
+            Save_successful_Message.exec();
+
+            // QMessageBox::about(this , "🎉🥳✅✅🥳🎉" , "✅🟢🥳🎉-Save successful-🎉🥳🟢✅");
         }
     }
 }

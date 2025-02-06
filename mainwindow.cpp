@@ -20,6 +20,7 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
+    qDebug()<<"Current Directory is: "<<QDir::currentPath();
 
     for(int i=1;i<=Table_Count;++i){
         QString btnName = QString("Table_").append(QString::number(i));
