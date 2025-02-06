@@ -21,6 +21,12 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
     for(int i=1;i<=Table_Count;++i){
         QString btnName = QString("Table_").append(QString::number(i));
         QPushButton *button = this->findChild<QPushButton *>(btnName);
+        // button->setStyleSheet("QPushButton {"                                   // sutup buttonTable-color
+        //                       "background-color: #535455;"  // background-color
+        //                       "color: white;"               // text-color
+        //                       "border-radius: 12px;"        // Rounded corners
+        //                       "font-size: 16px;"            // Font size
+        //                       "}");
         if(button) connect(button, &QPushButton::clicked, this, &RestuarantManagement::on_TableBtn_clicked);
         else  qDebug()<<"Error: Button Not Found (Button Name: "<<btnName<<")";
     }
@@ -37,9 +43,29 @@ int RestuarantManagement::GetSelectingTableNo(){ // used by fong
 }
 
 void RestuarantManagement::SetSelectingTable(QString no){
+    for(int i =1 ; i <=Table_Count ; i++)
+    {
+        QString btnName = QString("Table_").append(QString::number(i));
+        QPushButton *button = this->findChild<QPushButton *>(btnName);
+        button->setStyleSheet("QPushButton {"
+                              "background-color: #535455;"  // background-color
+                              "color: white;"               // text-color
+                              "border-radius: 12px;"        // Rounded corners
+                              "font-size: 16px;"            // Font size
+                              "}");
+    }
     if(ui.SelectingTable->text()!=no) {
         ui.SelectingTable->setText(QString(no));
         setMainBtnVisible(true);
+        QString btnName = QString("Table_").append(no);
+        QPushButton *button = this->findChild<QPushButton *>(btnName);
+        button->setStyleSheet("QPushButton {"
+                              "background-color: #4CAF50;"  // Green background
+                              "color: white;"               // White text
+                              "border-radius: 12px;"        // Rounded corners
+                              //"border:5px solid "
+                              "font-size: 16px;"            // Font size
+                              "}");
     }
     else {
         ui.SelectingTable->setText(QString('0'));
@@ -112,7 +138,6 @@ void RestuarantManagement::onTableReturnValue(const QString &data){ //edited by 
     updateTablesStatus();
 
 }
-
 void RestuarantManagement::Changeseats()
 {
     json Tables;
@@ -125,6 +150,7 @@ void RestuarantManagement::Changeseats()
     else ui.OpenTableBtn->setText("Open Table");
     }
 }
+
 
 void RestuarantManagement::on_ReserveBtn_clicked()
 {
