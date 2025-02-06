@@ -9,6 +9,7 @@
 #include <fstream>
 #include <QDateTime>
 
+
 using json = nlohmann::json;
 json j;
 using namespace std;
@@ -76,12 +77,12 @@ void RestuarantManagement::SetSelectingTable(QString no)
         ui.CheckBills->setText("Check Bills");
     }
 
-    // โค้ดเดิมที่คุณมีสำหรับการตั้งค่า SelectingTable
+
     if (ui.SelectingTable->text() != no) {
         ui.SelectingTable->setText(QString(no));
         setMainBtnVisible(true);
         ui.Receipt->show();
-        // หรือจะยังไม่ show() ก็ได้ แล้วแต่กรณี
+
     } else {
         ui.SelectingTable->setText(QString('0'));
         setMainBtnVisible(false);
@@ -97,7 +98,7 @@ void RestuarantManagement::on_TableBtn_clicked()
         ui.CheckBills->setText("Check Bills");
     }
 
-    // โค้ดเดิมสำหรับเปลี่ยนโต๊ะ
+
     QPushButton *buttonSender = qobject_cast<QPushButton *>(sender());
     QString buttonName = buttonSender->objectName();
     QString table_no = buttonName.split("_").last();
@@ -116,11 +117,7 @@ void RestuarantManagement::on_RefreshBtn_clicked()
 
 void RestuarantManagement::on_CheckBills_clicked()
 {
-#include <QDateTime>
-
-
     ui.Receipt_DateTime->setText(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
-
 
     int selectedTableNumber = GetSelectingTableNo();
     if (selectedTableNumber == 0) {
@@ -135,37 +132,16 @@ void RestuarantManagement::on_CheckBills_clicked()
 
         // ดึงข้อมูลจาก Bills
         vector<string> billNames;
-        vector<int> quantities;
-        vector<int> extras;
-        try {
-            billNames = Bills[0].get<vector<string>>();
-            quantities = Bills[1].get<vector<int>>();
-            extras = Bills[2].get<vector<int>>();
-        } catch (const std::exception &e) {
-            ui.Receipt->hide();
-            ui.CheckBills->setText("Check Bills");
-            return;
-        }
+        vector<int> billPrices;
+        getBills(Bills, j["Menus"], billNames, billPrices);
 
-        // สำหรับแต่ละรายการ คำนวณราคาและบันทึกลงใน Statement
+        // สำหรับแต่ละรายการ บันทึกลงใน Statement
         for (size_t i = 0; i < billNames.size(); ++i) {
-            // หา basePrice จาก j["Menus"] (Menus เป็นอาเรย์ของ [ชื่อ, ราคา])
-            int basePrice = 0;
-            for (auto& menu : j["Menus"]) {
-                if (menu[0] == billNames[i]) {
-                    basePrice = menu[1].get<int>();
-                    break;
-                }
-            }
-            int quantity = (i < quantities.size()) ? quantities[i] : 0;
-            int extra = (i < extras.size()) ? extras[i] : 0;
-            int finalPrice = basePrice * quantity + extra;
-
             // สร้างรายการ Statement ในรูปแบบ ["MenuName", quantity, finalPrice]
             json statementItem = json::array();
             statementItem.push_back(billNames[i]);
-            statementItem.push_back(quantity);
-            statementItem.push_back(finalPrice);
+            statementItem.push_back(billPrices[i] / (j["Menus"][i][1].get<int>())); // คำนวณ quantity
+            statementItem.push_back(billPrices[i]);
             j["Statement"].push_back(statementItem);
         }
 
@@ -213,19 +189,8 @@ void RestuarantManagement::on_CheckBills_clicked()
         } else {
             // ดึงข้อมูล Bills ออกมา
             vector<string> billNames;
-            vector<int> quantities;
-            vector<int> extras;
-            try {
-                billNames = Bills[0].get<vector<string>>();
-                quantities = Bills[1].get<vector<int>>();
-                extras = Bills[2].get<vector<int>>();
-            } catch (const std::exception &e) {
-                ui.ReceiptListName->clear();
-                ui.ReceiptListPrice->clear();
-                ui.Receipt_Total->setText("0 บาท");
-                ui.CheckBills->setText("Check Bills");
-                return;
-            }
+            vector<int> billPrices;
+            getBills(Bills, j["Menus"], billNames, billPrices);
 
             ui.ReceiptListName->clear();
             ui.ReceiptListPrice->clear();
@@ -242,19 +207,31 @@ void RestuarantManagement::on_CheckBills_clicked()
                         break;
                     }
                 }
-                int quantity = (i < quantities.size()) ? quantities[i] : 0;
-                int extra = (i < extras.size()) ? extras[i] : 0;
-                int finalPrice = basePrice * quantity + extra;
+
+                // ดึง quantity และ extra จาก Bills
+                int quantity = 0;
+                int extra = 0;
+                if (Bills.is_array() && Bills.size() >= 3) {
+                    const auto& quantities = Bills[1];
+                    const auto& extras = Bills[2];
+                    if (quantities.is_array() && i < quantities.size()) {
+                        quantity = quantities[i].get<int>();
+                    }
+                    if (extras.is_array() && i < extras.size()) {
+                        extra = extras[i].get<int>();
+                    }
+                }
 
                 // สร้างข้อความรายละเอียด เช่น "50 บาท x1 + 10 บาท" (ถ้า extra ไม่เท่ากับ 0)
                 QString priceDetail = QString::number(basePrice) + " บาท";
                 priceDetail += " x" + QString::number(quantity);
-                if (extra != 0)
+                if (extra != 0) {
                     priceDetail += " + " + QString::number(extra) + " บาท";
+                }
 
                 ui.ReceiptListName->addItem(menuName);
                 ui.ReceiptListPrice->addItem(priceDetail);
-                totalAmount += finalPrice;
+                totalAmount += (basePrice * quantity) + extra;
             }
             ui.Receipt_Total->setText(QString::number(totalAmount) + " บาท");
         }
@@ -265,6 +242,8 @@ void RestuarantManagement::on_CheckBills_clicked()
         ui.CheckBills->setText("Check Bills");
     }
 }
+
+
 
 
 void RestuarantManagement::on_OpenTableBtn_clicked()
