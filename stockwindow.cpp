@@ -1,14 +1,11 @@
 #include "stockwindow.h"
 #include "ui_stockwindow.h"
 #include "header\json.h"
-#include <fstream>
-#include <iostream>
-#include <QFile>
-#include <QDebug>
 #include <QHeaderView>
 #include <QMessageBox>
 #include <QSet>
 #include <QList>
+#include <QDir>
 
 StockWindow::StockWindow(QWidget *parent)
     : QWidget(parent)
@@ -20,7 +17,7 @@ StockWindow::StockWindow(QWidget *parent)
     ui->tableStocks->horizontalHeader()->setSortIndicatorShown(false);
 
 
-
+    qDebug()<<"Current Directory is: "<<QDir::currentPath();
 
     ui->tableStocks->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
     ui->tableStocks->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
@@ -36,47 +33,9 @@ StockWindow::~StockWindow()
 
 void StockWindow::loadfromjson()
 {
-    // Open the file first and check if it exists and is readable
-    QFile file("C:/Users/Admin/OneDrive/Desktop/My-Restaurant-Manager/data.json");
-
-    if (!file.exists() || !file.open(QIODevice::ReadOnly)) {
-        // Debug() << "Error: Could not open the file!";
-        QMessageBox::warning(this, "File Error", "Could not open the data file.");
-        return;  // Return early if the file doesn't exist or can't be opened
-    }
-
-    // Read the file content
-    QByteArray fileContent = file.readAll();
-
-    // If the file is empty, show a message and return
-    if (fileContent.isEmpty()) {
-        // qDebug() << "Error: File is empty!";
-        QMessageBox::information(this, "Empty File", "The data file is empty. You can start adding new data.");
-        return;  // Exit early if the file is empty
-    }
-
     // Now attempt to parse the JSON content
     json data;
-    try {
-        data = json::parse(fileContent.toStdString());  // Parse JSON from the file content
-    } catch (const json::parse_error& e) {
-        // qDebug() << "Error: Failed to parse JSON!";
-        QMessageBox::warning(this, "Parse Error", "Failed to parse the data file.");
-        return;  // Exit early if parsing fails
-    }
-
-    // Check if the "Stocks" section is missing or empty
-    if (!data.contains("Stocks")) {
-        // qDebug() << "'Stocks' section is missing!";
-        QMessageBox::information(this, "Missing Stocks", "'Stocks' section is missing in the data file. You can start adding new stock items.");
-        return;  // Proceed without loading stocks if the section is missing
-    }
-
-    if (data["Stocks"].empty()) {
-        // qDebug() << "'Stocks' section is empty!";
-        QMessageBox::information(this, "Empty Stocks", "'Stocks' section is empty in the data file. You can start adding new stock items.");
-        return;  // Proceed without loading stocks if the section is empty
-    }
+    getAllData(data);
 
     // If the "Stocks" section exists and is not empty, load the stock data
     stocks.clear();  // Clear any existing stocks before loading new data
@@ -96,8 +55,6 @@ void StockWindow::loadfromjson()
 
     refreshTable();  // Refresh the table to show the loaded stock data
 }
-
-
 
 void StockWindow::on_tableWidget_itemChanged(QTableWidgetItem *item)
 {
@@ -191,31 +148,7 @@ void StockWindow::savetojson()
 {
     json allData;
 
-    // qDebug() << "Loading existing JSON...";
-
-    std::ifstream inFile("C:/Users/Admin/OneDrive/Desktop/My-Restaurant-Manager/data.json");
-
-    // Check if file exists and is not empty
-    if (inFile.peek() != std::ifstream::traits_type::eof()) {
-        try {
-            inFile >> allData;  // Attempt to load the existing data
-            // qDebug() << "File loaded successfully.";
-        } catch (const nlohmann::json::parse_error& e) {
-            // qDebug() << "Error parsing JSON: " << e.what();
-            // If there's a parse error, initialize empty JSON object
-            allData = json::object();
-        }
-    } else {
-        // qDebug() << "File is empty or does not exist, initializing with empty data.";
-        // If file is empty, initialize an empty JSON object
-        allData = json::object();
-    }
-
-    // Check if "Stocks" key exists, if not, initialize it with an empty array
-    if (!allData.contains("Stocks")) {
-        // qDebug() << "'Stocks' key not found, initializing with an empty stock structure...";
-        allData["Stocks"] = json::array();
-    }
+    getAllData(allData);
 
     // Clear old Stocks data to overwrite with new data
     // qDebug() << "Clearing old Stocks data...";
@@ -229,18 +162,7 @@ void StockWindow::savetojson()
 
     // Write the updated JSON back to the file
     // qDebug() << "Opening file for writing...";
-    std::ofstream outFile("C:/Users/Admin/OneDrive/Desktop/My-Restaurant-Manager/data.json");
-    if (!outFile) {
-        // qDebug() << "Error: Could not open file for writing!";
-        return;
-    }
-
-    // Write to the file with a pretty format
-    // qDebug() << "Writing JSON to file...";
-    outFile << std::setw(4) << allData;  // Save data to the file in a pretty format
-
-    // Ensure the file is closed properly
-    outFile.close();
+    setAllData(allData);
 
     // qDebug() << "Stock data successfully saved!";
     QMessageBox::information(this, "Save Successful", "Data has been successfully saved to the file.");
@@ -250,6 +172,6 @@ void StockWindow::savetojson()
 
 void StockWindow::on_SaveBtn_clicked()
 {
-        savetojson();
+    savetojson();
 }
 
