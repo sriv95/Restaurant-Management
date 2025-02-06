@@ -2,7 +2,6 @@
 #define STOCKWINDOW_H
 
 #include <QWidget>
-#include <QVector>
 #include <QTableWidgetItem>
 #include "header\json.h"
 
