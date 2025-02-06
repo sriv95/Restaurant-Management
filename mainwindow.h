@@ -3,6 +3,9 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_mainwindow.h"
 #include <opentabledialog.h>
+#include "header/json.h"
+using json = nlohmann::json;
+
 
 class RestuarantManagement : public QMainWindow
 {
@@ -12,6 +15,8 @@ public:
     RestuarantManagement(QWidget *parent = nullptr);
     ~RestuarantManagement();
 
+    void on_TableBtn_clicked();
+
 private slots:
 
     void on_RefreshBtn_clicked();
@@ -19,8 +24,6 @@ private slots:
     void SetSelectingTable(QString);
 
     int GetSelectingTableNo();
-
-    void on_TableBtn_clicked();
 
     void on_CheckBills_clicked();
 
@@ -35,6 +38,8 @@ private slots:
     // void onReserveReturnValue(const QString &);
 
 private:
+    json j;
+    void loadData();
     Ui::RestuarantManagementClass ui;
     OpenTableDialog *openTableDialog; // Declare OpenTableDialog as a member
 };
