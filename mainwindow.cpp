@@ -21,12 +21,12 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
     for(int i=1;i<=Table_Count;++i){
         QString btnName = QString("Table_").append(QString::number(i));
         QPushButton *button = this->findChild<QPushButton *>(btnName);
-        // button->setStyleSheet("QPushButton {"                                   // sutup buttonTable-color
-        //                       "background-color: #535455;"  // background-color
-        //                       "color: white;"               // text-color
-        //                       "border-radius: 12px;"        // Rounded corners
-        //                       "font-size: 16px;"            // Font size
-        //                       "}");
+        button->setStyleSheet("QPushButton {"                                   // sutup buttonTable-color
+                              "background-color: #535455;"  // background-color
+                              "color: white;"               // text-color
+                              "border-radius: 12px;"        // Rounded corners
+                              "font-size: 16px;"            // Font size
+                              "}");
         if(button) connect(button, &QPushButton::clicked, this, &RestuarantManagement::on_TableBtn_clicked);
         else  qDebug()<<"Error: Button Not Found (Button Name: "<<btnName<<")";
     }
@@ -93,7 +93,6 @@ void RestuarantManagement::updateTablesStatus() // added by fong
     for(int i=1;i<=Table_Count;++i){
         int seat = Tables [i-1]["Seats"];
         QString Reserved= QString::fromStdString(Tables[i-1]["Reserved"]);
-
         QString btnName = QString("Table_").append(QString::number(i));
         QPushButton *button = this->findChild<QPushButton *>(btnName);
         if(button){
@@ -129,9 +128,14 @@ void RestuarantManagement::on_OpenTableBtn_clicked()
 void RestuarantManagement::onTableReturnValue(const QString &data){ //edited by fong
     json Tables;
     getData(Tables,"Tables");
-    int seat = data.toInt(); //handle unused variable
     int No = GetSelectingTableNo() - 1 ;
-    qDebug() << "Seats: " << seat << "TableNo: " <<GetSelectingTableNo();
+    int seat = data.toInt(); //handle unused variable
+    if(seat > 4 or seat < 0)
+    {
+        qDebug() << "Error: Number of seats. Enter the number of seats again.";
+        seat = 0;
+    }
+    //qDebug() << "Seats: " << seat << "TableNo: " <<GetSelectingTableNo(); //
     Tables [No]["Seats"] = seat;
 
     setData(Tables, "Tables");
