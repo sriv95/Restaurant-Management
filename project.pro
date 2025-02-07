@@ -20,6 +20,7 @@ SOURCES += \
 HEADERS += \
     header/json.h \
     header/nlohmann-json.hpp \
+    header/tables.h \
     mainwindow.h \
     opentabledialog.h \
     reserve.h

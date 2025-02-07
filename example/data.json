@@ -1,133 +1,288 @@
 {
-    "Tables": [
+    "Employee": [
         {
-            "No": 1,
-            "Seats": 2,
-            "Reserved": "",
-            "Bills": [["Menu#1","Menu#2"],[1,1],[0,0]]
+            "Age": 50,
+            "Gender": "Male",
+            "Job": "Manager",
+            "Name": "Tony Stark",
+            "Salary": 100000
         },
         {
-            "No": 2,
-            "Seats": 4,
-            "Reserved": "",
-            "Bills": [["Menu#1","Menu#2","Menu#3","Menu#4"],[1,1,1,1],[10,0,0,0]]
+            "Age": 100,
+            "Gender": "Male",
+            "Job": "Chef",
+            "Name": "Steve Roger",
+            "Salary": 50000
         },
         {
-            "No": 3,
-            "Seats": 4,
-            "Reserved": "17:00",
-            "Bills": [[""],[],[]]
+            "Age": 40,
+            "Gender": "Male",
+            "Job": "Prep",
+            "Name": "Bruce Banner",
+            "Salary": 40000
         },
         {
-            "No": 4,
-            "Seats": 0,
-            "Reserved": "",
-            "Bills": [[""],[],[]]
-        },{
-            "No": 5,
-            "Seats": 0,
-            "Reserved": "",
-            "Bills": [[""],[],[]]
-        },{
-            "No": 6,
-            "Seats": 0,
-            "Reserved": "",
-            "Bills": [[""],[],[]]
-        },{
-            "No": 7,
-            "Seats": 0,
-            "Reserved": "",
-            "Bills": [[""],[],[]]
-        },{
-            "No": 8,
-            "Seats": 0,
-            "Reserved": "",
-            "Bills": [[""],[],[]]
-        },{
-            "No": 9,
-            "Seats": 0,
-            "Reserved": "",
-            "Bills": [[""],[],[]]
+            "Age": 28,
+            "Gender": "Male",
+            "Job": "Dishwasher",
+            "Name": "Peter Parker",
+            "Salary": 20000
+        },
+        {
+            "Age": 28,
+            "Gender": "Female",
+            "Job": "Cashier",
+            "Name": "Mary Jane",
+            "Salary": 10000
+        },
+        {
+            "Age": 20,
+            "Gender": "Male",
+            "Job": "Server",
+            "Name": "Miles Morales",
+            "Salary": 15000
+        },
+        {
+            "Age": 35,
+            "Gender": "Female",
+            "Job": "Server",
+            "Name": "Natasha Romanoff",
+            "Salary": 15000
+        },
+        {
+            "Age": 1500,
+            "Gender": "Male",
+            "Job": "Bartender",
+            "Name": "Thor Odinson",
+            "Salary": 30000
+        },
+        {
+            "Age": 3000,
+            "Gender": "Male",
+            "Job": "Janitor",
+            "Name": "Thanos",
+            "Salary": 35000
         }
     ],
     "Menus": [
-        ["Menu#1",50],
-        ["Menu#2",40],
-        ["Menu#1",30],
-        ["Menu#4",5]
-    ],
-    "Stocks": [
-        ["Egg",200],
-        ["Cabbage",100],
-        ["Carrot",30],
-        ["Chicken Meat",80],
-        ["Beef",50],
-        ["Pork", 150],
-        ["Cheese",20],
-        ["Fish",35]
-    ],
-    "Employee": [
-        {
-            "Name": "Tony Stark",
-            "Age": 50,
-            "Gender": "Male",
-            "Salary": 100000,
-            "Job": "Manager"
-        },{
-            "Name": "Steve Roger",
-            "Age": 100,
-            "Gender": "Male",
-            "Salary": 50000,
-            "Job": "Chef"
-        },{
-            "Name": "Bruce Banner",
-            "Age": 40,
-            "Gender": "Male",
-            "Salary": 40000,
-            "Job": "Prep"
-        },{
-            "Name": "Peter Parker",
-            "Age": 28,
-            "Gender": "Male",
-            "Salary": 20000,
-            "Job": "Dishwasher"
-        },{
-            "Name": "Mary Jane",
-            "Age": 28,
-            "Gender": "Female",
-            "Salary": 10000,
-            "Job": "Cashier"
-        },{
-            "Name": "Miles Morales",
-            "Age": 20,
-            "Gender": "Male",
-            "Salary": 15000,
-            "Job": "Server"
-        },{
-            "Name": "Natasha Romanoff",
-            "Age": 35,
-            "Gender": "Female",
-            "Salary": 15000,
-            "Job": "Server"
-        },{
-            "Name": "Thor Odinson",
-            "Age": 1500,
-            "Gender": "Male",
-            "Salary": 30000,
-            "Job": "Bartender"
-        },{
-            "Name": "Thanos",
-            "Age": 3000,
-            "Gender": "Male",
-            "Salary": 35000,
-            "Job": "Janitor"
-        }
-    ],
-    "Statement": [
-        ["Menu#1",1,50],
-        ["Eggs",100,-300]
+        [
+            "Minced-pork-omelette",
+            40,
+            "Dishes",
+            ["Rice","Eggs","Minced pork"],
+            [0.15,3,0.2]
+        ],
+        [
+            "American-style fried rice",
+            50,
+            "Dishes",
+            ["Rice","Ham","Eggs","Green peas"],
+            [0.15,0.1,1,0.05]
+        ],
+        [
+            "Iced Lemon Tea",
+            30,
+            "Drinks",
+            ["Black Tea","Lemon"],
+            [0.2,1]
+        ],
+        [
+            "Fresh Water Bottle",
+            10,
+            "Drinks",
+            ["Water Bottle"],
+            [1]
+        ]
     ],
     "Reservation": [
-        [9,"17:00","John","081-012-6789"]
+        [
+            9,
+            "17:00",
+            "John",
+            "081-012-6789"
+        ]
+    ],
+    "Statement": [
+        [
+            "Menu#1",
+            1,
+            50,
+            "06-02-2025",
+            "9:42"
+        ],
+        [
+            "Eggs",
+            100,
+            -300,
+            "06-02-2025",
+            "19:42"
+        ]
+    ],
+    "Stocks": [
+        [
+            "Egg",
+            200
+        ],
+        [
+            "Cabbage",
+            100
+        ],
+        [
+            "Carrot",
+            30
+        ],
+        [
+            "Chicken Meat",
+            80
+        ],
+        [
+            "Beef",
+            50
+        ],
+        [
+            "Pork",
+            150
+        ],
+        [
+            "Cheese",
+            20
+        ],
+        [
+            "Fish",
+            35
+        ]
+    ],
+    "Tables": [
+        {
+            "Bills": [
+                [
+                    "Minced-pork-omelette",
+                    "American-style fried rice",
+                    "Iced Lemon Tea"
+                ],
+                [
+                    1,
+                    1,
+                    2
+                ],
+                [
+                    0,
+                    0,
+                    0
+                ]
+            ],
+            "No": 1,
+            "Reserved": "",
+            "Seats": 2
+        },
+        {
+            "Bills": [
+                [
+                    "Minced-pork-omelette",
+                    "Minced-pork-omelette",
+                    "American-style fried rice",
+                    "Fresh Water Bottle"
+                ],
+                [
+                    2,
+                    1,
+                    1,
+                    4
+                ],
+                [
+                    10,
+                    0,
+                    0,
+                    0
+                ]
+            ],
+            "No": 2,
+            "Reserved": "",
+            "Seats": 4
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 3,
+            "Reserved": "17:00",
+            "Seats": 4
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 4,
+            "Reserved": "",
+            "Seats": 0
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 5,
+            "Reserved": "",
+            "Seats": 0
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 6,
+            "Reserved": "",
+            "Seats": 0
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 7,
+            "Reserved": "",
+            "Seats": 0
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 8,
+            "Reserved": "",
+            "Seats": 0
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 9,
+            "Reserved": "",
+            "Seats": 0
+        }
     ]
 }
