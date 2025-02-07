@@ -6,6 +6,7 @@
 #include <string>
 #include <cstdlib>
 #include <QMessageBox>
+#include <algorithm>
 
 using namespace std;
 
@@ -66,32 +67,24 @@ void employee::on_Delete_Button_clicked()
     QModelIndexList selected_row_list = ui->Table->selectionModel()->selectedRows();
     int selected_size = selected_row_list.size();
 
-    int deleted_row = -1;
-    int j = 0;
-
-    for (int i = 0 ; i < selected_size ; i++)
+    if (selected_size <= 0)
     {
-        int row = selected_row_list[i].row();
-        if (row >= deleted_row) row = row - j;
-
-        ui->Table->removeRow(row);
-
-        deleted_row = row;
-        j++;
+        QMessageBox::about(this , "❗warning❗" , "❗Delete failed.❗Please select the row you want to delete by clicking on the first column of the table (the column with row numbers).");
     }
-}
-
-void employee::on_Test_Button_clicked()
-{
-    int Number_of_employee_OnTable = ui->Table->rowCount();
-
-    for (int i = 0 ; i < Number_of_employee_OnTable ; i++)
+    else
     {
-        for (int j = 0 ; j < 5 ; j++)
+        vector<int> seleted_row_vector;
+        for (int i = 0 ; i < selected_size ; i++)
         {
-            qDebug() << ui->Table->item(i,j);
+            seleted_row_vector.push_back(int(selected_row_list[i].row()));
         }
-        qDebug() << "\n";
+
+        sort(seleted_row_vector.begin(),seleted_row_vector.end());
+
+        for (int i = seleted_row_vector.size() - 1 ; i >= 0  ; i--)
+        {
+            ui->Table->removeRow(seleted_row_vector[i]);
+        }
     }
 }
 
@@ -154,7 +147,6 @@ void employee::on_Save_Button_clicked()
         if (Check_Correct_DataType_in_cell() == true)
         {
             json employee;
-            getData(employee , "Employee");
             employee.clear();
             setData(employee , "Employee");
 

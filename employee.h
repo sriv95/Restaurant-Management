@@ -25,8 +25,6 @@ private slots:
 
     void on_Delete_Button_clicked();
 
-    void on_Test_Button_clicked();
-
     bool Check_empty_cell_in_table();
 
     bool Check_Correct_DataType_in_cell();
