@@ -5,7 +5,7 @@
 #include <QMessageBox>
 #include <QSet>
 #include <QList>
-#include <QDir>
+
 
 StockWindow::StockWindow(QWidget *parent)
     : QWidget(parent)
@@ -16,7 +16,6 @@ StockWindow::StockWindow(QWidget *parent)
     ui->tableStocks->verticalHeader()->setVisible(false);
     ui->tableStocks->horizontalHeader()->setSortIndicatorShown(false);
 
-    qDebug()<<"Current Directory is: "<<QDir::currentPath();
 
     ui->tableStocks->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
     ui->tableStocks->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
@@ -119,7 +118,14 @@ void StockWindow::on_DeleteBtn_clicked()
 void StockWindow::savetojson()
 {
     setAllData(stockJson);
-    QMessageBox::information(this, "Save Successful", "Data has been successfully saved to the file.");
+
+    // Create a QMessageBox object
+    QMessageBox Save_Message;
+    Save_Message.setWindowTitle("Save Successful");
+    Save_Message.setText("Data has been successfully saved to the file.");
+    Save_Message.setIcon(QMessageBox::Information);
+    Save_Message.setWindowFlags(Qt::Popup);  // Set as a popup window
+    Save_Message.exec();  // Execute the message box
 }
 
 
