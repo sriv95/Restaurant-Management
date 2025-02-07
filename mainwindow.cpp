@@ -8,6 +8,7 @@
 #include "header/tables.h"
 #include <fstream>
 #include <QDateTime>
+#include <QDir>
 
 
 using json = nlohmann::json;
@@ -45,7 +46,8 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
-
+    qDebug()<<"Current Directory is: "<<QDir::currentPath();
+    loadData();
     for(int i=1;i<=Table_Count;++i){
         QString btnName = QString("Table_").append(QString::number(i));
         QPushButton *button = this->findChild<QPushButton *>(btnName);
