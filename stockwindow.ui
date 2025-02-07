@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>874</width>
-    <height>583</height>
+    <width>1073</width>
+    <height>787</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,11 +16,16 @@
   <widget class="QPushButton" name="AddBtn">
    <property name="geometry">
     <rect>
-     <x>720</x>
-     <y>20</y>
-     <width>121</width>
-     <height>51</height>
+     <x>870</x>
+     <y>40</y>
+     <width>161</width>
+     <height>61</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true"/>
@@ -32,11 +37,16 @@
   <widget class="QPushButton" name="SaveBtn">
    <property name="geometry">
     <rect>
-     <x>720</x>
-     <y>480</y>
-     <width>121</width>
-     <height>51</height>
+     <x>870</x>
+     <y>660</y>
+     <width>161</width>
+     <height>61</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">color: rgb(0, 170, 0)</string>
@@ -48,11 +58,16 @@
   <widget class="QPushButton" name="DeleteBtn">
    <property name="geometry">
     <rect>
-     <x>720</x>
-     <y>80</y>
-     <width>121</width>
-     <height>51</height>
+     <x>870</x>
+     <y>120</y>
+     <width>161</width>
+     <height>61</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
    </property>
    <property name="acceptDrops">
     <bool>false</bool>
@@ -69,9 +84,14 @@
     <rect>
      <x>20</x>
      <y>20</y>
-     <width>651</width>
-     <height>511</height>
+     <width>831</width>
+     <height>701</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>13</pointsize>
+    </font>
    </property>
    <property name="alternatingRowColors">
     <bool>true</bool>
@@ -98,15 +118,34 @@
     <property name="text">
      <string>No.</string>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
    </column>
    <column>
     <property name="text">
      <string>Name</string>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
    </column>
    <column>
     <property name="text">
      <string>Quantity</string>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+      <bold>true</bold>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </column>
   </widget>
