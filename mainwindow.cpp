@@ -107,10 +107,11 @@ void RestuarantManagement::updateTablesStatus()
 
 void RestuarantManagement::on_RefreshBtn_clicked()
 {
-    updateTablesStatus(); //เพิ่มเมื่อ refresh SetSelectingTable
     ui.SelectingTable->setText(QString('0'));
+    QString table_no = "0";
     ui.Receipt->hide();
-    setMainBtnVisible(false);
+    SetSelectingTable(table_no);
+    updateTablesStatus(); //
 }
 
 void RestuarantManagement::on_CheckBills_clicked()
