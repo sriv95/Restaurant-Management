@@ -38,7 +38,7 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
 RestuarantManagement::~RestuarantManagement()
 {}
 
-int RestuarantManagement::GetSelectingTableNo(){ // used by fong
+int RestuarantManagement::GetSelectingTableNo(){
     return ui.SelectingTable->text().toInt();
 }
 
@@ -79,12 +79,11 @@ void RestuarantManagement::on_TableBtn_clicked()
     QString buttonName = buttonSender->objectName(); // Get the name from the button
     QString table_no = buttonName.split("_").last();
     SetSelectingTable(table_no);
-    Changeseats(); // added by fong
+    Changeseats();
 
-    // buttonSender->setText("Table#"+table_no+"\n .."); //⚠️needs getTableStatus
 }
 
-void RestuarantManagement::updateTablesStatus() // added by fong
+void RestuarantManagement::updateTablesStatus()
 {
     json Tables;
     getData(Tables,"Tables");
@@ -106,9 +105,12 @@ void RestuarantManagement::updateTablesStatus() // added by fong
 }
 
 
-void RestuarantManagement::on_RefreshBtn_clicked()  //Edited by fong
+void RestuarantManagement::on_RefreshBtn_clicked()
 {
-    updateTablesStatus();
+    updateTablesStatus(); //เพิ่มเมื่อ refresh SetSelectingTable
+    ui.SelectingTable->setText(QString('0'));
+    ui.Receipt->hide();
+    setMainBtnVisible(false);
 }
 
 void RestuarantManagement::on_CheckBills_clicked()
@@ -125,16 +127,16 @@ void RestuarantManagement::on_OpenTableBtn_clicked()
     OpenTableDialog.exec();
 }
 
-void RestuarantManagement::onTableReturnValue(const QString &data){ //edited by fong
+void RestuarantManagement::onTableReturnValue(const QString &data){
     json Tables;
     getData(Tables,"Tables");
     int No = GetSelectingTableNo() - 1 ;
     int seat = data.toInt(); //handle unused variable
-    if(seat > 4 or seat < 0)
-    {
-        qDebug() << "Error: Number of seats. Enter the number of seats again.";
-        seat = 0;
-    }
+    // if(seat > 4 or seat < 0)
+    // {
+    //     qDebug() << "Error: Number of seats. Enter the number of seats again.";
+    //     seat = 0;
+    // }
     //qDebug() << "Seats: " << seat << "TableNo: " <<GetSelectingTableNo(); //
     Tables [No]["Seats"] = seat;
 
@@ -142,7 +144,7 @@ void RestuarantManagement::onTableReturnValue(const QString &data){ //edited by 
     updateTablesStatus();
 
 }
-void RestuarantManagement::Changeseats()
+void RestuarantManagement::Changeseats() //แก้บัค
 {
     json Tables;
     getData(Tables,"Tables");
