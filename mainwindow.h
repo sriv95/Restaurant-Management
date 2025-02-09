@@ -38,6 +38,7 @@ private slots:
 
     // void onReserveReturnValue(const QString &);
 
+    void on_Employee_clicked();
     void on_Stocks_clicked();
 
 private:

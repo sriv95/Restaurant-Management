@@ -1,8 +1,10 @@
 #include "mainwindow.h"
 #include <header/json.h>
+#include <ui/reserve.h>
+#include <ui/employee.h>
 #include <ui/opentabledialog.h>
 #include <ui/reserve.h>
-#include "ui/stockwindow.h"
+#include <ui/stockwindow.h>
 
 
 using namespace std;
@@ -173,9 +175,11 @@ void RestuarantManagement::on_ReserveBtn_clicked()
 
 // }
 
-
-
-
+void RestuarantManagement::on_Employee_clicked()
+{
+    employee employee(this);
+    employee.exec();
+}
 
 void RestuarantManagement::on_Stocks_clicked()
 {
