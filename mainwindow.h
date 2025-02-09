@@ -20,6 +20,8 @@ private slots:
 
     int GetSelectingTableNo();
 
+    void Changeseats(); //added by fong
+
     void on_TableBtn_clicked();
 
     void on_CheckBills_clicked();
@@ -31,6 +33,8 @@ private slots:
     void onTableReturnValue(const QString &);
 
     void on_ReserveBtn_clicked();
+
+    void updateTablesStatus();
 
     // void onReserveReturnValue(const QString &);
 
