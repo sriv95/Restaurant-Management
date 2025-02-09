@@ -2,7 +2,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_mainwindow.h"
-#include <opentabledialog.h>
+#include <ui/opentabledialog.h>
 
 class RestuarantManagement : public QMainWindow
 {
@@ -20,6 +20,8 @@ private slots:
 
     int GetSelectingTableNo();
 
+    void Changeseats(); //added by fong
+
     void on_TableBtn_clicked();
 
     void on_CheckBills_clicked();
@@ -32,9 +34,12 @@ private slots:
 
     void on_ReserveBtn_clicked();
 
+    void updateTablesStatus();
+
     // void onReserveReturnValue(const QString &);
 
     void on_Employee_clicked();
+    void on_Stocks_clicked();
 
 private:
     Ui::RestuarantManagementClass ui;
