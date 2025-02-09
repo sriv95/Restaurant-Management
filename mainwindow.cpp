@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include <header/json.h>
 #include <ui/reserve.h>
-#include <employee.h>
+#include <ui/employee.h>
 #include <ui/opentabledialog.h>
 #include <ui/reserve.h>
 #include <ui/stockwindow.h>
