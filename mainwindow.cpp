@@ -2,6 +2,8 @@
 #include <header/json.h>
 #include <opentabledialog.h>
 #include <reserve.h>
+#include <QTimer> //TT
+#include <QDateTime> //TT
 
 using namespace std;
 
@@ -27,7 +29,22 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
 
     ui.Receipt->hide();
     setMainBtnVisible(false);
+
+    //บอกเวลาเเละวันที่
+    QTimer *timer=new QTimer(this);
+    connect (timer ,SIGNAL(timeout()),this,SLOT(showTime()));
+    timer->start();
 }
+
+void  RestuarantManagement::showTime() //TT
+{
+    // ดึงวันที่และเวลา
+    QDateTime dateTime = QDateTime::currentDateTime();
+    QString dateTimeText = dateTime.toString("dd/MM/yyyy HH:mm:ss");
+
+    ui.Digital_clock->setText(dateTimeText);
+}
+
 
 RestuarantManagement::~RestuarantManagement()
 {}

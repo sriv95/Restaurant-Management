@@ -18,3 +18,9 @@ void reserve::on_buttonBox_accepted()
 
 }
 
+
+void reserve::on_TableNum_cursorPositionChanged(int arg1, int arg2)
+{
+
+}
+

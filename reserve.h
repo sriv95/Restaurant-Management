@@ -15,6 +15,9 @@ public:
     explicit reserve(QWidget *parent = nullptr);
     ~reserve();
 
+signals:
+    void tableReserved(int tableId, const QString &customerName);
+
 private slots:
     void on_buttonBox_accepted();
 

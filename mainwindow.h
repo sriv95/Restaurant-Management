@@ -34,6 +34,8 @@ private slots:
 
     // void onReserveReturnValue(const QString &);
 
+    void showTime();
+
 private:
     Ui::RestuarantManagementClass ui;
     OpenTableDialog *openTableDialog; // Declare OpenTableDialog as a member
