@@ -31,13 +31,16 @@ void OpenTableDialog::on_buttonBox_accepted()
     bool testvalue;
     int seat = ui->TextInput->toPlainText().trimmed().toInt(&testvalue);
     qDebug()<< testvalue;
-    if(testvalue == true and seat > 0) emit returnValue(ui->TextInput->toPlainText());
+    if(testvalue == true and seat > 0)
+    {
+        emit returnValue(ui->TextInput->toPlainText());
+        this->close();
+    }
     else
     {
-        QMessageBox::about(this , "warning" , "Invalid data type. It should be an integer non-negative." );
+        QMessageBox::about(this , "warning" , "Invalid data type. It should be a positive integer." );
 
     }
-    //this->close();
 }
 
 void OpenTableDialog::on_buttonBox_rejected() //cansel
