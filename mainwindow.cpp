@@ -1,11 +1,12 @@
 #include "mainwindow.h"
-#include <header/json.h>
-#include <opentabledialog.h>
-#include <reserve.h>
+#include "header/json.h"
+#include "opentabledialog.h"
+#include "reserve.h"
+#include "header/tables.h"
+#include <QMessageBox>  
+
 #include <QFile>
 #include <QTextStream>
-#include "header/json.h"
-#include "header/tables.h"
 #include <fstream>
 #include <QDateTime>
 #include <QDir>
@@ -15,25 +16,13 @@ using json = nlohmann::json;
 json j;
 using namespace std;
 
-void RestuarantManagement::loadData()
+void RestuarantManagement::getData()
 {
-    QFile file("data.json");
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qDebug() << "Failed to open data.json";
-        return;
-    }
-
-    QTextStream in(&file);
-    QString jsonData = in.readAll();
+    std::ifstream file("data.json");
+    file >> j;
     file.close();
-
-    try {
-        j = json::parse(jsonData.toStdString()); // แปลง QString -> JSON
-        qDebug() << "Data loaded successfully!";
-    } catch (json::parse_error &e) {
-        qDebug() << "JSON parse error: " << e.what();
-    }
 }
+
 int Table_Count = 9;
 
 void RestuarantManagement::setMainBtnVisible(bool tf){
@@ -47,7 +36,9 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
 {
     ui.setupUi(this);
     qDebug()<<"Current Directory is: "<<QDir::currentPath();
-    loadData();
+
+    getData();
+
     for(int i=1;i<=Table_Count;++i){
         QString btnName = QString("Table_").append(QString::number(i));
         QPushButton *button = this->findChild<QPushButton *>(btnName);
@@ -68,12 +59,9 @@ int RestuarantManagement::GetSelectingTableNo(){
 
 void RestuarantManagement::SetSelectingTable(QString no)
 {
-    // ถ้าใบเสร็จยังเปิดอยู่และยังไม่ได้กด Confirm Payment
-    // (เช็คจากปุ่ม ui.CheckBills->text() == "Confirm Payment")
+     // ถ้าใบเสร็จยังเปิดอยู่และยังไม่ได้กด Confirm Payment
     if (ui.Receipt->isVisible() && ui.CheckBills->text() == "Confirm Payment") {
-        // ซ่อนใบเสร็จ
         ui.Receipt->hide();
-        // เปลี่ยนข้อความปุ่มกลับเป็น "Check Bills"
         ui.CheckBills->setText("Check Bills");
     }
 
@@ -93,7 +81,6 @@ void RestuarantManagement::on_TableBtn_clicked()
 {
     // ถ้าใบเสร็จยังเปิดอยู่และยังไม่ได้กด Confirm Payment
     if (ui.Receipt->isVisible() && ui.CheckBills->text() == "Confirm Payment") {
-        // ยกเลิกการดูบิล
         ui.Receipt->hide();
         ui.CheckBills->setText("Check Bills");
     }
@@ -117,7 +104,7 @@ void RestuarantManagement::on_RefreshBtn_clicked()
 
 void RestuarantManagement::on_CheckBills_clicked()
 {
-    ui.Receipt_DateTime->setText(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
+    ui.Receipt_DateTime->setText(QDateTime::currentDateTime().toString("dd-MM-yyyy hh:mm:ss"));
 
     int selectedTableNumber = GetSelectingTableNo();
     if (selectedTableNumber == 0) {
@@ -125,69 +112,64 @@ void RestuarantManagement::on_CheckBills_clicked()
         return;
     }
 
-    // ส่วนสำหรับ "Confirm Payment"
-    if (ui.CheckBills->text() == "Confirm Payment") {
-        // ดึง Bills ของโต๊ะที่เลือก
-        json Bills = j["Tables"][selectedTableNumber - 1]["Bills"];
+    // Fetch bills for the selected table
+    json Bills = j["Tables"][selectedTableNumber - 1]["Bills"];
+    json emptyBills = json::array({json::array({""}), json::array(), json::array()});
 
-        // ดึงข้อมูลจาก Bills
+    // If "Confirm Payment" is clicked
+    if (ui.CheckBills->text() == "Confirm Payment") {
+        // **Check if there are no bills**
+        if (Bills == emptyBills || Bills[0].empty()) {
+            QMessageBox::warning(this, "No Orders", "No bills found for this table. Please add an order before confirming payment.");
+            return;
+        }
+
+        // Process payment
         vector<string> billNames;
         vector<int> billPrices;
         getBills(Bills, j["Menus"], billNames, billPrices);
 
-        // สำหรับแต่ละรายการ บันทึกลงใน Statement
+        QString currentDate = QDateTime::currentDateTime().toString("dd-MM-yyyy");
+        QString currentTime = QDateTime::currentDateTime().toString("hh:mm");
+
         for (size_t i = 0; i < billNames.size(); ++i) {
-            // สร้างรายการ Statement ในรูปแบบ ["MenuName", quantity, finalPrice]
             json statementItem = json::array();
             statementItem.push_back(billNames[i]);
-            statementItem.push_back(billPrices[i] / (j["Menus"][i][1].get<int>())); // คำนวณ quantity
+            statementItem.push_back(billPrices[i] / (j["Menus"][i][1].get<int>())); // quantity
             statementItem.push_back(billPrices[i]);
+            statementItem.push_back(currentDate.toStdString());
+            statementItem.push_back(currentTime.toStdString());
             j["Statement"].push_back(statementItem);
         }
 
-        // รีเซ็ตข้อมูลโต๊ะ (Seats, Reserved, Bills)
+        // Reset the table data
         j["Tables"][selectedTableNumber - 1]["Seats"] = 0;
         j["Tables"][selectedTableNumber - 1]["Reserved"] = "";
-        j["Tables"][selectedTableNumber - 1]["Bills"] = json::array({
-            json::array({""}),
-            json::array(),
-            json::array()
-        });
+        j["Tables"][selectedTableNumber - 1]["Bills"] = emptyBills;
 
-        // บันทึกข้อมูลลงในไฟล์ data.json
+        // Save changes to JSON file
         std::ofstream file("data.json");
         if (file.is_open()) {
-            file << j.dump(4); // indent 4 เพื่อให้อ่านง่าย
+            file << j.dump(4);
             file.close();
         }
 
-        // ซ่อน Receipt และเปลี่ยนข้อความปุ่มกลับเป็น "Check Bills"
         ui.Receipt->hide();
         ui.CheckBills->setText("Check Bills");
         return;
     }
 
-    // สลับสถานะการแสดง Receipt
-    bool isReceiptVisible = !ui.Receipt->isVisible();
-    ui.Receipt->setVisible(isReceiptVisible);
+    // Toggle receipt visibility
+    bool Receipt_Status = !ui.Receipt->isVisible();
+    ui.Receipt->setVisible(Receipt_Status);
     ui.Receipt_TableNo->setText(QString("Table#%1").arg(selectedTableNumber));
 
-    if (isReceiptVisible) {
-        json Bills = j["Tables"][selectedTableNumber - 1]["Bills"];
-        // กำหนดค่า Bills เริ่มต้น (empty)
-        json emptyBills = json::array({
-            json::array({""}),
-            json::array(),
-            json::array()
-        });
-
+    if (Receipt_Status) {
         if (Bills == emptyBills) {
-            // ถ้า Bills เป็นค่าเริ่มต้น ให้แสดง Receipt ว่าง
             ui.ReceiptListName->clear();
             ui.ReceiptListPrice->clear();
-            ui.Receipt_Total->setText("0 บาท");
+            ui.Receipt_Total->setText("0 Baht");
         } else {
-            // ดึงข้อมูล Bills ออกมา
             vector<string> billNames;
             vector<int> billPrices;
             getBills(Bills, j["Menus"], billNames, billPrices);
@@ -198,8 +180,6 @@ void RestuarantManagement::on_CheckBills_clicked()
 
             for (size_t i = 0; i < billNames.size(); ++i) {
                 QString menuName = QString::fromStdString(billNames[i]);
-
-                // หา basePrice จาก j["Menus"]
                 int basePrice = 0;
                 for (auto& menu : j["Menus"]) {
                     if (menu[0] == billNames[i]) {
@@ -208,41 +188,28 @@ void RestuarantManagement::on_CheckBills_clicked()
                     }
                 }
 
-                // ดึง quantity และ extra จาก Bills
-                int quantity = 0;
-                int extra = 0;
-                if (Bills.is_array() && Bills.size() >= 3) {
-                    const auto& quantities = Bills[1];
-                    const auto& extras = Bills[2];
-                    if (quantities.is_array() && i < quantities.size()) {
-                        quantity = quantities[i].get<int>();
-                    }
-                    if (extras.is_array() && i < extras.size()) {
-                        extra = extras[i].get<int>();
-                    }
+                int quantity = 0, extra = 0;
+                if (Bills.is_array() && Bills.size() == 3) {
+                    if (i < Bills[1].size()) quantity = Bills[1][i].get<int>();
+                    if (i < Bills[2].size()) extra = Bills[2][i].get<int>();
                 }
 
-                // สร้างข้อความรายละเอียด เช่น "50 บาท x1 + 10 บาท" (ถ้า extra ไม่เท่ากับ 0)
-                QString priceDetail = QString::number(basePrice) + " บาท";
-                priceDetail += " x" + QString::number(quantity);
-                if (extra != 0) {
-                    priceDetail += " + " + QString::number(extra) + " บาท";
-                }
+                QString priceDetail = QString("%1 Baht x%2").arg(basePrice).arg(quantity);
+                if (extra != 0) priceDetail += QString(" + %1 Baht").arg(extra);
 
                 ui.ReceiptListName->addItem(menuName);
                 ui.ReceiptListPrice->addItem(priceDetail);
                 totalAmount += (basePrice * quantity) + extra;
             }
-            ui.Receipt_Total->setText(QString::number(totalAmount) + " บาท");
+
+            ui.Receipt_Total->setText(QString::number(totalAmount) + " Baht");
         }
 
-        // เมื่อแสดง Receipt เปลี่ยนข้อความปุ่มเป็น "Confirm Payment"
         ui.CheckBills->setText("Confirm Payment");
     } else {
         ui.CheckBills->setText("Check Bills");
     }
 }
-
 
 
 
