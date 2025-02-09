@@ -58,8 +58,6 @@ void StockWindow::refreshTable()
 {
     ui->tableStocks->clearContents();
     ui->tableStocks->setRowCount(stockJson["Stocks"].size());
-
-    qDebug()<<stockJson["Stocks"].size();
     for (unsigned long long int i = 0; i < stockJson["Stocks"].size(); ++i) {
         // No. Column (Auto Numbering) - Read Only
         QTableWidgetItem *numItem = new QTableWidgetItem(QString::number(i + 1));
