@@ -2,7 +2,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_mainwindow.h"
-#include <opentabledialog.h>
+#include <ui/opentabledialog.h>
 
 class RestuarantManagement : public QMainWindow
 {

@@ -14,23 +14,23 @@ SOURCES += \
     func/tables.cpp \
     main.cpp \
     mainwindow.cpp \
-    opentabledialog.cpp \
-    reserve.cpp \
-    stockwindow.cpp \
+    ui/opentabledialog.cpp \
+    ui/reserve.cpp \
+    ui/stockwindow.cpp \
 
 HEADERS += \
     header/json.h \
     header/nlohmann-json.hpp \
     mainwindow.h \
-    opentabledialog.h \
-    reserve.h \
-    stockwindow.h \
+    ui/opentabledialog.h \
+    ui/reserve.h \
+    ui/stockwindow.h \
 
 FORMS += \
     mainwindow.ui \
-    opentabledialog.ui \
-    reserve.ui \
-    stockwindow.ui \
+    ui/opentabledialog.ui \
+    ui/reserve.ui \
+    ui/stockwindow.ui \
 
 
 # Default rules for deployment.

@@ -1,8 +1,8 @@
 #include "mainwindow.h"
 #include <header/json.h>
-#include <opentabledialog.h>
-#include <reserve.h>
-#include "stockwindow.h"
+#include <ui/opentabledialog.h>
+#include <ui/reserve.h>
+#include "ui/stockwindow.h"
 
 
 using namespace std;
