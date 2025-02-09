@@ -38,6 +38,8 @@ private slots:
 
     // void onReserveReturnValue(const QString &);
 
+    void on_Stocks_clicked();
+
 private:
     Ui::RestuarantManagementClass ui;
     OpenTableDialog *openTableDialog; // Declare OpenTableDialog as a member

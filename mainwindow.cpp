@@ -2,6 +2,8 @@
 #include <header/json.h>
 #include <opentabledialog.h>
 #include <reserve.h>
+#include "stockwindow.h"
+
 
 using namespace std;
 
@@ -170,3 +172,22 @@ void RestuarantManagement::on_ReserveBtn_clicked()
 // void RestuarantManagement::onReserveReturnValue(const QString &data){
 
 // }
+
+
+
+
+
+void RestuarantManagement::on_Stocks_clicked()
+{
+    StockWindow *stockWin = new StockWindow(this);
+
+
+    stockWin->setWindowFlags(Qt::Window);
+
+
+    stockWin->show();
+    stockWin->raise();
+    stockWin->activateWindow();
+}
+
+
