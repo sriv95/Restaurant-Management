@@ -1,6 +1,5 @@
 #include "stockwindow.h"
 #include "ui_stockwindow.h"
-#include "header\json.h"
 #include <QHeaderView>
 #include <QMessageBox>
 #include <QSet>
