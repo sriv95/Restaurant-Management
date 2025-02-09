@@ -5,6 +5,7 @@
 #include <ui/opentabledialog.h>
 #include <ui/reserve.h>
 #include <ui/stockwindow.h>
+#include <ui/editmenu.h>
 
 
 using namespace std;
@@ -37,6 +38,8 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
 
     ui.Receipt->hide();
     setMainBtnVisible(false);
+
+    on_EditMenu_clicked(); //Edit Menu Fast Test
 }
 
 RestuarantManagement::~RestuarantManagement()
@@ -194,4 +197,11 @@ void RestuarantManagement::on_Stocks_clicked()
     stockWin->activateWindow();
 }
 
+
+
+void RestuarantManagement::on_EditMenu_clicked()
+{
+    editmenu editmenu(this);
+    editmenu.exec();
+}
 
