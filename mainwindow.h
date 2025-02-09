@@ -35,6 +35,8 @@ private slots:
 
     void on_ReserveBtn_clicked();
 
+    void getData();
+
     // void onReserveReturnValue(const QString &);
 
 private:
