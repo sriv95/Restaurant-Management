@@ -120,19 +120,6 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QPushButton" name="SaveMenuBtn">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Save Menu</string>
-        </property>
-       </widget>
-      </item>
      </layout>
     </item>
    </layout>
@@ -214,54 +201,54 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QPushButton" name="SaveIngBtn">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Save Ingredients</string>
-        </property>
-       </widget>
-      </item>
      </layout>
     </item>
    </layout>
   </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>180</x>
-     <y>630</y>
-     <width>154</width>
-     <height>40</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>✏️Note: Double Click To Edit</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="RefreshBtn">
+  <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
     <rect>
      <x>20</x>
      <y>630</y>
-     <width>152</width>
-     <height>40</height>
+     <width>961</width>
+     <height>41</height>
     </rect>
    </property>
-   <property name="minimumSize">
-    <size>
-     <width>0</width>
-     <height>40</height>
-    </size>
-   </property>
-   <property name="text">
-    <string>Refresh</string>
-   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QPushButton" name="RefreshBtn">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Refresh</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="SaveMenuBtn">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Save</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>✏️Note: Double Click To Edit</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>
