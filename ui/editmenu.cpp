@@ -52,7 +52,13 @@ void editmenu::RefreshIng(int i){
     for(int j = 0; j < lenData(ingName); j++){
         ingtable->insertRow(j); //Insert row
         ingtable->setItem(j,0,new QTableWidgetItem(QString::fromStdString(ingName[j]))); //Name
-        ingtable->setItem(j,1,new QTableWidgetItem(QString::number(double(ingQuan[j])))); //Quantity
+
+        //Quantity
+        QDoubleSpinBox *Quan = new QDoubleSpinBox();
+        Quan->setMinimum(0);
+        Quan->setMaximum(1000000); //Maximum Quan
+        Quan->setValue(double(ingQuan[j]));
+        ingtable->setCellWidget(j,1,Quan);
     }
 
     //Update information
