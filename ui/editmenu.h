@@ -22,6 +22,12 @@ private slots:
 
     void on_DelMenuBtn_clicked();
 
+    void on_AddIngBtn_clicked();
+
+    void RefreshIng(int);
+
+    void on_DelIngBtn_clicked();
+
 private:
     Ui::editmenu *ui;
 };

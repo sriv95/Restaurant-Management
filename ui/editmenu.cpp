@@ -40,6 +40,24 @@ editmenu::~editmenu()
     delete ui;
 }
 
+void editmenu::RefreshIng(int i){
+    //Define pb function
+    ingtable->setRowCount(0); //delete all rows
+    //get ingredients data from lamda variables
+    json ingName = Menus[i][3];
+    json ingQuan = Menus[i][4];
+
+    for(int j = 0; j < lenData(ingName); j++){
+        ingtable->insertRow(j); //Insert row
+        ingtable->setItem(j,0,new QTableWidgetItem(QString::fromStdString(ingName[j]))); //Name
+        ingtable->setItem(j,1,new QTableWidgetItem(QString::number(double(ingQuan[j])))); //Quantity
+    }
+
+    //Update information
+    ui->ingNo->setText(QString::number(i+1));
+    ui->ingLabel->setText(QString::fromStdString(Menus[i][0]));
+}
+
 void editmenu::on_RefreshBtn_clicked(bool NoGetdata=false)
 {
     menutable->setRowCount(0); //delete all rows
@@ -55,22 +73,9 @@ void editmenu::on_RefreshBtn_clicked(bool NoGetdata=false)
         QPushButton *pb = new QPushButton("Edit Ingredients...",menutable); //Define push button
         pb->setFocusPolicy(Qt::NoFocus);
         menutable->setCellWidget(i,4,pb);
-        connect(pb, &QPushButton::clicked, this, [i, this]() { //Connect pb function
-            //Define pb function
-            ingtable->setRowCount(0); //delete all rows
-            //get ingredients data from lamda variables
-            json ingName = Menus[i][3];
-            json ingQuan = Menus[i][4];
-
-            for(int j = 0; j < lenData(ingName); j++){
-                ingtable->insertRow(j); //Insert row
-                ingtable->setItem(j,0,new QTableWidgetItem(QString::fromStdString(ingName[j]))); //Name
-                ingtable->setItem(j,1,new QTableWidgetItem(QString::number(double(ingQuan[j])))); //Quantity
-            }
-
-            //Update information
-            ui->ingNo->setText(QString::number(i+1));
-            ui->ingLabel->setText(QString::fromStdString(Menus[i][0]));
+        //Connect pb function
+        connect(pb, &QPushButton::clicked, this, [i, this]() {
+            RefreshIng(i);
         });
 
         menutable->setItem(i,0,new QTableWidgetItem(QString::fromStdString(Menus[i][0]))); //Name
@@ -112,5 +117,29 @@ void editmenu::on_AddMenuBtn_clicked()
 
 void editmenu::on_DelMenuBtn_clicked()
 {
-    for(auto *item : menutable->selectedItems()) menutable->removeRow(item->row());
+    for(auto *item : menutable->selectedItems()) menutable->removeRow(item->row()); //Delete row using iterator for loop
+}
+
+void editmenu::on_AddIngBtn_clicked()
+{
+    int i = ui->ingNo->text().toInt()-1; //Find current editing
+    int rowCount = ingtable->rowCount(); //get last row position
+    Menus[i][3][rowCount]="";
+    Menus[i][4][rowCount]=0;
+    RefreshIng(i);
+}
+
+void editmenu::on_DelIngBtn_clicked()
+{
+    for(auto *item : ingtable->selectedItems()) ingtable->removeRow(item->row()); //Delete row using iterator for loop
+    //Save into Menus
+    int index = ui->ingNo->text().toInt()-1; //Find current editing
+    int rowCount = ingtable->rowCount(); //get last row position
+    //Replace data with current data in table
+    Menus[index][3]={}; //clear name
+    Menus[index][4]={}; //clear quantity
+    for(int i=0;i<rowCount;i++){ //i is current row
+        Menus[index][3][i]=ingtable->item(i,0)->text().toStdString(); //set name
+        Menus[index][4][i]=ingtable->item(i,1)->text().toDouble(); //set quantity
+    }
 }
