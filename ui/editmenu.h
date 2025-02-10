@@ -20,6 +20,8 @@ private slots:
 
     void on_AddMenuBtn_clicked();
 
+    void on_DelMenuBtn_clicked();
+
 private:
     Ui::editmenu *ui;
 };
