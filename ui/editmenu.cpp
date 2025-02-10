@@ -1,4 +1,5 @@
 #include "editmenu.h"
+#include "qcombobox.h"
 #include "qpushbutton.h"
 #include "ui_editmenu.h"
 #include "header/json.h"
@@ -73,9 +74,18 @@ void editmenu::on_RefreshBtn_clicked(bool NoGetdata=false)
 
         //Type
         QString type = QString::fromStdString(Menus[i][2]);
-        if(type=="Dishes") menutable->setItem(i,2,new QTableWidgetItem("🍽️Dishes"));
-        else if(type=="Drinks") menutable->setItem(i,2,new QTableWidgetItem("🍷Drinks"));
-        else menutable->setItem(i,2,new QTableWidgetItem("⚠️Not Selected"));
+        QComboBox *typebox = new QComboBox;
+        typebox->addItem("🍽️Dishes");
+        typebox->addItem("🍷Drinks");
+        typebox->addItem("⚠️Not Selected");
+        menutable->setCellWidget(i,2,typebox);
+        if(type=="Dishes") typebox->setCurrentIndex(0);
+        else if(type=="Drinks") typebox->setCurrentIndex(1);
+        else typebox->setCurrentIndex(2);
+        connect(typebox, &QComboBox::currentIndexChanged,this, [i, typebox](){ //Connect typebox function
+            //Define typebox function
+            Menus[i][2] = typebox->currentText().remove(0,2).toStdString(); //Set Menus removed emoji (first and second char or QString)
+        });
 
         menutable->setItem(i,3,new QTableWidgetItem(QString::number(lenData(Menus[i][3])))); //Ingredients Count
     }
