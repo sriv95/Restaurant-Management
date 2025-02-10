@@ -28,6 +28,8 @@ private slots:
 
     void on_DelIngBtn_clicked();
 
+    void on_SaveMenuBtn_clicked();
+
 private:
     Ui::editmenu *ui;
 };

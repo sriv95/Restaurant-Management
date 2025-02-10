@@ -1,5 +1,6 @@
 #include "editmenu.h"
 #include "qcombobox.h"
+#include "qmessagebox.h"
 #include "qpushbutton.h"
 #include "ui_editmenu.h"
 #include "header/json.h"
@@ -161,4 +162,36 @@ void editmenu::on_DelIngBtn_clicked()
         Menus[index][3][i]=ingtable->item(i,0)->text().toStdString(); //set name
         Menus[index][4][i]=ingtable->item(i,1)->text().toDouble(); //set quantity
     }
+}
+
+void editmenu::on_SaveMenuBtn_clicked()
+{
+    QMessageBox Save_successful_Message;
+    Save_successful_Message.setWindowTitle("🎉🥳✅✅🥳🎉");
+    Save_successful_Message.setText("✅🟢🥳🎉-Save successful-🎉🥳🟢✅");
+    Save_successful_Message.setWindowFlags(Qt::Popup);
+
+
+    for(int i=0;i<lenData(Menus);i++){
+        //Handling empty Menu name
+        if(Menus[i][0]==""||Menus[i][0]==nullptr){
+            QMessageBox::about(this , "❗warning❗" , "❗Save failed.❗There is an empty cell in row " + QString::number(i+1) + ".");
+            return;
+        }
+
+        //Handling Not Selected type
+        if(Menus[i][2]=="Not Selected"||Menus[i][2]==nullptr){
+            QMessageBox::about(this , "❗warning❗" , "❗Save failed.❗There is a Not Selected type in row " + QString::number(i+1) + ".");
+            return;
+        }
+
+        //Handling 0 Ingredients
+        if(lenData(Menus[i][3])<=0){
+            QMessageBox::about(this , "❗warning❗" , "❗Save failed.❗There is no ingredients in row " + QString::number(i+1) + ".");
+            return;
+        }
+    }
+
+    setData(Menus,"Menus");
+    Save_successful_Message.exec();
 }
