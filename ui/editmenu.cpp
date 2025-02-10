@@ -108,7 +108,21 @@ void editmenu::on_RefreshBtn_clicked(bool NoGetdata=false)
         else typebox->setCurrentIndex(2);
         connect(typebox, &QComboBox::currentIndexChanged,this, [i, typebox](){ //Connect typebox function
             //Define typebox function
-            Menus[i][2] = typebox->currentText().remove(0,2).toStdString(); //Set Menus removed emoji (first and second char or QString)
+            int id = typebox->currentIndex(); //Get Index
+            switch (id) {
+            case 0:
+                Menus[i][2] = "Dishes";
+                break;
+            case 1:
+                Menus[i][2] = "Drinks";
+                break;
+            case 2:
+                Menus[i][2] = "Not Selected";
+                break;
+            default:
+                break;
+            }
+
         });
 
         //Ingredients Count
