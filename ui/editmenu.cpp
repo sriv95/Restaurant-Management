@@ -108,8 +108,5 @@ void editmenu::on_AddMenuBtn_clicked()
 
 void editmenu::on_DelMenuBtn_clicked()
 {
-    for(auto *item : menutable->selectedItems()){
-        int i = item->row();
-        menutable->removeRow(i);
-    }
+    for(auto *item : menutable->selectedItems()) menutable->removeRow(item->row());
 }
