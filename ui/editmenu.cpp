@@ -55,7 +55,7 @@ void editmenu::on_RefreshBtn_clicked(bool NoGetdata=false)
         QPushButton *pb = new QPushButton("Edit Ingredients...",menutable); //Define push button
         pb->setFocusPolicy(Qt::NoFocus);
         menutable->setCellWidget(i,4,pb);
-        connect(pb, &QPushButton::clicked, this, [i]() { //Connect pb function
+        connect(pb, &QPushButton::clicked, this, [i, this]() { //Connect pb function
             //Define pb function
             ingtable->setRowCount(0); //delete all rows
             //get ingredients data from lamda variables
@@ -67,6 +67,10 @@ void editmenu::on_RefreshBtn_clicked(bool NoGetdata=false)
                 ingtable->setItem(j,0,new QTableWidgetItem(QString::fromStdString(ingName[j]))); //Name
                 ingtable->setItem(j,1,new QTableWidgetItem(QString::number(double(ingQuan[j])))); //Quantity
             }
+
+            //Update information
+            ui->ingNo->setText(QString::number(i+1));
+            ui->ingLabel->setText(QString::fromStdString(Menus[i][0]));
         });
 
         menutable->setItem(i,0,new QTableWidgetItem(QString::fromStdString(Menus[i][0]))); //Name
