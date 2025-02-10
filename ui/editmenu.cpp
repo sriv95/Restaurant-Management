@@ -4,6 +4,8 @@
 #include "ui_editmenu.h"
 #include "header/json.h"
 
+#include <QSpinBox>
+
 //define variables
 QTableWidget *menutable;
 QTableWidget *ingtable; //ingredient table
@@ -79,7 +81,13 @@ void editmenu::on_RefreshBtn_clicked(bool NoGetdata=false)
         });
 
         menutable->setItem(i,0,new QTableWidgetItem(QString::fromStdString(Menus[i][0]))); //Name
-        menutable->setItem(i,1,new QTableWidgetItem(QString::number(int(Menus[i][1])))); //Price
+
+        //Price
+        QSpinBox *Price = new QSpinBox();
+        Price->setMinimum(0);
+        Price->setMaximum(1000); //Maximum Price
+        Price->setValue(int(Menus[i][1]));
+        menutable->setCellWidget(i,1,Price);
 
         //Type
         QString type = QString::fromStdString(Menus[i][2]);
