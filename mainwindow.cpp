@@ -4,14 +4,10 @@
 #include "reserve.h"
 #include "func/tables.h"
 #include <QMessageBox>
-#include <QFile>
 #include <QTextStream>
 #include <QDateTime>
-#include <QDir>
 
-using json = nlohmann::json;
 json restaurantData;
-using namespace std;
 
 
 int Table_Count = 9;
@@ -26,7 +22,6 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
-    qDebug()<<"Current Directory is: "<<QDir::currentPath();
 
 
 
