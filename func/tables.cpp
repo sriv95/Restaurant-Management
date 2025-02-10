@@ -1,4 +1,4 @@
-#include "header/tables.h"
+#include "tables.h"
 
 void getBills(const json& Bills, const json& Menus, vector<string>& BillsNames, vector<int>& BillsPrices) {
     if (Bills.is_array() && Bills.size() >= 3) {
