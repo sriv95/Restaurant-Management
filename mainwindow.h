@@ -2,10 +2,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_mainwindow.h"
-#include <opentabledialog.h>
-#include "header/json.h"
-using json = nlohmann::json;
-
+#include <ui/opentabledialog.h>
 
 class RestuarantManagement : public QMainWindow
 {
@@ -15,7 +12,7 @@ public:
     RestuarantManagement(QWidget *parent = nullptr);
     ~RestuarantManagement();
 
-    void on_TableBtn_clicked();
+    // void on_TableBtn_clicked();
 
 private slots:
 
@@ -24,6 +21,10 @@ private slots:
     void SetSelectingTable(QString);
 
     int GetSelectingTableNo();
+
+    void Changeseats(); //added by fong
+
+    void on_TableBtn_clicked();
 
     void on_CheckBills_clicked();
 
@@ -36,7 +37,12 @@ private slots:
     void on_ReserveBtn_clicked();
 
     void getData();
+    void updateTablesStatus();
+
     // void onReserveReturnValue(const QString &);
+
+    void on_Employee_clicked();
+    void on_Stocks_clicked();
 
 private:
 

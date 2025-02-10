@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui widgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -9,26 +9,33 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    ui/employee.cpp \
     func/json.cpp \
     func/stocks.cpp \
     func/tables.cpp \
     main.cpp \
     mainwindow.cpp \
-    opentabledialog.cpp \
-    reserve.cpp
+    ui/opentabledialog.cpp \
+    ui/reserve.cpp \
+    ui/stockwindow.cpp \
 
 HEADERS += \
+    ui/employee.h \
     header/json.h \
     header/nlohmann-json.hpp \
     header/tables.h \
     mainwindow.h \
-    opentabledialog.h \
-    reserve.h
+    ui/opentabledialog.h \
+    ui/reserve.h \
+    ui/stockwindow.h \
 
 FORMS += \
+    ui/employee.ui \
     mainwindow.ui \
-    opentabledialog.ui \
-    reserve.ui
+    ui/opentabledialog.ui \
+    ui/reserve.ui \
+    ui/stockwindow.ui \
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -1,5 +1,6 @@
 #include "opentabledialog.h"
 #include "ui_opentabledialog.h"
+#include <QMessageBox>
 
 OpenTableDialog::OpenTableDialog(QWidget *parent)
     : QDialog(parent)
@@ -27,11 +28,19 @@ void OpenTableDialog::on_numBtn_clicked()
 
 void OpenTableDialog::on_buttonBox_accepted()
 {
-    emit returnValue(ui->TextInput->toPlainText());
-    this->close();
+    bool testvalue;
+    int seat = ui->TextInput->toPlainText().trimmed().toInt(&testvalue);
+    qDebug()<< testvalue;
+    if(testvalue == true and seat > 0) emit returnValue(ui->TextInput->toPlainText());
+    else
+    {
+        QMessageBox::about(this , "warning" , "Invalid data type. It should be an integer non-negative." );
+
+    }
+    //this->close();
 }
 
-void OpenTableDialog::on_buttonBox_rejected()
+void OpenTableDialog::on_buttonBox_rejected() //cansel
 {
     this->close();
 }
