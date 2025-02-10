@@ -131,7 +131,12 @@ void editmenu::on_AddMenuBtn_clicked()
 
 void editmenu::on_DelMenuBtn_clicked()
 {
-    for(auto *item : menutable->selectedItems()) menutable->removeRow(item->row()); //Delete row using iterator for loop
+    for(auto *item : menutable->selectedItems()) {
+        //Delete row using iterator for loop
+        int i = item->row(); //Get current row
+        if(i>=0) Menus.erase(i); //Delete from Menus and use i>=0 from handling i == -1 then crash
+    }
+    on_RefreshBtn_clicked(true);
 }
 
 void editmenu::on_AddIngBtn_clicked()
