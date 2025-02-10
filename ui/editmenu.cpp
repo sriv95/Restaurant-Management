@@ -87,7 +87,10 @@ void editmenu::on_RefreshBtn_clicked(bool NoGetdata=false)
             Menus[i][2] = typebox->currentText().remove(0,2).toStdString(); //Set Menus removed emoji (first and second char or QString)
         });
 
-        menutable->setItem(i,3,new QTableWidgetItem(QString::number(lenData(Menus[i][3])))); //Ingredients Count
+        //Ingredients Count
+        QTableWidgetItem *ingCountTWI = new QTableWidgetItem(QString::number(lenData(Menus[i][3])));
+        ingCountTWI->setFlags(ingCountTWI->flags() & ~Qt::ItemIsEditable); //Made ingCountTWI uneditable
+        menutable->setItem(i,3,ingCountTWI);
     }
 }
 
