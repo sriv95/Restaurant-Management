@@ -6,6 +6,7 @@
 //define variables
 QTableWidget *menutable;
 QTableWidget *ingtable; //ingredient table
+json Menus;
 
 editmenu::editmenu(QWidget *parent)
     : QDialog(parent)
@@ -30,7 +31,7 @@ editmenu::editmenu(QWidget *parent)
     ingtable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
     ingtable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
 
-    on_RefreshBtn_clicked(); //Refresh on setup
+    on_RefreshBtn_clicked(false); //Refresh on setup
 }
 
 editmenu::~editmenu()
@@ -38,12 +39,12 @@ editmenu::~editmenu()
     delete ui;
 }
 
-void editmenu::on_RefreshBtn_clicked()
+void editmenu::on_RefreshBtn_clicked(bool NoGetdata=false)
 {
     menutable->setRowCount(0); //delete all rows
+    ingtable->setRowCount(0); //delete all rows
 
-    json Menus;
-    getData(Menus,"Menus");
+    if(!NoGetdata) getData(Menus,"Menus");
 
     //Create rows
     for (int i = 0; i < lenData(Menus); ++i) {
@@ -53,7 +54,7 @@ void editmenu::on_RefreshBtn_clicked()
         QPushButton *pb = new QPushButton("Edit Ingredients...",menutable); //Define push button
         pb->setFocusPolicy(Qt::NoFocus);
         menutable->setCellWidget(i,4,pb);
-        connect(pb, &QPushButton::clicked, this, [i, Menus]() { //Connect pb function
+        connect(pb, &QPushButton::clicked, this, [i]() { //Connect pb function
             //Define pb function
             ingtable->setRowCount(0); //delete all rows
             //get ingredients data from lamda variables
@@ -65,7 +66,6 @@ void editmenu::on_RefreshBtn_clicked()
                 ingtable->setItem(j,0,new QTableWidgetItem(QString::fromStdString(ingName[j]))); //Name
                 ingtable->setItem(j,1,new QTableWidgetItem(QString::number(double(ingQuan[j])))); //Quantity
             }
-
         });
 
         menutable->setItem(i,0,new QTableWidgetItem(QString::fromStdString(Menus[i][0]))); //Name
@@ -74,9 +74,22 @@ void editmenu::on_RefreshBtn_clicked()
         //Type
         QString type = QString::fromStdString(Menus[i][2]);
         if(type=="Dishes") menutable->setItem(i,2,new QTableWidgetItem("🍽️Dishes"));
-        else menutable->setItem(i,2,new QTableWidgetItem("🍷Drinks"));
+        else if(type=="Drinks") menutable->setItem(i,2,new QTableWidgetItem("🍷Drinks"));
+        else menutable->setItem(i,2,new QTableWidgetItem("⚠️Not Selected"));
 
         menutable->setItem(i,3,new QTableWidgetItem(QString::number(lenData(Menus[i][3])))); //Ingredients Count
     }
+}
+
+void editmenu::on_AddMenuBtn_clicked()
+{
+    int rowCount = menutable->rowCount(); //get last row position
+    //Create Blank data
+    Menus[rowCount][0]="";
+    Menus[rowCount][1]=0;
+    Menus[rowCount][2]="Not Selected";
+    Menus[rowCount][3]={};
+    Menus[rowCount][4]={};
+    on_RefreshBtn_clicked(true);
 }
 

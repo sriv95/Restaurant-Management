@@ -16,7 +16,9 @@ public:
     ~editmenu();
 
 private slots:
-    void on_RefreshBtn_clicked();
+    void on_RefreshBtn_clicked(bool);
+
+    void on_AddMenuBtn_clicked();
 
 private:
     Ui::editmenu *ui;
