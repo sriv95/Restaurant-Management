@@ -7,14 +7,6 @@
 QTableWidget *menutable;
 QTableWidget *ingtable; //ingredient table
 
-void setupTable(QTableWidget *table){
-    table->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
-    table->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
-    table->horizontalHeader()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
-    table->horizontalHeader()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
-    table->horizontalHeader()->setSectionResizeMode(4, QHeaderView::ResizeToContents);
-}
-
 editmenu::editmenu(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::editmenu)
@@ -27,9 +19,16 @@ editmenu::editmenu(QWidget *parent)
     menutable = ui->MenuTable;
     ingtable = ui->IngTable;
 
-    //Setup Both Table
-    setupTable(menutable);
-    setupTable(ingtable);
+    //Setup Menu Table
+    menutable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+    menutable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+    menutable->horizontalHeader()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
+    menutable->horizontalHeader()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
+    menutable->horizontalHeader()->setSectionResizeMode(4, QHeaderView::ResizeToContents);
+
+    //Setup Ingredients Table
+    ingtable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+    ingtable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
 
     on_RefreshBtn_clicked(); //Refresh on setup
 }
@@ -49,10 +48,25 @@ void editmenu::on_RefreshBtn_clicked()
     //Create rows
     for (int i = 0; i < lenData(Menus); ++i) {
         menutable->insertRow(i); //Insert row
+
+        // Add Button
         QPushButton *pb = new QPushButton("Edit Ingredients...",menutable); //Define push button
         pb->setFocusPolicy(Qt::NoFocus);
-
         menutable->setCellWidget(i,4,pb);
+        connect(pb, &QPushButton::clicked, this, [i, Menus]() { //Connect pb function
+            //Define pb function
+            ingtable->setRowCount(0); //delete all rows
+            //get ingredients data from lamda variables
+            json ingName = Menus[i][3];
+            json ingQuan = Menus[i][4];
+
+            for(int j = 0; j < lenData(ingName); j++){
+                ingtable->insertRow(j); //Insert row
+                ingtable->setItem(j,0,new QTableWidgetItem(QString::fromStdString(ingName[j]))); //Name
+                ingtable->setItem(j,1,new QTableWidgetItem(QString::number(double(ingQuan[j])))); //Quantity
+            }
+
+        });
 
         menutable->setItem(i,0,new QTableWidgetItem(QString::fromStdString(Menus[i][0]))); //Name
         menutable->setItem(i,1,new QTableWidgetItem(QString::number(int(Menus[i][1])))); //Price
