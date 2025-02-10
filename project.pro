@@ -23,6 +23,7 @@ HEADERS += \
     ui/employee.h \
     header/json.h \
     header/nlohmann-json.hpp \
+    header/tables.h \
     mainwindow.h \
     ui/opentabledialog.h \
     ui/reserve.h \

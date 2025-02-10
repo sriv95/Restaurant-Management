@@ -12,6 +12,8 @@ public:
     RestuarantManagement(QWidget *parent = nullptr);
     ~RestuarantManagement();
 
+    // void on_TableBtn_clicked();
+
 private slots:
 
     void on_RefreshBtn_clicked();
@@ -34,6 +36,7 @@ private slots:
 
     void on_ReserveBtn_clicked();
 
+    void getData();
     void updateTablesStatus();
 
     // void onReserveReturnValue(const QString &);
@@ -42,6 +45,8 @@ private slots:
     void on_Stocks_clicked();
 
 private:
+
     Ui::RestuarantManagementClass ui;
     OpenTableDialog *openTableDialog; // Declare OpenTableDialog as a member
+
 };
