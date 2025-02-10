@@ -36,6 +36,8 @@ editmenu::editmenu(QWidget *parent)
     ingtable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
 
     on_RefreshBtn_clicked(false); //Refresh on setup
+
+    connect(menutable, &QTableWidget::itemChanged, this, &editmenu::onMenuTableItemChanged); //Connect item changed (Menu Name)
 }
 
 editmenu::~editmenu()
@@ -60,6 +62,9 @@ void editmenu::RefreshIng(int i){
         Quan->setMaximum(1000000); //Maximum Quan
         Quan->setValue(double(ingQuan[j]));
         ingtable->setCellWidget(j,1,Quan);
+        connect(Quan, &QDoubleSpinBox::valueChanged,this, [i,j](double val){ //Connect Quan QDoubleSpinBox function
+            Menus[i][4][j] = val; //Set Quantity to current value
+        });
     }
 
     //Update information
@@ -95,6 +100,9 @@ void editmenu::on_RefreshBtn_clicked(bool NoGetdata=false)
         Price->setMaximum(1000); //Maximum Price
         Price->setValue(int(Menus[i][1]));
         menutable->setCellWidget(i,1,Price);
+        connect(Price, &QSpinBox::valueChanged,this, [i](int val){ //Connect Price QSpinBox function
+            Menus[i][1] = val; //Set Price to current value
+        });
 
         //Type
         QString type = QString::fromStdString(Menus[i][2]);
@@ -106,9 +114,8 @@ void editmenu::on_RefreshBtn_clicked(bool NoGetdata=false)
         if(type=="Dishes") typebox->setCurrentIndex(0);
         else if(type=="Drinks") typebox->setCurrentIndex(1);
         else typebox->setCurrentIndex(2);
-        connect(typebox, &QComboBox::currentIndexChanged,this, [i, typebox](){ //Connect typebox function
+        connect(typebox, &QComboBox::currentIndexChanged,this, [i](int id){ //Connect typebox function
             //Define typebox function
-            int id = typebox->currentIndex(); //Get Index
             switch (id) {
             case 0:
                 Menus[i][2] = "Dishes";
@@ -208,4 +215,11 @@ void editmenu::on_SaveMenuBtn_clicked()
 
     setData(Menus,"Menus");
     Save_successful_Message.exec();
+}
+
+void editmenu::onMenuTableItemChanged(QTableWidgetItem *item)
+{
+    int Row = item->row();
+    int Col = item->column();
+    if(Col==0) Menus[Row][0] = item->text().toStdString(); //Change Menu Name
 }

@@ -1,6 +1,7 @@
 #ifndef EDITMENU_H
 #define EDITMENU_H
 
+#include "qtablewidget.h"
 #include <QDialog>
 
 namespace Ui {
@@ -29,6 +30,8 @@ private slots:
     void on_DelIngBtn_clicked();
 
     void on_SaveMenuBtn_clicked();
+
+    void onMenuTableItemChanged(QTableWidgetItem *);
 
 private:
     Ui::editmenu *ui;
