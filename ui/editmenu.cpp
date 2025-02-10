@@ -50,6 +50,8 @@ void editmenu::on_RefreshBtn_clicked()
     for (int i = 0; i < lenData(Menus); ++i) {
         menutable->insertRow(i); //Insert row
         QPushButton *pb = new QPushButton("Edit Ingredients...",menutable); //Define push button
+        pb->setFocusPolicy(Qt::NoFocus);
+
         menutable->setCellWidget(i,4,pb);
 
         menutable->setItem(i,0,new QTableWidgetItem(QString::fromStdString(Menus[i][0]))); //Name
