@@ -15,6 +15,9 @@ public:
     explicit editmenu(QWidget *parent = nullptr);
     ~editmenu();
 
+private slots:
+    void on_RefreshBtn_clicked();
+
 private:
     Ui::editmenu *ui;
 };

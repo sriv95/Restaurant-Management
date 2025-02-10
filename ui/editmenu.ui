@@ -39,7 +39,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QTableWidget" name="tableWidget">
+     <widget class="QTableWidget" name="MenuTable">
       <column>
        <property name="text">
         <string>Menu</string>
@@ -53,6 +53,16 @@
       <column>
        <property name="text">
         <string>Price</string>
+       </property>
+       <property name="font">
+        <font>
+         <bold>true</bold>
+        </font>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Type</string>
        </property>
        <property name="font">
         <font>
@@ -85,23 +95,41 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="AddMenuBtn">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
         <property name="text">
          <string>Add Menu</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="DelMenuBtn">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
         <property name="text">
          <string>Delete Menu</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QPushButton" name="RefreshBtn">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
         <property name="text">
-         <string>✏️Note: Double Click To Edit</string>
+         <string>Refresh</string>
         </property>
        </widget>
       </item>
@@ -135,7 +163,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QTableWidget" name="tableWidget_2">
+     <widget class="QTableWidget" name="IngTable">
       <column>
        <property name="text">
         <string>Ingredients</string>
@@ -161,29 +189,47 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="AddIngBtn">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
         <property name="text">
          <string>Add Ingredients</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_4">
+       <widget class="QPushButton" name="DelIngBtn">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
         <property name="text">
          <string>Delete Ingredients</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>✏️Note: Double Click To Edit</string>
         </property>
        </widget>
       </item>
      </layout>
     </item>
    </layout>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>610</y>
+     <width>154</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>✏️Note: Double Click To Edit</string>
+   </property>
   </widget>
  </widget>
  <resources/>
