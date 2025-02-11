@@ -41,8 +41,6 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
 
     ui.Receipt->hide();
     setMainBtnVisible(false);
-
-    on_EditMenu_clicked(); //Edit Menu Fast Test
 }
 
 RestuarantManagement::~RestuarantManagement()
