@@ -52,9 +52,20 @@ void editmenu::RefreshIng(int i){
     json ingName = Menus[i][3];
     json ingQuan = Menus[i][4];
 
+    json Stocks;
+    getData(Stocks,"Stocks");
+
     for(int j = 0; j < lenData(ingName); j++){
         ingtable->insertRow(j); //Insert row
-        ingtable->setItem(j,0,new QTableWidgetItem(QString::fromStdString(ingName[j]))); //Name
+        //Name
+        QComboBox *namebox = new QComboBox;
+        namebox->addItem("-");
+        ingtable->setCellWidget(j,0,namebox);
+        for(auto item : Stocks){ //using iterator for loop
+            QString name = QString::fromStdString(item[0]);
+            namebox->addItem(name);
+            if(QString::fromStdString(ingName[j]) == name ) namebox->setCurrentText(name);
+        }
 
         //Quantity
         QDoubleSpinBox *Quan = new QDoubleSpinBox();
