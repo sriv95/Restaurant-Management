@@ -3,7 +3,7 @@
 
   
 
-My Restaurant Manager using C++, Qt 6.8.1 and [nlohmann-json](https://github.com/nlohmann/json). Application designed to streamline restaurant operations by managing table reservations, orders, and customer information efficiently.
+My Restaurant Manager using C++, Qt 6 and [nlohmann-json](https://github.com/nlohmann/json). Application designed to streamline restaurant operations by managing table reservations, orders, and customer information efficiently.
 
   
 
@@ -17,7 +17,7 @@ My Restaurant Manager using C++, Qt 6.8.1 and [nlohmann-json](https://github.com
 
 -  **(⚒️WIP) 🛒Order Processing**: Track customer orders and update their status from data.
 
--  **(⚒️WIP) 📃Billing System**: Generate bills for customers based on their orders and save billing details.
+-  **📃Billing System**: Generate bills for customers based on their orders and save billing details.
 
 -  **📦Stock Management**: Keep track of inventory to ensure seamless operations.
 
