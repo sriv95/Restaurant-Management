@@ -2,6 +2,7 @@
 #define RESERVE_H
 
 #include <QDialog>
+#include <QString>
 
 namespace Ui {
 class reserve;
