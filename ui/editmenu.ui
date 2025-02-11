@@ -188,7 +188,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>1</string>
+         <string>0</string>
         </property>
        </widget>
       </item>
@@ -201,7 +201,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string>No Selected Menu</string>
         </property>
        </widget>
       </item>

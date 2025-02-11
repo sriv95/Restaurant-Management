@@ -105,6 +105,10 @@ void editmenu::on_RefreshBtn_clicked(bool NoGetdata=false)
     menutable->setRowCount(0); //delete all rows
     ingtable->setRowCount(0); //delete all rows
 
+    //Set Menu Ingredients information
+    ui->ingLabel->setText("No Selected Menu");
+    ui->ingNo->setText("0");
+
     if(!NoGetdata) getData(Menus,"Menus");
 
     //Create rows
