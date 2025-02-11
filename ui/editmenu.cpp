@@ -60,12 +60,16 @@ void editmenu::RefreshIng(int i){
         //Name
         QComboBox *namebox = new QComboBox;
         namebox->addItem("-");
+        namebox->setCurrentIndex(0);
         ingtable->setCellWidget(j,0,namebox);
         for(auto item : Stocks){ //using iterator for loop
             QString name = QString::fromStdString(item[0]);
             namebox->addItem(name);
             if(QString::fromStdString(ingName[j]) == name ) namebox->setCurrentText(name);
         }
+        connect(namebox, &QComboBox::currentTextChanged, this, [i,j](QString val){
+            Menus[i][3][j] = val.toStdString(); //Set Name to current value
+        });
 
         //Quantity
         QDoubleSpinBox *Quan = new QDoubleSpinBox();
