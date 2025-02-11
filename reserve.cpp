@@ -3,13 +3,12 @@
 #include "header/json.h"
 #include <QMessageBox>
 
-extern void setData(json &Data, std::string key);
-extern void getAllData(json &Data);
-
-reserve::reserve(QWidget *parent)
+reserve::reserve(int tableNo,QWidget *parent)
     : QDialog(parent), ui(new Ui::reserve)
 {
     ui->setupUi(this);
+
+    ui->TableNum->setText(QString::number(tableNo));
 }
 
 reserve::~reserve()
@@ -17,18 +16,13 @@ reserve::~reserve()
     delete ui;
 }
 
-void reserve::on_buttonBox_accepted()
+void reserve::on_btnReserve_clicked()
 {
-    bool ok;
-    int tableNum = ui->TableNum->text().trimmed().toInt(&ok);
-    if (!ok || tableNum <= 0) {
-        QMessageBox::warning(this, "Invalid Input", "Please enter a valid table number.");
-        return;
-    }
+    int tableNum = ui->TableNum->text().toInt();
 
-    QString reservationTime = ui->ReservationTime->text().trimmed();
-    QString customerName = ui->CustomerName->text().trimmed();
-    QString phoneNum = ui->PhoneNum->text().trimmed();
+    QString reservationTime = ui->ReservationTime->text();
+    QString customerName = ui->CustomerName->text();
+    QString phoneNum = ui->PhoneNum->text();
 
     if (reservationTime.isEmpty() || customerName.isEmpty() || phoneNum.isEmpty()) {
         QMessageBox::warning(this, "Invalid Input", "Please fill in all fields correctly.");
@@ -36,16 +30,38 @@ void reserve::on_buttonBox_accepted()
     }
 
     json newData;
-    newData["TableNum"] = tableNum;
-    newData["ReservationTime"] = reservationTime.toStdString();
-    newData["CustomerName"] = customerName.toStdString();
-    newData["PhoneNum"] = phoneNum.toStdString();
+    newData[0] = tableNum;
+    newData[1] = reservationTime.toStdString();
+    newData[2] = customerName.toStdString();
+    newData[3] = phoneNum.toStdString();
 
-    json allData;
-    getAllData(allData);
-    std::string key = "Reservation_" + std::to_string(tableNum);
-    setData(newData, key);
+    json Data;
+    getData(Data, "Reservation");
 
-    emit tableReserved(tableNum, customerName);
-    accept();
+    int len = lenData(Data);
+
+    qDebug()<<QString::fromStdString(Data.dump());
+    Data[len] = newData;
+    qDebug()<<QString::fromStdString(Data.dump());
+    setData(Data, "Reservation");
+
+    json tablesData;
+    getData(tablesData, "Tables");
+
+    for (auto &table : tablesData) {
+        if (table["No"] == tableNum) {
+            table["Reserved"] = reservationTime.toStdString();
+            break;
+        }
+    }
+
+    setData(tablesData, "Tables");
+
+    this->close();
 }
+
+void reserve::on_Cancelbtn_clicked()
+{
+    this->close();
+}
+

@@ -5,6 +5,7 @@
 #include <QTimer> //TT
 #include <QDateTime> //TT
 
+
 using namespace std;
 
 int Table_Count = 9;
@@ -57,6 +58,7 @@ void RestuarantManagement::SetSelectingTable(QString no){
     if(ui.SelectingTable->text()!=no) {
         ui.SelectingTable->setText(QString(no));
         setMainBtnVisible(true);
+        updateReserveButtonText(no.toInt()); //TT
     }
     else {
         ui.SelectingTable->setText(QString('0'));
@@ -94,17 +96,65 @@ void RestuarantManagement::on_OpenTableBtn_clicked()
 }
 
 void RestuarantManagement::onTableReturnValue(const QString &data){
-    QString x = data; //handle unused variable
+    QString x = data;
     qDebug("x");
 }
 
 
 void RestuarantManagement::on_ReserveBtn_clicked()
 {
-    reserve reserve;
-    reserve.setModal(true);
-    //connect returnValue
-    reserve.exec();
+    int tableNo = GetSelectingTableNo();
+    if (ui.ReserveBtn->text() == "Unreserve") {
+        removeReservation(tableNo);
+        ui.ReserveBtn->setText("Reserve");
+    } else {
+        reserve reserve(tableNo);
+        reserve.setModal(true);
+        reserve.exec();
+    }
+}
+
+bool RestuarantManagement::isTableReserved(int tableNo) {
+    json reservations;
+    getData(reservations, "Reservation");
+
+    for (const auto &reservation : reservations) {
+        if (reservation[0] == tableNo) {
+            return true;
+        }
+    }
+    return false;
+}
+
+void RestuarantManagement::updateReserveButtonText(int tableNo) {
+    if (isTableReserved(tableNo)) {
+        ui.ReserveBtn->setText("Unreserve");
+    } else {
+        ui.ReserveBtn->setText("Reserve");
+    }
+}
+
+void RestuarantManagement::removeReservation(int tableNo) {
+    json allData;
+    getAllData(allData);
+
+    json updatedReservations = json::array();
+    for (const auto &reservation : allData["Reservation"]) {
+        if (reservation[0] != tableNo) {
+            updatedReservations.push_back(reservation);
+        }
+    }
+    allData["Reservation"] = updatedReservations;
+
+    for (auto &table : allData["Tables"]) {
+        if (table["No"] == tableNo) {
+            table["Reserved"] = "";
+        }
+    }
+
+    setAllData(allData);
+
+    qDebug() << "Reservation for table" << tableNo << "removed.";
 }
 
 // void RestuarantManagement::onReserveReturnValue(const QString &data){

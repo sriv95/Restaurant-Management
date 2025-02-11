@@ -36,6 +36,12 @@ private slots:
 
     void showTime();
 
+    void updateReserveButtonText(int tableNo);
+
+    bool isTableReserved(int tableNo);
+
+    void removeReservation(int tableNo);
+
 private:
     Ui::RestuarantManagementClass ui;
     OpenTableDialog *openTableDialog; // Declare OpenTableDialog as a member
