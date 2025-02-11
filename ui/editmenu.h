@@ -27,8 +27,6 @@ private slots:
 
     void RefreshIng(int);
 
-    void on_DelIngBtn_clicked();
-
     void on_SaveMenuBtn_clicked();
 
     void onMenuTableItemChanged(QTableWidgetItem *);

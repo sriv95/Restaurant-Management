@@ -34,6 +34,7 @@ editmenu::editmenu(QWidget *parent)
     //Setup Ingredients Table
     ingtable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
     ingtable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+    ingtable->horizontalHeader()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
 
     on_RefreshBtn_clicked(false); //Refresh on setup
 
@@ -79,6 +80,18 @@ void editmenu::RefreshIng(int i){
         ingtable->setCellWidget(j,1,Quan);
         connect(Quan, &QDoubleSpinBox::valueChanged,this, [i,j](double val){ //Connect Quan QDoubleSpinBox function
             Menus[i][4][j] = val; //Set Quantity to current value
+        });
+
+        //Delete Button
+        QPushButton *delBtn = new QPushButton("❌");
+        delBtn->setFixedSize(QSize(30,30));
+        ingtable->setCellWidget(j,2,delBtn);
+        connect(delBtn, &QPushButton::clicked, this, [j, i, this](){ //Connect Delete Button function
+            //Define Delete Button Function
+            ingtable->removeRow(j);
+            Menus[i][3].erase(j);
+            Menus[i][4].erase(j);
+            RefreshIng(i);
         });
     }
 
@@ -185,20 +198,6 @@ void editmenu::on_AddIngBtn_clicked()
     RefreshIng(i);
 }
 
-void editmenu::on_DelIngBtn_clicked()
-{
-    for(auto *item : ingtable->selectedItems()) ingtable->removeRow(item->row()); //Delete row using iterator for loop
-    //Save into Menus
-    int index = ui->ingNo->text().toInt()-1; //Find current editing
-    int rowCount = ingtable->rowCount(); //get last row position
-    //Replace data with current data in table
-    Menus[index][3]={}; //clear name
-    Menus[index][4]={}; //clear quantity
-    for(int i=0;i<rowCount;i++){ //i is current row
-        Menus[index][3][i]=ingtable->item(i,0)->text().toStdString(); //set name
-        Menus[index][4][i]=ingtable->item(i,1)->text().toDouble(); //set quantity
-    }
-}
 
 void editmenu::on_SaveMenuBtn_clicked()
 {
@@ -225,6 +224,22 @@ void editmenu::on_SaveMenuBtn_clicked()
         if(lenData(Menus[i][3])<=0){
             QMessageBox::about(this , "❗warning❗" , "❗Save failed.❗There is no ingredients in row " + QString::number(i+1) + ".");
             return;
+        }
+
+        //Handling empty ingredients name
+        for(auto j : Menus[i][3]){
+            if(j==""){
+                QMessageBox::about(this , "❗warning❗" , "❗Save failed.❗There is empty ingredients in row " + QString::number(i+1) + ".");
+                return;
+            }
+        }
+
+        //Handling 0 Quantity
+        for(auto j : Menus[i][4]){
+            if(j==0){
+                QMessageBox::about(this , "❗warning❗" , "❗Save failed.❗There is 0 Quantity in row " + QString::number(i+1) + ".");
+                return;
+            }
         }
     }
 

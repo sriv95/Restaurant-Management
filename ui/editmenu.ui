@@ -229,6 +229,16 @@
         </font>
        </property>
       </column>
+      <column>
+       <property name="text">
+        <string>Del</string>
+       </property>
+       <property name="font">
+        <font>
+         <bold>true</bold>
+        </font>
+       </property>
+      </column>
      </widget>
     </item>
     <item>
@@ -243,19 +253,6 @@
         </property>
         <property name="text">
          <string>Add Ingredients</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="DelIngBtn">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Delete Ingredients</string>
         </property>
        </widget>
       </item>
