@@ -69,88 +69,137 @@
             "Minced-pork-omelette",
             40,
             "Dishes",
-            ["Rice", "Eggs", "Minced pork"],
-            [0.15, 3, 0.2]
+            [
+                "Rice",
+                "Eggs",
+                "Minced pork"
+            ],
+            [
+                0.15,
+                3.0,
+                0.2
+            ]
         ],
         [
             "American-style fried rice",
             50,
             "Dishes",
-            ["Rice", "Ham", "Eggs", "Green peas"],
-            [0.15, 0.1, 1, 0.05]
+            [
+                "Rice",
+                "Ham",
+                "Eggs",
+                "Green peas"
+            ],
+            [
+                0.15,
+                0.1,
+                1,
+                0.05
+            ]
         ],
         [
             "Iced Lemon Tea",
             30,
             "Drinks",
-            ["Black Tea", "Lemon"],
-            [0.2, 1]
+            [
+                "Black Tea",
+                "Lemon"
+            ],
+            [
+                0.2,
+                1
+            ]
         ],
         [
             "Fresh Water Bottle",
             10,
             "Drinks",
-            ["Water Bottle"],
-            [1]
+            [
+                "Water Bottle"
+            ],
+            [
+                1
+            ]
         ],
         [
             "Spicy Basil Chicken Rice",
             45,
             "Dishes",
-            ["Rice", "Chicken", "Basil", "Chili"],
-            [0.15, 0.2, 0.05, 0.02]
+            [
+                "Rice",
+                "Chicken",
+                "Basil",
+                "Chili"
+            ],
+            [
+                0.15,
+                0.2,
+                0.05,
+                0.02
+            ]
         ],
         [
             "Cheesy Beef Burger",
             80,
             "Dishes",
-            ["Bun", "Beef", "Cheese", "Lettuce"],
-            [0.1, 0.2, 0.1, 0.05]
+            [
+                "Bun",
+                "Beef",
+                "Cheese",
+                "Lettuce"
+            ],
+            [
+                0.1,
+                0.2,
+                0.1,
+                0.05
+            ]
         ],
         [
             "Mango Smoothie",
             50,
             "Drinks",
-            ["Mango", "Yogurt", "Honey"],
-            [1, 0.5, 0.1]
+            [
+                "Mango",
+                "Yogurt",
+                "Honey"
+            ],
+            [
+                1,
+                0.5,
+                0.1
+            ]
         ],
         [
             "Green Tea Latte",
             40,
             "Drinks",
-            ["Green Tea", "Milk", "Sugar"],
-            [0.2, 0.5, 0.1]
+            [
+                "Green Tea",
+                "Milk",
+                "Sugar"
+            ],
+            [
+                0.2,
+                0.5,
+                0.1
+            ]
         ],
         [
             "Grilled Salmon Steak",
             120,
             "Dishes",
-            ["Salmon", "Butter", "Lemon"],
-            [0.3, 0.1, 0.05]
+            [
+                "Salmon",
+                "Butter",
+                "Lemon"
+            ],
+            [
+                0.3,
+                0.1,
+                0.05
+            ]
         ]
-    ],
-    "Stocks": [
-        ["Egg", 200],
-        ["Cabbage", 100],
-        ["Carrot", 30],
-        ["Chicken Meat", 80],
-        ["Beef", 50],
-        ["Pork", 150],
-        ["Cheese", 20],
-        ["Fish", 35],
-        ["Basil", 50],
-        ["Chili", 30],
-        ["Bun", 40],
-        ["Lettuce", 50],
-        ["Mango", 30],
-        ["Yogurt", 20],
-        ["Honey", 15],
-        ["Green Tea", 40],
-        ["Milk", 60],
-        ["Sugar", 80],
-        ["Salmon", 25],
-        ["Butter", 30],
-        ["Lemon", 50]
     ],
     "Reservation": [
         [
@@ -159,139 +208,6 @@
             "John",
             "081-012-6789"
         ]
-    ],
-    "Tables": [
-        {
-            "Bills": [
-                [
-                    "Minced-pork-omelette",
-                    "American-style fried rice",
-                    "Iced Lemon Tea"
-                ],
-                [
-                    1,
-                    1,
-                    2
-                ],
-                [
-                    0,
-                    0,
-                    0
-                ]
-            ],
-            "No": 1,
-            "Reserved": "",
-            "Seats": 2
-        },
-        {
-            "Bills": [
-                [
-                    "Minced-pork-omelette",
-                    "Minced-pork-omelette",
-                    "American-style fried rice",
-                    "Fresh Water Bottle"
-                ],
-                [
-                    2,
-                    1,
-                    1,
-                    4
-                ],
-                [
-                    10,
-                    0,
-                    0,
-                    0
-                ]
-            ],
-            "No": 2,
-            "Reserved": "",
-            "Seats": 4
-        },
-        {
-            "Bills": [
-                [
-                    ""
-                ],
-                [],
-                []
-            ],
-            "No": 3,
-            "Reserved": "17:00",
-            "Seats": 4
-        },
-        {
-            "Bills": [
-                [
-                    ""
-                ],
-                [],
-                []
-            ],
-            "No": 4,
-            "Reserved": "",
-            "Seats": 0
-        },
-        {
-            "Bills": [
-                [
-                    ""
-                ],
-                [],
-                []
-            ],
-            "No": 5,
-            "Reserved": "",
-            "Seats": 0
-        },
-        {
-            "Bills": [
-                [
-                    ""
-                ],
-                [],
-                []
-            ],
-            "No": 6,
-            "Reserved": "",
-            "Seats": 0
-        },
-        {
-            "Bills": [
-                [
-                    ""
-                ],
-                [],
-                []
-            ],
-            "No": 7,
-            "Reserved": "",
-            "Seats": 0
-        },
-        {
-            "Bills": [
-                [
-                    ""
-                ],
-                [],
-                []
-            ],
-            "No": 8,
-            "Reserved": "",
-            "Seats": 0
-        },
-        {
-            "Bills": [
-                [
-                    ""
-                ],
-                [],
-                []
-            ],
-            "No": 9,
-            "Reserved": "",
-            "Seats": 0
-        }
     ],
     "Statement": [
         [
@@ -994,5 +910,252 @@
             "02-02-2025",
             "13:07"
         ]
+    ],
+    "Stocks": [
+        [
+            "Eggs",
+            200.0
+        ],
+        [
+            "Cabbage",
+            100.0
+        ],
+        [
+            "Carrot",
+            30.0
+        ],
+        [
+            "Chicken Meat",
+            80.0
+        ],
+        [
+            "Beef",
+            50.0
+        ],
+        [
+            "Pork",
+            150.0
+        ],
+        [
+            "Cheese",
+            20.0
+        ],
+        [
+            "Fish",
+            35.0
+        ],
+        [
+            "Basil",
+            50.0
+        ],
+        [
+            "Chili",
+            30.0
+        ],
+        [
+            "Bun",
+            40.0
+        ],
+        [
+            "Lettuce",
+            50.0
+        ],
+        [
+            "Mango",
+            30.0
+        ],
+        [
+            "Yogurt",
+            20.0
+        ],
+        [
+            "Honey",
+            15.0
+        ],
+        [
+            "Green Tea",
+            40.0
+        ],
+        [
+            "Milk",
+            60.0
+        ],
+        [
+            "Sugar",
+            80.0
+        ],
+        [
+            "Salmon",
+            25.0
+        ],
+        [
+            "Butter",
+            30.0
+        ],
+        [
+            "Lemon",
+            50.0
+        ],
+        [
+            "Rice",
+            100.0
+        ],
+        [
+            "Minced pork",
+            100.0
+        ],
+        [
+            "Ham",
+            50.0
+        ],
+        [
+            "Green peas",
+            10.0
+        ],
+        [
+            "Black Tea",
+            10.0
+        ],
+        [
+            "Water Bottle",
+            500.0
+        ],
+        [
+            "Chicken",
+            100.0
+        ]
+    ],
+    "Tables": [
+        {
+            "Bills": [
+                [
+                    "Minced-pork-omelette",
+                    "American-style fried rice",
+                    "Iced Lemon Tea"
+                ],
+                [
+                    1,
+                    1,
+                    2
+                ],
+                [
+                    0,
+                    0,
+                    0
+                ]
+            ],
+            "No": 1,
+            "Reserved": "",
+            "Seats": 2
+        },
+        {
+            "Bills": [
+                [
+                    "Minced-pork-omelette",
+                    "Minced-pork-omelette",
+                    "American-style fried rice",
+                    "Fresh Water Bottle"
+                ],
+                [
+                    2,
+                    1,
+                    1,
+                    4
+                ],
+                [
+                    10,
+                    0,
+                    0,
+                    0
+                ]
+            ],
+            "No": 2,
+            "Reserved": "",
+            "Seats": 4
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 3,
+            "Reserved": "17:00",
+            "Seats": 4
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 4,
+            "Reserved": "",
+            "Seats": 0
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 5,
+            "Reserved": "",
+            "Seats": 0
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 6,
+            "Reserved": "",
+            "Seats": 0
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 7,
+            "Reserved": "",
+            "Seats": 0
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 8,
+            "Reserved": "",
+            "Seats": 0
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 9,
+            "Reserved": "",
+            "Seats": 0
+        }
     ]
 }

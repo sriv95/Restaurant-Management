@@ -1,0 +1,112 @@
+{
+    "Employee": [],
+    "Menus": [],
+    "Reservation": [],
+    "Statement": [],
+    "Stocks": [],
+    "Tables": [
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 1,
+            "Reserved": "",
+            "Seats": 0
+        },
+        {
+            "Bills": [
+            ],
+            "No": 2,
+            "Reserved": "",
+            "Seats": 4
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 3,
+            "Reserved": "",
+            "Seats": 4
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 4,
+            "Reserved": "",
+            "Seats": 0
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 5,
+            "Reserved": "",
+            "Seats": 0
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 6,
+            "Reserved": "",
+            "Seats": 0
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 7,
+            "Reserved": "",
+            "Seats": 0
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 8,
+            "Reserved": "",
+            "Seats": 0
+        },
+        {
+            "Bills": [
+                [
+                    ""
+                ],
+                [],
+                []
+            ],
+            "No": 9,
+            "Reserved": "",
+            "Seats": 0
+        }
+    ]
+}
