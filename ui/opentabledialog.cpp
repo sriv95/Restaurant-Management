@@ -8,6 +8,7 @@ OpenTableDialog::OpenTableDialog(QWidget *parent)
 {
     ui->setupUi(this);
 
+    this->setWindowTitle("Opentable");
     connect(ui->one, &QPushButton::clicked, this, &OpenTableDialog::on_numBtn_clicked);
     connect(ui->two, &QPushButton::clicked, this, &OpenTableDialog::on_numBtn_clicked);
     connect(ui->three, &QPushButton::clicked, this, &OpenTableDialog::on_numBtn_clicked);
