@@ -138,7 +138,16 @@ void RestuarantManagement::updateTablesStatus()
         QPushButton *button = this->findChild<QPushButton *>(btnName);
         if(button){
             if(seat != 0)button->setText("Table#"+ QString::number(i) + "\n" + QString::number(seat)+ "👤");
-            else if(Reserved !="")button->setText("Table#"+ QString::number(i) + "\nReserved: "+ Reserved);
+            else if(Reserved !=""){
+                json Reservation;
+                ::getData(Reservation,"Reservation");
+                for(auto item : Reservation){
+                    if(item[0]==i&&item[1]==Reserved.toStdString()){
+                        button->setText("Table#"+ QString::number(i) + "\nReserved: "+ Reserved +"\n"+QString::fromStdString(item[2])+"\n"+QString::fromStdString(item[3]));
+                        break;
+                    }
+                }
+            }
             else button->setText("Table#"+ QString::number(i) + "\nAvailable");
 
         }
