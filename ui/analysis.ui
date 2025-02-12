@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1070</width>
-    <height>758</height>
+    <width>1676</width>
+    <height>782</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,13 +16,89 @@
   <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>150</x>
-     <y>110</y>
-     <width>751</width>
-     <height>441</height>
+     <x>20</x>
+     <y>10</y>
+     <width>831</width>
+     <height>521</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="Chart_Layout"/>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>550</y>
+     <width>831</width>
+     <height>221</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="sizeConstraint">
+     <enum>QLayout::SizeConstraint::SetNoConstraint</enum>
+    </property>
+    <item>
+     <widget class="QCalendarWidget" name="calendar_start_date">
+      <property name="firstDayOfWeek">
+       <enum>Qt::DayOfWeek::Monday</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QPushButton" name="accept">
+        <property name="text">
+         <string>Accept</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="comboBox_search_mode">
+        <item>
+         <property name="text">
+          <string>Range</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Day</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Week</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Mouth</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Year</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="Refresh">
+        <property name="text">
+         <string>Refresh</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QCalendarWidget" name="calendar_end_date">
+      <property name="firstDayOfWeek">
+       <enum>Qt::DayOfWeek::Monday</enum>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>

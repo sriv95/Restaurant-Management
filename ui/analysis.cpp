@@ -16,12 +16,247 @@ analysis::analysis(QWidget *parent)
     ui->setupUi(this);
     this->setWindowTitle("Analysis");
     Show_Chart();
+
+    on_Refresh_clicked();
 }
 
 analysis::~analysis()
 {
     delete ui;
 }
+
+
+void analysis::Update_Selectable_and_Highlight_DateRange()
+{
+    QDate startDate = ui->calendar_start_date->selectedDate();
+    QDate endDate = ui->calendar_end_date->selectedDate();
+    ui->calendar_start_date->setMaximumDate(endDate);
+    ui->calendar_end_date->setMinimumDate(startDate);
+
+    // ลบ format เก่าทั้งหมดออก
+    ui->calendar_start_date->setDateTextFormat(QDate(), QTextCharFormat());
+    ui->calendar_end_date->setDateTextFormat(QDate(), QTextCharFormat());
+
+    // สร้าง Format สำหรับไฮไลต์
+    QTextCharFormat Highlight_Range_Format;
+    Highlight_Range_Format.setBackground(Qt::green);
+    Highlight_Range_Format.setForeground(Qt::black);
+
+    for (QDate date = startDate.addDays(1) ; date <= endDate; date = date.addDays(1))
+    {
+        ui->calendar_start_date->setDateTextFormat(date, Highlight_Range_Format);
+        ui->calendar_end_date->setDateTextFormat(date.addDays(-1), Highlight_Range_Format);
+    }
+}
+
+
+void analysis::Update_Highlight_Week()
+{
+    vector<QDate> week_dates = Get_Week_Dates(ui->calendar_start_date->selectedDate());
+
+    // ลบ format เก่าทั้งหมดออก
+    ui->calendar_start_date->setDateTextFormat(QDate(), QTextCharFormat());
+    ui->calendar_end_date->setDateTextFormat(QDate(), QTextCharFormat());
+
+    // สร้าง Format สำหรับไฮไลต์
+    QTextCharFormat Highlight_Format;
+    Highlight_Format.setBackground(Qt::green);
+    Highlight_Format.setForeground(Qt::black);
+
+    for (int i = 0 ; i < week_dates.size() ; i++)
+    {
+        if (week_dates[i] != ui->calendar_start_date->selectedDate()) ui->calendar_start_date->setDateTextFormat(week_dates[i], Highlight_Format);
+    }
+}
+
+
+void analysis::Update_Highlight_Month()
+{
+    vector<QDate> month_dates = Get_Month_Dates(ui->calendar_start_date->selectedDate());
+
+    // ลบ format เก่าทั้งหมดออก
+    ui->calendar_start_date->setDateTextFormat(QDate(), QTextCharFormat());
+    ui->calendar_end_date->setDateTextFormat(QDate(), QTextCharFormat());
+
+    // สร้าง Format สำหรับไฮไลต์
+    QTextCharFormat Highlight_Format;
+    Highlight_Format.setBackground(Qt::green);
+    Highlight_Format.setForeground(Qt::black);
+
+    for (unsigned long int i = 0 ; i < month_dates.size() ; i++)
+    {
+        if (month_dates[i] != ui->calendar_start_date->selectedDate()) ui->calendar_start_date->setDateTextFormat(month_dates[i], Highlight_Format);
+    }
+
+    // for (int i = 0 ; i < month_dates.size() ; i++)
+    // {
+    //     qDebug() << i+1 << ". " << month_dates[i].toString("dd-MM-yyyy");
+    // }
+}
+
+
+void analysis::Update_Highlight_Year()
+{
+    vector<QDate> year_dates = Get_Year_Dates(ui->calendar_start_date->selectedDate());
+
+    // ลบ format เก่าทั้งหมดออก
+    ui->calendar_start_date->setDateTextFormat(QDate(), QTextCharFormat());
+    ui->calendar_end_date->setDateTextFormat(QDate(), QTextCharFormat());
+
+    // สร้าง Format สำหรับไฮไลต์
+    QTextCharFormat Highlight_Format;
+    Highlight_Format.setBackground(Qt::green);
+    Highlight_Format.setForeground(Qt::black);
+
+    for (unsigned long int i = 0 ; i < year_dates.size() ; i++)
+    {
+        if (year_dates[i] != ui->calendar_start_date->selectedDate()) ui->calendar_start_date->setDateTextFormat(year_dates[i], Highlight_Format);
+    }
+
+    // for (int i = 0 ; i < year_dates.size() ; i++)
+    // {
+    //     qDebug() << i+1 << ". " << year_dates[i].toString("dd-MM-yyyy");
+    // }
+}
+
+
+void analysis::on_calendar_start_date_selectionChanged()
+{
+    int searchmode = ui->comboBox_search_mode->currentIndex();
+    if (searchmode == 0)
+    {
+        QDate startDate = ui->calendar_start_date->selectedDate();
+        QDate endDate = ui->calendar_end_date->selectedDate();
+        if (startDate > endDate) ui->calendar_end_date->setSelectedDate(startDate);
+        Update_Selectable_and_Highlight_DateRange();
+    }
+    else if (searchmode == 2)
+    {
+        Update_Highlight_Week();
+    }
+    else if (searchmode == 3)
+    {
+        Update_Highlight_Month();
+    }
+    else if (searchmode == 4)
+    {
+        Update_Highlight_Year();
+    }
+}
+
+
+void analysis::on_calendar_end_date_selectionChanged()
+{
+    int searchmode = ui->comboBox_search_mode->currentIndex();
+    if (searchmode == 0)
+    {
+        QDate startDate = ui->calendar_start_date->selectedDate();
+        QDate endDate = ui->calendar_end_date->selectedDate();
+        if (startDate > endDate) ui->calendar_start_date->setSelectedDate(endDate);
+        Update_Selectable_and_Highlight_DateRange();
+    }
+}
+
+
+void analysis::on_Refresh_clicked()
+{
+    ui->calendar_start_date->setSelectedDate(QDate::currentDate());
+    ui->calendar_end_date->setSelectedDate(QDate::currentDate());
+
+    ui->calendar_start_date->setMaximumDate(QDate::currentDate().addYears(1000));
+    ui->calendar_end_date->setMinimumDate(QDate::currentDate().addYears(-1000));
+
+    // ลบ format ทั้งหมดออก
+    ui->calendar_start_date->setDateTextFormat(QDate(), QTextCharFormat());
+    ui->calendar_end_date->setDateTextFormat(QDate(), QTextCharFormat());
+}
+
+
+void analysis::on_comboBox_search_mode_currentIndexChanged(int searchmode)
+{
+    switch (searchmode) {
+    case 0:
+        on_Refresh_clicked();
+        ui->calendar_start_date->setEnabled(true);
+        ui->calendar_end_date->setEnabled(true);
+        break;
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+        on_Refresh_clicked();
+        ui->calendar_start_date->setEnabled(true);
+        ui->calendar_end_date->setEnabled(false);
+        break;
+    }
+}
+
+
+vector<QDate> analysis::Get_Week_Dates(QDate selected_Date)
+{
+    vector<QDate> week_Dates;
+
+    // หาววันแรกของสัปดา
+    int day_Of_Week = selected_Date.dayOfWeek();  // 1 = จันทร์, 7 = อาทิตย์
+    QDate day_start_Of_Week = selected_Date.addDays(-(day_Of_Week - 1));
+
+    // เพิ่มวันทั้งอาทิตย์เข้า vector
+    for (int i = 0; i < 7; ++i)
+    {
+        week_Dates.push_back(day_start_Of_Week.addDays(i));
+    }
+
+    return week_Dates;
+}
+
+
+vector<QDate> analysis::Get_Month_Dates(QDate selected_Date)
+{
+    vector<QDate> month_Dates;
+
+    // หาววันแรกและวันสุดท้ายของเดือน
+    QDate start_Of_Month(selected_Date.year(), selected_Date.month(), 1); // วันที่ 1 ของเดือนที่เลือก
+    QDate end_Of_Month = start_Of_Month.addMonths(1).addDays(-1); // จะได้วันที่ 1 ของเดือนถัดไป และลบด้วย 1 วัน จะได้วันสุดท้ายของเดือนที่เลือก
+
+     // เพิ่มวันทั้งเดือนเข้า vector
+    for (QDate date = start_Of_Month; date <= end_Of_Month; date = date.addDays(1))
+    {
+        month_Dates.push_back(date);
+    }
+
+    return month_Dates;
+}
+
+
+vector<QDate> analysis::Get_Year_Dates(QDate selected_Date)
+{
+    vector<QDate> year_Dates;
+
+    // หาววันแรกและวันสุดท้ายของปี
+    QDate start_Of_year(selected_Date.year(), selected_Date.month(), 1); // วันที่ 1 ของปีที่เลือก
+    QDate end_Of_year = start_Of_year.addYears(1).addDays(-1); // จะได้วันที่ 1 ของปีถัดไป และลบด้วย 1 วันจะได้วันสุดท้ายของของปีที่เลือก
+
+    // เพิ่มวันทั้งเดือนเข้า vector
+    for (QDate date = start_Of_year; date <= end_Of_year; date = date.addDays(1))
+    {
+        year_Dates.push_back(date);
+    }
+
+    return year_Dates;
+}
+
+
+void analysis::on_calendar_start_date_currentPageChanged(int year, int month)
+{
+    int searchmode = ui->comboBox_search_mode->currentIndex();
+    switch (searchmode) {
+    case 3:
+    case 4:
+        ui->calendar_start_date->setSelectedDate(QDate(year , month , 1));
+        break;
+    }
+}
+
 
 void analysis::Show_Chart()
 {
@@ -128,3 +363,6 @@ void analysis::Show_Chart()
 
     //==================================================================================//
 }
+
+
+
