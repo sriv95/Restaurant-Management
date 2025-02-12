@@ -139,7 +139,7 @@ void RestuarantManagement::updateTablesStatus()
         if(button){
             if(seat != 0)button->setText("Table#"+ QString::number(i) + "\n" + QString::number(seat)+ "👤");
             else if(Reserved !="")button->setText("Table#"+ QString::number(i) + "\nReserved: "+ Reserved);
-            else button->setText("Table#"+ QString::number(i) + "\nAvallable");
+            else button->setText("Table#"+ QString::number(i) + "\nAvailable");
 
         }
         else  qDebug()<<"Error: Button Not Found (Button Name: "<<btnName<<")";
@@ -312,11 +312,12 @@ void RestuarantManagement::on_ReserveBtn_clicked()
         reserve.setModal(true);
         reserve.exec();
     }
+    on_RefreshBtn_clicked();
 }
 
 bool RestuarantManagement::isTableReserved(int tableNo) {
     json reservations;
-    getData(reservations, "Reservation");
+    ::getData(reservations, "Reservation");
 
     for (const auto &reservation : reservations) {
         if (reservation[0] == tableNo) {
