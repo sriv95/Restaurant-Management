@@ -9,6 +9,7 @@
 #include <ui/opentabledialog.h>
 #include <ui/reserve.h>
 #include <ui/stockwindow.h>
+#include "ui/jsoncheck.h"
 
 json restaurantData;
 
@@ -313,4 +314,23 @@ void RestuarantManagement::on_Stocks_clicked()
     stockWin->activateWindow();
 }
 
+
+
+void RestuarantManagement::on_backtosetup_clicked()
+{
+    this->hide();
+
+
+    jsoncheck *jsonCheck = new jsoncheck();
+    jsonCheck->setWindowTitle("File Configuration");
+    jsonCheck->show();
+
+
+    QEventLoop loop;
+    QObject::connect(jsonCheck, &QWidget::destroyed, &loop, &QEventLoop::quit);
+    loop.exec();
+
+
+    this->show();
+}
 

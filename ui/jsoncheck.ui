@@ -6,50 +6,89 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>377</width>
-    <height>408</height>
+    <width>719</width>
+    <height>621</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="newBtn">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>210</y>
-     <width>80</width>
-     <height>24</height>
+     <x>300</x>
+     <y>340</y>
+     <width>121</width>
+     <height>41</height>
     </rect>
    </property>
-   <property name="text">
-    <string>New</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_2">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>260</y>
-     <width>80</width>
-     <height>24</height>
-    </rect>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
    <property name="text">
     <string>Open</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QPushButton" name="openBtn">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>70</y>
-     <width>91</width>
-     <height>51</height>
+     <x>300</x>
+     <y>440</y>
+     <width>121</width>
+     <height>41</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>New</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="textlabel">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>120</y>
+     <width>561</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LayoutDirection::LeftToRight</enum>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
    </property>
    <property name="text">
     <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="continueBtn">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>570</y>
+     <width>121</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Continue -&gt;</string>
    </property>
   </widget>
  </widget>

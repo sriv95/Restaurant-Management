@@ -10,4 +10,4 @@ void getAllData(json &);
 void setData(json &,string);
 void setAllData(json &);
 int lenData(json &);
-bool checkData(json &);
+
