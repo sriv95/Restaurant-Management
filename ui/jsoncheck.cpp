@@ -104,8 +104,6 @@ void jsoncheck::on_newBtn_clicked()
 
 void jsoncheck::on_openBtn_clicked()
 {
-    QMessageBox::information(this, "Test", "Open button clicked!");  // Show message box for testing
-
     QString filePath = QFileDialog::getOpenFileName(this, "Select data.json", "", "JSON Files (*.json)");
 
     if (!filePath.isEmpty()) {
