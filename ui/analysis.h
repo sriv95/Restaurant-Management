@@ -30,6 +30,8 @@ private slots:
 
     void on_calendar_start_date_currentPageChanged(int year, int month);
 
+    void on_accept_clicked();
+
 private:
     Ui::analysis *ui;
 
@@ -50,6 +52,8 @@ private:
     void Update_Highlight_Month();
 
     void Update_Highlight_Year();
+
+    void Refresh_calendar();
 };
 
 #endif // ANALYSIS_H

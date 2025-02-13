@@ -26,6 +26,9 @@ analysis::~analysis()
     delete ui;
 }
 
+//========================================//
+
+
 struct Menus_struct
 {
     vector<string> name;
@@ -40,10 +43,21 @@ json menus , statement;
 vector<double> chartData_income , chartData_expenses;
 vector<QDate> chartData_Date;
 
+vector<QDate> week_dates , month_dates , year_dates;
+
+QChartView *chartView;
+
+//========================================//
+
 void analysis::startUI_setup()
 {
+    chartView = 0;
+    Refresh_calendar();
+    ui->comboBox_search_mode->setCurrentIndex(5);
+    ui->calendar_start_date->setEnabled(false);
+    ui->calendar_end_date->setEnabled(false);
 
-    on_Refresh_clicked();
+    ui->NO_DATA->hide();
 
     getData(menus , "Menus");
     getData(statement , "Statement");
@@ -125,6 +139,7 @@ void analysis::startUI_setup()
     }
 }
 
+
 void analysis::Update_Selectable_and_Highlight_DateRange()
 {
     QDate startDate = ui->calendar_start_date->selectedDate();
@@ -151,7 +166,7 @@ void analysis::Update_Selectable_and_Highlight_DateRange()
 
 void analysis::Update_Highlight_Week()
 {
-    vector<QDate> week_dates = Get_Week_Dates(ui->calendar_start_date->selectedDate());
+    week_dates = Get_Week_Dates(ui->calendar_start_date->selectedDate());
 
     // ลบ format เก่าทั้งหมดออก
     ui->calendar_start_date->setDateTextFormat(QDate(), QTextCharFormat());
@@ -162,7 +177,7 @@ void analysis::Update_Highlight_Week()
     Highlight_Format.setBackground(Qt::green);
     Highlight_Format.setForeground(Qt::black);
 
-    for (int i = 0 ; i < week_dates.size() ; i++)
+    for (unsigned int i = 0 ; i < week_dates.size() ; i++)
     {
         if (week_dates[i] != ui->calendar_start_date->selectedDate()) ui->calendar_start_date->setDateTextFormat(week_dates[i], Highlight_Format);
     }
@@ -171,7 +186,7 @@ void analysis::Update_Highlight_Week()
 
 void analysis::Update_Highlight_Month()
 {
-    vector<QDate> month_dates = Get_Month_Dates(ui->calendar_start_date->selectedDate());
+    month_dates = Get_Month_Dates(ui->calendar_start_date->selectedDate());
 
     // ลบ format เก่าทั้งหมดออก
     ui->calendar_start_date->setDateTextFormat(QDate(), QTextCharFormat());
@@ -196,7 +211,7 @@ void analysis::Update_Highlight_Month()
 
 void analysis::Update_Highlight_Year()
 {
-    vector<QDate> year_dates = Get_Year_Dates(ui->calendar_start_date->selectedDate());
+    year_dates = Get_Year_Dates(ui->calendar_start_date->selectedDate());
 
     // ลบ format เก่าทั้งหมดออก
     ui->calendar_start_date->setDateTextFormat(QDate(), QTextCharFormat());
@@ -228,19 +243,24 @@ void analysis::on_calendar_start_date_selectionChanged()
         QDate endDate = ui->calendar_end_date->selectedDate();
         if (startDate > endDate) ui->calendar_end_date->setSelectedDate(startDate);
         Update_Selectable_and_Highlight_DateRange();
+        Show_Chart();
     }
     else if (searchmode == 2)
     {
         Update_Highlight_Week();
+        Show_Chart();
     }
     else if (searchmode == 3)
     {
         Update_Highlight_Month();
+        Show_Chart();
     }
     else if (searchmode == 4)
     {
         Update_Highlight_Year();
+        Show_Chart();
     }
+    else Show_Chart();
 }
 
 
@@ -253,11 +273,18 @@ void analysis::on_calendar_end_date_selectionChanged()
         QDate endDate = ui->calendar_end_date->selectedDate();
         if (startDate > endDate) ui->calendar_start_date->setSelectedDate(endDate);
         Update_Selectable_and_Highlight_DateRange();
+        Show_Chart();
     }
 }
 
 
 void analysis::on_Refresh_clicked()
+{
+    Refresh_calendar();
+}
+
+
+void analysis::Refresh_calendar()
 {
     ui->calendar_start_date->setSelectedDate(QDate::currentDate());
     ui->calendar_end_date->setSelectedDate(QDate::currentDate());
@@ -285,6 +312,11 @@ void analysis::on_comboBox_search_mode_currentIndexChanged(int searchmode)
     case 4:
         on_Refresh_clicked();
         ui->calendar_start_date->setEnabled(true);
+        ui->calendar_end_date->setEnabled(false);
+        break;
+    case 5:
+        on_Refresh_clicked();
+        ui->calendar_start_date->setEnabled(false);
         ui->calendar_end_date->setEnabled(false);
         break;
     }
@@ -354,24 +386,87 @@ void analysis::on_calendar_start_date_currentPageChanged(int year, int month)
         ui->calendar_start_date->setSelectedDate(QDate(year , month , 1));
         break;
     }
+
+    Show_Chart();
 }
 
 
 void analysis::Show_Chart()
 {
+    ui->NO_DATA->hide();
+
+    //==================================================================================//
+
+    if (chartView != 0)
+    {
+        ui->Chart_Layout->removeWidget(chartView);
+        delete chartView;
+        chartView = 0;
+    }
+
+    //==================================================================================//
+
+    QDate minDate_range , maxDate_range;
+    int searchmode = ui->comboBox_search_mode->currentIndex();
+    switch (searchmode)
+    {
+    case 0:
+        minDate_range = ui->calendar_start_date->selectedDate();
+        maxDate_range = ui->calendar_end_date->selectedDate();
+        break;
+    case 1:
+        minDate_range = ui->calendar_start_date->selectedDate();
+        maxDate_range = minDate_range;
+        break;
+    case 2:
+        minDate_range = week_dates[0];
+        maxDate_range = week_dates[week_dates.size()-1];
+        break;
+    case 3:
+        minDate_range = month_dates[0];
+        maxDate_range = month_dates[month_dates.size()-1];
+        break;
+    case 4:
+        minDate_range = year_dates[0];
+        maxDate_range = year_dates[year_dates.size()-1];
+        break;
+    case 5:
+        minDate_range = QDate::currentDate().addYears(-1000);
+        maxDate_range = QDate::currentDate().addYears(1000);
+        break;
+    }
+
+    //==================================================================================//
+
     // Create a line series
-    vector<QDate> xData = chartData_Date;
-    vector<double> income_Data = chartData_income;
-    vector<double> expenses_Data = chartData_expenses;
-
-
     QLineSeries *series_income = new QLineSeries;
     QLineSeries *series_expenses = new QLineSeries;
 
-    for (unsigned int i = 0; i < xData.size(); i++) {
-        qint64 xValue = xData[i].startOfDay().toMSecsSinceEpoch();
-        series_income->append(xValue, income_Data[i]);
-        series_expenses->append(xValue, expenses_Data[i]);
+    int add_count = 0;
+    for (unsigned int i = 0; i < chartData_Date.size(); i++)
+    {
+        if (chartData_Date[i] < minDate_range or chartData_Date[i] > maxDate_range) continue;
+
+        qint64 xValue = chartData_Date[i].startOfDay().toMSecsSinceEpoch();
+        series_income->append(xValue, chartData_income[i]);
+        series_expenses->append(xValue, chartData_expenses[i]);
+        add_count++;
+    }
+
+    //==================================================================================//
+    QPointF income_ONE_point , expenses_ONE_point;
+    if (add_count == 1)
+    {
+        income_ONE_point = series_income->at(0);
+        expenses_ONE_point = series_expenses->at(0);
+
+        series_income->clear();
+        series_income->append(income_ONE_point.x()+1 , income_ONE_point.y());
+        series_income->append(income_ONE_point.x()+2 , income_ONE_point.y());
+
+        series_expenses->clear();
+        series_expenses->append(expenses_ONE_point.x()+1 , expenses_ONE_point.y());
+        series_expenses->append(expenses_ONE_point.x()+2 , expenses_ONE_point.y());
     }
 
     //==================================================================================//
@@ -400,18 +495,28 @@ void analysis::Show_Chart()
     //chart->createDefaultAxes(); //เป็นฟังก์ชันใน Qt Charts ที่ใช้ สร้างแกน X และแกน Y โดยอัตโนมัติ ตามข้อมูลที่เพิ่มเข้าไปในกราฟ
     // ใช้ QDateTimeAxis สำหรับแกน X
     QDateTimeAxis *axisX = new QDateTimeAxis;
-    axisX->setFormat("dd MMM"); // ตั้งค่าการแสดงผลวันที่
-    if (xData.size() < 10) axisX->setTickCount(xData.size());
-    else axisX->setTickCount(10);
+    axisX->setFormat("dd MMM yy"); // ตั้งค่าการแสดงผลวันที่
     axisX->setTitleText("Date");
+    if (add_count >= 10) axisX->setTickCount(10);
+    else if (add_count < 10 and add_count > 1) axisX->setTickCount(add_count);
+    else if (add_count == 1)
+    {
+        axisX->setRange(QDateTime::fromMSecsSinceEpoch(income_ONE_point.x()+1) , QDateTime::fromMSecsSinceEpoch(income_ONE_point.x()+2));
+        axisX->setTickCount(2);
+    }
+    else
+    {
+        axisX->setRange(QDateTime(minDate_range , QTime(0,0,1)) , QDateTime(maxDate_range , QTime(0,0,2)));
+        axisX->setTickCount(2);
+    }
+
 
     \
-    // vector<long double> max_y(2);
-    // max_y.push_back(*max_element(income_Data.begin() , income_Data.end()));
-    // max_y.push_back(*max_element(expenses_Data.begin() , expenses_Data.end()));
-
+    vector<long double> max_y(2);
+    max_y.push_back(*max_element(chartData_income.begin() , chartData_income.end()));
+    max_y.push_back(*max_element(chartData_expenses.begin() , chartData_expenses.end()));
     QValueAxis *axisY = new QValueAxis;
-    // axisY->setRange(0, *max_element(max_y.begin() , max_y.end()));
+    axisY->setRange(0, *max_element(max_y.begin() , max_y.end()));
     axisY->setTickCount(10);
     axisY->setLabelFormat("%.2f");
     axisY->setTitleText("Amount");
@@ -426,7 +531,7 @@ void analysis::Show_Chart()
     //==================================================================================//
 
     // Create chart view
-    QChartView *chartView = new QChartView(chart);
+    chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing); //ทำให้เส้นคมชัดขึ้น
 
     //==================================================================================//
@@ -435,7 +540,16 @@ void analysis::Show_Chart()
     ui->Chart_Layout->addWidget(chartView);
 
     //==================================================================================//
+
+    if (add_count == 0)
+    {
+        ui->NO_DATA->show();
+    }
 }
 
 
+void analysis::on_accept_clicked()
+{
+    Show_Chart();
+}
 
