@@ -53,7 +53,7 @@
    </column>
    <column>
     <property name="text">
-     <string>Age</string>
+     <string> Age </string>
     </property>
     <property name="font">
      <font>
@@ -63,7 +63,7 @@
    </column>
    <column>
     <property name="text">
-     <string>Gender</string>
+     <string> Gender </string>
     </property>
     <property name="font">
      <font>
@@ -73,7 +73,7 @@
    </column>
    <column>
     <property name="text">
-     <string>Salary</string>
+     <string> Salary </string>
     </property>
     <property name="font">
      <font>
@@ -83,7 +83,7 @@
    </column>
    <column>
     <property name="text">
-     <string>Job</string>
+     <string> Job </string>
     </property>
     <property name="font">
      <font>
