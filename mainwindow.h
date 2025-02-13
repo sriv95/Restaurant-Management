@@ -36,6 +36,8 @@ private slots:
 
     void updateTablesStatus();
 
+    void resizeEvent(QResizeEvent *event) override;
+
     // void onReserveReturnValue(const QString &);
 
     void on_Employee_clicked();

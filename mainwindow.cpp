@@ -5,6 +5,8 @@
 #include <ui/opentabledialog.h>
 #include <ui/reserve.h>
 #include <ui/stockwindow.h>
+#include <QResizeEvent>
+#include <QScreen>
 
 
 using namespace std;
@@ -192,6 +194,25 @@ void RestuarantManagement::on_Stocks_clicked()
     stockWin->show();
     stockWin->raise();
     stockWin->activateWindow();
+}
+
+void RestuarantManagement::resizeEvent(QResizeEvent *event){
+    QSize newSize = event->size();
+    // คำนวณขนาดใหม่ตามอัตราส่วน 4:3
+
+
+    int newWidth = newSize.width();
+    int newHeight = (newWidth * 3) / 4;
+
+    qDebug() << "New Width:" << newWidth << ", New Height:" << newHeight;
+
+    if (newHeight > newSize.height()) {
+    }
+
+
+    resize(newWidth, newHeight);
+
+
 }
 
 
