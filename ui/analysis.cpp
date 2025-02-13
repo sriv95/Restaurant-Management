@@ -53,7 +53,7 @@ void analysis::startUI_setup()
 {
     chartView = 0;
     Refresh_calendar();
-    ui->comboBox_search_mode->setCurrentIndex(5);
+
     ui->calendar_start_date->setEnabled(false);
     ui->calendar_end_date->setEnabled(false);
 
@@ -132,6 +132,8 @@ void analysis::startUI_setup()
             sorted_index.push_back(chnaged_index);
         }
     }
+
+    ui->comboBox_search_mode->setCurrentIndex(5);
 
     for (unsigned int i = 0 ; i < chartData_Date.size() ; i++)
     {
@@ -302,22 +304,43 @@ void analysis::on_comboBox_search_mode_currentIndexChanged(int searchmode)
 {
     switch (searchmode) {
     case 0:
-        on_Refresh_clicked();
+        Refresh_calendar();
         ui->calendar_start_date->setEnabled(true);
         ui->calendar_end_date->setEnabled(true);
+        Show_Chart();
         break;
     case 1:
-    case 2:
-    case 3:
-    case 4:
-        on_Refresh_clicked();
+        Refresh_calendar();
         ui->calendar_start_date->setEnabled(true);
         ui->calendar_end_date->setEnabled(false);
+        Show_Chart();
+        break;
+    case 2:
+        Refresh_calendar();
+        ui->calendar_start_date->setEnabled(true);
+        ui->calendar_end_date->setEnabled(false);
+        Update_Highlight_Week();
+        Show_Chart();
+        break;
+    case 3:
+        Refresh_calendar();
+        ui->calendar_start_date->setEnabled(true);
+        ui->calendar_end_date->setEnabled(false);
+        Update_Highlight_Month();
+        Show_Chart();
+        break;
+    case 4:
+        Refresh_calendar();
+        ui->calendar_start_date->setEnabled(true);
+        ui->calendar_end_date->setEnabled(false);
+        Update_Highlight_Year();
+        Show_Chart();
         break;
     case 5:
-        on_Refresh_clicked();
+        Refresh_calendar();
         ui->calendar_start_date->setEnabled(false);
         ui->calendar_end_date->setEnabled(false);
+        Show_Chart();
         break;
     }
 }
