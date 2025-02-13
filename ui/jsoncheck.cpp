@@ -11,7 +11,7 @@
 
 using namespace std;
 
-const string Keys[] = {"Employee", "Menus", "Reservation", "Statement", "Stocks", "Tables"};
+
 jsoncheck::jsoncheck(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::jsoncheck)
@@ -21,13 +21,16 @@ jsoncheck::jsoncheck(QWidget *parent)
     ui->textlabel->setWordWrap(true);
     ui->continueBtn->setVisible(false);
 
-    QFileInfo fileInfo("data.json");
-    if (fileInfo.exists()) {
-        ui->textlabel->setText("✅Data found at " + fileInfo.absoluteFilePath() + "✅");
-        ui->continueBtn->setVisible(true);
-    } else {
-        ui->textlabel->setText("⚠️Data Not Found⚠️");
-    }
+        QString openFilePath = "data.json";
+        QFileInfo openFileInfo(openFilePath);
+
+        if (openFileInfo.exists()) {
+            ui->textlabel->setText("✅ Data found at " + openFileInfo.absoluteFilePath() + "✅");
+            ui->continueBtn->setVisible(true);
+        } else {
+            ui->textlabel->setText("⚠️Data Not Found⚠️");
+        }
+
 }
 
 
@@ -37,45 +40,13 @@ jsoncheck::~jsoncheck()
     delete ui;
 }
 
-QJsonObject createTemplate() {
-    QJsonObject jsonObject;
-    jsonObject["Employee"] = QJsonArray();
-    jsonObject["Menus"] = QJsonArray();
-    jsonObject["Reservation"] = QJsonArray();
-    jsonObject["Statement"] = QJsonArray();
-    jsonObject["Stocks"] = QJsonArray();
-
-    QJsonArray tablesArray;
-    for (int i=1; i <= 9; ++i) {
-        QJsonObject tableObject;
-        QJsonArray billsArray;
-        QJsonArray menu;
-
-        menu.append("");
-        billsArray.append(menu);  // Menu items
-        billsArray.append(QJsonArray());  // Quantities
-        billsArray.append(QJsonArray());
-
-        tableObject["Bills"] = billsArray;
-        tableObject["No"] = i;
-        tableObject["Reserved"] = "";
-        tableObject["Seats"] = 0;
-
-        tablesArray.append(tableObject);
-    }
-
-    jsonObject["Tables"] = tablesArray;
-
-    return jsonObject;
-}
-
 
 void jsoncheck::on_newBtn_clicked()
 {
     newData();
+    currentFilePath = "data.json";
 
-
-        QFileInfo fileInfo(currentFilePath);
+        QFileInfo fileInfo("data.json");
 
         QMessageBox Created;
         Created.setText("data.json has been created successfully. 😃😘💪🏿💪🏿");
@@ -106,7 +77,7 @@ void jsoncheck::on_openBtn_clicked()
         Opened.setWindowFlags(Qt::Popup);
         Opened.exec();
 
-        ui->textlabel->setText("Data found at " + filePath + " ✔️");
+        ui->textlabel->setText("Data opened at " + filePath + " ✔️");
         ui->continueBtn->setVisible(true);
         } else {
         qDebug() << "No file selected";

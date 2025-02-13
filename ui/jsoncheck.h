@@ -16,6 +16,7 @@ public:
     explicit jsoncheck(QWidget *parent = nullptr);
     ~jsoncheck();
 
+
 private slots:
 
     void on_openBtn_clicked();
@@ -28,6 +29,7 @@ private slots:
 private:
     Ui::jsoncheck *ui;
     QString currentFilePath;
+
 
 };
 
