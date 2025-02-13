@@ -33,6 +33,8 @@ private slots:
 private:
     Ui::analysis *ui;
 
+    void startUI_setup();
+
     void Show_Chart();
 
     void Update_Selectable_and_Highlight_DateRange();
