@@ -17,7 +17,6 @@ public:
     ~jsoncheck();
 
 private slots:
-    void on_pushButton_clicked();
 
     void on_openBtn_clicked();
 
@@ -25,8 +24,12 @@ private slots:
 
     void on_continueBtn_clicked();
 
+
+    void on_delBtn_clicked();
+
 private:
     Ui::jsoncheck *ui;
+
 };
 
 #endif // JSONCHECK_H

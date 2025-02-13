@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iomanip>
 
+
 string PATH="data.json";
 
 void getData(json &Data,string key){
@@ -42,4 +43,3 @@ int lenData(json &Data){
     }
     return i;
 }
-

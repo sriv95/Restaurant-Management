@@ -11,11 +11,5 @@ int main(int argc, char *argv[])
     jsonCheck->show();
 
 
-    QEventLoop loop;
-    QObject::connect(jsonCheck, &QWidget::destroyed, &loop, &QEventLoop::quit);
-    loop.exec();
-
-
-
     return a.exec();
 }

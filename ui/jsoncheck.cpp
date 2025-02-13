@@ -9,6 +9,9 @@
 #include <QJsonArray>
 #include <QFileInfo>
 
+using namespace std;
+
+const string Keys[] = {"Employee", "Menus", "Reservation", "Statement", "Stocks", "Tables"};
 jsoncheck::jsoncheck(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::jsoncheck)
@@ -34,7 +37,7 @@ jsoncheck::~jsoncheck()
     delete ui;
 }
 
-QJsonObject createTemplateData() {
+QJsonObject createTemplate() {
     QJsonObject jsonObject;
     jsonObject["Employee"] = QJsonArray();
     jsonObject["Menus"] = QJsonArray();
@@ -51,7 +54,7 @@ QJsonObject createTemplateData() {
         menu.append("");
         billsArray.append(menu);  // Menu items
         billsArray.append(QJsonArray());  // Quantities
-        billsArray.append(QJsonArray());  // Modifiers
+        billsArray.append(QJsonArray());
 
         tableObject["Bills"] = billsArray;
         tableObject["No"] = i;
@@ -74,9 +77,7 @@ void jsoncheck::on_newBtn_clicked()
     qDebug() << "Opening file to create new data: " << file.fileName();
 
     if (file.open(QIODevice::WriteOnly)) {
-        qDebug() << "File opened successfully for writing.";
-
-        QJsonObject jsonObject = createTemplateData();
+        QJsonObject jsonObject = createTemplate();
 
         // Create the QJsonDocument and write to file
         QJsonDocument doc(jsonObject);
@@ -84,11 +85,17 @@ void jsoncheck::on_newBtn_clicked()
         file.close();
 
         QFileInfo fileInfo(file.fileName());
-        ui->textlabel->setText("Data created at " + fileInfo.absoluteFilePath());
+        // QMessageBox::information(this, "Created successful", "data.json has been created successfully. 😃😘💪🏿💪🏿");
+        QMessageBox Created;
+        Created.setText("data.json has been created successfully. 😃😘💪🏿💪🏿");
+        Created.setIcon(QMessageBox::Information);
+        Created.setWindowFlags(Qt::Popup);
+        Created.exec();
+
+        ui->textlabel->setText("Data created at " + fileInfo.absoluteFilePath() + " ✔️");
         ui->continueBtn->setVisible(true);
 
     } else {
-        qDebug() << "Failed to open file for writing.";
         QMessageBox::critical(this, "Error", "Could not create the file.");
     }
 }
@@ -97,8 +104,6 @@ void jsoncheck::on_newBtn_clicked()
 
 void jsoncheck::on_openBtn_clicked()
 {
-    qDebug() << "Open button clicked";
-
     QMessageBox::information(this, "Test", "Open button clicked!");  // Show message box for testing
 
     QString filePath = QFileDialog::getOpenFileName(this, "Select data.json", "", "JSON Files (*.json)");
@@ -109,7 +114,6 @@ void jsoncheck::on_openBtn_clicked()
         if (QFile::exists("data.json")) {
             // If it exists, remove the existing file first
             if (!QFile::remove("data.json")) {
-                qDebug() << "Failed to remove existing data.json";
                 ui->textlabel->setText("Error removing existing data.json.");
                 return;
             } else {
@@ -118,11 +122,17 @@ void jsoncheck::on_openBtn_clicked()
         }
 
         if (QFile::copy(filePath, "data.json")) {
-            qDebug() << "File copied successfully";
-            ui->textlabel->setText("Data found at " + filePath);
+            // QMessageBox::information(this, "Opened successful", "data.json has been opened successfully. 😉💋💋");
+            QMessageBox Opened;
+            Opened.setText("data.json has been opened successfully. 😉💋💋");
+            Opened.setIcon(QMessageBox::Information);
+            Opened.setWindowFlags(Qt::Popup);
+            Opened.exec();
+
+            ui->textlabel->setText("Data found at " + filePath + " ✔️");
             ui->continueBtn->setVisible(true);
+
         } else {
-            qDebug() << "Error copying file";
             ui->textlabel->setText("Error copying file.");
         }
     } else {
@@ -138,5 +148,29 @@ void jsoncheck::on_continueBtn_clicked()
     mainWindow->show();
 
     this->close();
+}
+
+
+void jsoncheck::on_delBtn_clicked()
+{
+    QFile file("data.json");
+
+    if (file.exists()) {
+        if (file.remove()) {
+            ui->continueBtn->setVisible(false);
+            ui->textlabel->setText("⚠️Data Not Found⚠️");
+            // QMessageBox::information(this, "File Deleted", "data.json has been deleted successfully. 💀💀💀");
+            QMessageBox Filedeleted;
+            Filedeleted.setText("data.json has been deleted successfully. 💀💀💀");
+            Filedeleted.setIcon(QMessageBox::Information);
+            Filedeleted.setWindowFlags(Qt::Popup);
+            Filedeleted.exec();
+
+        } else {
+            QMessageBox::critical(this, "Error", "Failed to delete data.json.");
+        }
+    } else {
+        QMessageBox::warning(this, "File Not Found", "data.json does not exist.");
+    }
 }
 
