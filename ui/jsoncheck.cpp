@@ -59,7 +59,7 @@ QJsonObject createTemplate() {
         tableObject["Bills"] = billsArray;
         tableObject["No"] = i;
         tableObject["Reserved"] = "";
-        tableObject["Seats"] = ((i==2 || i==3) ? 4 : 0);
+        tableObject["Seats"] = 0;
 
         tablesArray.append(tableObject);
     }
