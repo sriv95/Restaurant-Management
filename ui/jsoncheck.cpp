@@ -144,9 +144,6 @@ void jsoncheck::on_openBtn_clicked()
 
 void jsoncheck::on_continueBtn_clicked()
 {
-    RestuarantManagement *mainWindow = new RestuarantManagement();
-    mainWindow->show();
-
     this->close();
 }
 
