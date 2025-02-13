@@ -54,6 +54,10 @@ private:
     void Update_Highlight_Year();
 
     void Refresh_calendar();
+
+    void Summary();
+
+    vector<QDate> Date_range_now();
 };
 
 #endif // ANALYSIS_H
