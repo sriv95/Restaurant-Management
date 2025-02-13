@@ -1,14 +1,14 @@
 #ifndef JSONCHECK_H
 #define JSONCHECK_H
 
-#include <QWidget>
+#include <QDialog>
 #include <header/json.h>
 
 namespace Ui {
 class jsoncheck;
 }
 
-class jsoncheck : public QWidget
+class jsoncheck : public QDialog
 {
     Q_OBJECT
 

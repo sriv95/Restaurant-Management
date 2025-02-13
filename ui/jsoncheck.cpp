@@ -13,7 +13,7 @@ using namespace std;
 
 const string Keys[] = {"Employee", "Menus", "Reservation", "Statement", "Stocks", "Tables"};
 jsoncheck::jsoncheck(QWidget *parent)
-    : QWidget(parent)
+    : QDialog(parent)
     , ui(new Ui::jsoncheck)
 {
     ui->setupUi(this);

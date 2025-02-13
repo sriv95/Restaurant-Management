@@ -318,19 +318,8 @@ void RestuarantManagement::on_Stocks_clicked()
 
 void RestuarantManagement::on_backtosetup_clicked()
 {
-    this->hide();
-
-
-    jsoncheck *jsonCheck = new jsoncheck();
+    jsoncheck *jsonCheck = new jsoncheck(this);
     jsonCheck->setWindowTitle("File Configuration");
-    jsonCheck->show();
-
-
-    QEventLoop loop;
-    QObject::connect(jsonCheck, &QWidget::destroyed, &loop, &QEventLoop::quit);
-    loop.exec();
-
-
-    this->show();
+    jsonCheck->exec();
 }
 
