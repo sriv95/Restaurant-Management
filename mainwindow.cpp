@@ -26,7 +26,7 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
 {
     ui.setupUi(this);
 
-    on_backtosetup_clicked();
+    // on_backtosetup_clicked();
 
     updateTablesStatus();
     for(int i=1;i<=Table_Count;++i){

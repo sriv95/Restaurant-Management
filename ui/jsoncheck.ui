@@ -16,7 +16,7 @@
   <widget class="QPushButton" name="newBtn">
    <property name="geometry">
     <rect>
-     <x>160</x>
+     <x>300</x>
      <y>340</y>
      <width>121</width>
      <height>41</height>
@@ -98,29 +98,6 @@
    </property>
    <property name="text">
     <string>Continue -&gt;</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="delBtn">
-   <property name="geometry">
-    <rect>
-     <x>440</x>
-     <y>340</y>
-     <width>121</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-     <bold>false</bold>
-     <underline>false</underline>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 0, 0);</string>
-   </property>
-   <property name="text">
-    <string>Delete</string>
    </property>
   </widget>
  </widget>

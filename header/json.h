@@ -10,4 +10,6 @@ void getAllData(json &);
 void setData(json &,string);
 void setAllData(json &);
 int lenData(json &);
-
+string updateFilePath(const string &);
+bool checkData();
+void newData();

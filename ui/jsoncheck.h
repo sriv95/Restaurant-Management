@@ -25,10 +25,9 @@ private slots:
     void on_continueBtn_clicked();
 
 
-    void on_delBtn_clicked();
-
 private:
     Ui::jsoncheck *ui;
+    QString currentFilePath;
 
 };
 
