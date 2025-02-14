@@ -14,10 +14,10 @@ jsoncheck::jsoncheck(QWidget *parent)
     ui->continueBtn->setVisible(false);
 
     if (checkData()) {
-        ui->textlabel->setText("✅Data found at " + QString::fromStdString(getPATH()) + "✅");
+        ui->textlabel->setText("✅ Data found at [ " + QString::fromStdString(getPATH()) + " ] ✅");
         ui->continueBtn->setVisible(true);
     } else {
-        ui->textlabel->setText("⚠️Data Not Found⚠️");
+        ui->textlabel->setText("⚠️ Data Not Found ⚠️");
     }
 }
 
@@ -41,7 +41,7 @@ void jsoncheck::on_newBtn_clicked()
         Created.setWindowFlags(Qt::Popup);
         Created.exec();
 
-        ui->textlabel->setText("Data created at " + filePath + " ✔️");
+        ui->textlabel->setText("Data created at [ " + filePath + " ] ✔️");
         ui->continueBtn->setVisible(true);
 
 }
@@ -62,7 +62,7 @@ void jsoncheck::on_openBtn_clicked()
         Opened.setWindowFlags(Qt::Popup);
         Opened.exec();
 
-        ui->textlabel->setText("Data opened at " + filePath + " ✔️");
+        ui->textlabel->setText("Data opened at [ " + filePath + " ] ✔️");
         ui->continueBtn->setVisible(true);
         } else {
         qDebug() << "No file selected";
@@ -79,4 +79,5 @@ void jsoncheck::on_continueBtn_clicked()
 void jsoncheck::on_cancelBtn_clicked()
 {
     this->close();
+    makecrash();
 }

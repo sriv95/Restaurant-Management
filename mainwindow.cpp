@@ -27,8 +27,12 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
     ui.setupUi(this);
 
     on_backtosetup_clicked();
-
+    // if(!checkData()){
+    //     makecrash();
+    // }
     updateTablesStatus();
+
+
     for(int i=1;i<=Table_Count;++i){
         QString btnName = QString("Table_").append(QString::number(i));
         QPushButton *button = this->findChild<QPushButton *>(btnName);
@@ -321,18 +325,18 @@ void RestuarantManagement::on_Stocks_clicked()
 
 void RestuarantManagement::on_backtosetup_clicked()
 {
-    static int Counter = 0;
-    if (Counter > 1) {
-        qDebug() << "Stopped after 2 attempts";
-        return;
-    }
+    // static int Counter = 0;
+    // if (Counter > 2) {
+    //     this->close();
+    //     return;
+    // }
 
     jsoncheck *jsonCheck = new jsoncheck(this);
     jsonCheck->setWindowTitle("File Configuration");
     jsonCheck->exec();
 
     if (!checkData()) {
-        Counter++;
+        // Counter++;
         on_backtosetup_clicked();
     }
 }

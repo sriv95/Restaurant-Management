@@ -118,7 +118,7 @@
         <item>
          <widget class="QPushButton" name="backtosetup">
           <property name="text">
-           <string>Open File..</string>
+           <string>Open File...</string>
           </property>
          </widget>
         </item>

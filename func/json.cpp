@@ -3,12 +3,19 @@
 #include <iomanip>
 #include "ui/jsoncheck.h"
 #include <QDir>
+#include <QMessageBox>
 
 string PATH = (QDir::currentPath() + "/data.json").toStdString();
 
 void getData(json &Data,string key){
-    if(!checkData()) return;
-
+    if(!checkData()){
+        QMessageBox Error;
+        Error.setText(".json file is not found. Please go set a new one at  \"Open File...\" 😃");
+        Error.setIcon(QMessageBox::Warning);
+        Error.setWindowTitle("Error!");
+        Error.exec();
+        return;
+    }
     ifstream file(PATH);
     json j = json::parse(file);
     file.close();
@@ -17,7 +24,14 @@ void getData(json &Data,string key){
 }
 
 void getAllData(json &Data){
-    if(!checkData()) return;
+    if(!checkData()){
+        QMessageBox Error;
+        Error.setText(".json file is not found. Please go set a new one at  \"Open File...\" 😃");
+        Error.setIcon(QMessageBox::Warning);
+        Error.setWindowTitle("Error!");
+        Error.exec();
+        return;
+    }
 
     ifstream file(PATH);
     json j = json::parse(file);
@@ -27,7 +41,14 @@ void getAllData(json &Data){
 }
 
 void setData(json &Data,string key){
-    if(!checkData()) return;
+    if(!checkData()){
+        QMessageBox Error;
+        Error.setText(".json file is not found. Please go set a new one at  \"Open File...\" 😃");
+        Error.setIcon(QMessageBox::Warning);
+        Error.setWindowTitle("Error!");
+        Error.exec();
+        return;
+    }
 
     json all;
     getAllData(all);
@@ -38,14 +59,28 @@ void setData(json &Data,string key){
 }
 
 void setAllData(json &Data){
-    if(!checkData()) return;
+    if(!checkData()){
+        QMessageBox Error;
+        Error.setText(".json file is not found. Please go set a new one at  \"Open File...\" 😃");
+        Error.setIcon(QMessageBox::Warning);
+        Error.setWindowTitle("Error!");
+        Error.exec();
+        return;
+    }
 
     ofstream file(PATH);
     file<<setw(4)<<Data;
 }
 
 int lenData(json &Data){
-    if(!checkData()) return 0;
+    if(!checkData()){
+        QMessageBox Error;
+        Error.setText(".json file is not found. Please go set a new one at  \"Open File...\" 😃");
+        Error.setIcon(QMessageBox::Warning);
+        Error.setWindowTitle("Error!");
+        Error.exec();
+        return 0;
+    }
 
     int i = 0;
     for (auto it = Data.begin(); it != Data.end(); ++it) {
@@ -65,6 +100,7 @@ bool checkData(){
     if (file.is_open()) {
         return true;
     }else {
+
         return false;
     }
 }
@@ -112,3 +148,8 @@ string getPATH(){
 }
 
 
+void makecrash(){ //เพื่อบังคับปิดโปรแกรมตอนไม่มีไฟล์
+    ifstream file(PATH);
+    json j = json::parse(file);
+    file.close();
+}

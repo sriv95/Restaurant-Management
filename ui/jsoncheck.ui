@@ -16,10 +16,10 @@
   <widget class="QPushButton" name="newBtn">
    <property name="geometry">
     <rect>
-     <x>300</x>
+     <x>290</x>
      <y>340</y>
-     <width>121</width>
-     <height>41</height>
+     <width>141</width>
+     <height>51</height>
     </rect>
    </property>
    <property name="font">
@@ -39,10 +39,10 @@
   <widget class="QPushButton" name="openBtn">
    <property name="geometry">
     <rect>
-     <x>300</x>
+     <x>290</x>
      <y>440</y>
-     <width>121</width>
-     <height>41</height>
+     <width>141</width>
+     <height>51</height>
     </rect>
    </property>
    <property name="font">
@@ -81,10 +81,10 @@
   <widget class="QPushButton" name="continueBtn">
    <property name="geometry">
     <rect>
-     <x>580</x>
-     <y>570</y>
-     <width>121</width>
-     <height>41</height>
+     <x>550</x>
+     <y>560</y>
+     <width>151</width>
+     <height>51</height>
     </rect>
    </property>
    <property name="font">
@@ -103,10 +103,10 @@
   <widget class="QPushButton" name="cancelBtn">
    <property name="geometry">
     <rect>
-     <x>580</x>
+     <x>540</x>
      <y>20</y>
-     <width>121</width>
-     <height>41</height>
+     <width>161</width>
+     <height>51</height>
     </rect>
    </property>
    <property name="font">
@@ -120,7 +120,7 @@
 color: rgb(255, 0, 0);</string>
    </property>
    <property name="text">
-    <string>Cancel</string>
+    <string>Force Close</string>
    </property>
   </widget>
  </widget>
