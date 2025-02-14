@@ -7,7 +7,7 @@
 #include <ui/stockwindow.h>
 #include <QResizeEvent>
 #include <QScreen>
-
+#include <QFont>
 
 using namespace std;
 
@@ -23,6 +23,9 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
+    ui.comboBox->setCurrentIndex(2);
+    //setFixedSize(1280, 960);
+
     updateTablesStatus();
     for(int i=1;i<=Table_Count;++i){
         QString btnName = QString("Table_").append(QString::number(i));
@@ -206,13 +209,42 @@ void RestuarantManagement::resizeEvent(QResizeEvent *event){
 
     qDebug() << "New Width:" << newWidth << ", New Height:" << newHeight;
 
-    if (newHeight > newSize.height()) {
-    }
-
-
     resize(newWidth, newHeight);
+
+    int newSizeFont = width() / 88;  // ปรับขนาดฟอนต์ตามความกว้างของหน้าต่าง
+    QString f = QString::number(newSizeFont);
+    //QFont font("Arial", std::max(newSizeFont, 10));  // กำหนดฟอนต์ขั้นต่ำ 10
+    //->setFont(font);
+    ui.frame->setStyleSheet("font: 800 "+f+"pt Segoe UI;");
+    QWidget::resizeEvent(event);
+
+    //ui.frame->setStretch(1, 1);
+
 
 
 }
 
+
+
+void RestuarantManagement::on_comboBox_activated(int index)
+{
+    int x = 1024, h = 768;
+    switch(index){
+    case 0:
+        setFixedSize(x*3.5, h*3.5);
+        break;
+    case 1:
+        setFixedSize(x*1.50, h*1.50);
+        break;
+    case 2:
+        setFixedSize(x*1.25, h*1.25);
+        break;
+    case 3:
+        setFixedSize(x, h);
+        break;
+    case 4:
+        setFixedSize(x*0.9, h*0.9);
+        break;
+    }
+}
 
