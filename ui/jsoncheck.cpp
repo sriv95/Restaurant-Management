@@ -76,3 +76,7 @@ void jsoncheck::on_continueBtn_clicked()
     this->close();
 }
 
+void jsoncheck::on_cancelBtn_clicked()
+{
+    this->close();
+}

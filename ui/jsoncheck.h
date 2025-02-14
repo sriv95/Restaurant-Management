@@ -25,6 +25,8 @@ private slots:
     void on_continueBtn_clicked();
 
 
+    void on_cancelBtn_clicked();
+
 private:
     Ui::jsoncheck *ui;
 

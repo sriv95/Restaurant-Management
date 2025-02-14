@@ -321,9 +321,19 @@ void RestuarantManagement::on_Stocks_clicked()
 
 void RestuarantManagement::on_backtosetup_clicked()
 {
+    static int Counter = 0;
+    if (Counter > 1) {
+        qDebug() << "Stopped after 2 attempts";
+        return;
+    }
+
     jsoncheck *jsonCheck = new jsoncheck(this);
     jsonCheck->setWindowTitle("File Configuration");
     jsonCheck->exec();
-    if(!checkData()) on_backtosetup_clicked();
+
+    if (!checkData()) {
+        Counter++;
+        on_backtosetup_clicked();
+    }
 }
 
