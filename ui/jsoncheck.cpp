@@ -2,12 +2,7 @@
 #include "ui_jsoncheck.h"
 #include <QMessageBox>
 #include <QFileDialog>
-#include <QFileInfo>
 #include <header/json.h>
-#include <mainwindow.h>
-
-using namespace std;
-
 
 jsoncheck::jsoncheck(QWidget *parent)
     : QDialog(parent)
@@ -39,6 +34,7 @@ void jsoncheck::on_newBtn_clicked()
     newData();
     QString filePath = QDir::currentPath() + "/data.json";
     updateFilePath(filePath.toStdString());
+
         QMessageBox Created;
         Created.setText("data.json has been created successfully. 😃😘💪🏿💪🏿");
         Created.setIcon(QMessageBox::Information);
