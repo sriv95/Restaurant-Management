@@ -1,13 +1,10 @@
 #include "jsoncheck.h"
 #include "ui_jsoncheck.h"
-#include <QFile>
 #include <QMessageBox>
 #include <QFileDialog>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonArray>
 #include <QFileInfo>
 #include <header/json.h>
+#include <QSettings>
 
 using namespace std;
 
