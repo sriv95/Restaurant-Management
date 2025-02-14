@@ -43,6 +43,10 @@ private slots:
     void on_Employee_clicked();
     void on_Stocks_clicked();
 
+    void on_comboBox_activated(int index);
+
+    void on_Eventscreen_buttontablesize();
+
 private:
     Ui::RestuarantManagementClass ui;
     OpenTableDialog *openTableDialog; // Declare OpenTableDialog as a member

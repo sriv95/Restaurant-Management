@@ -211,15 +211,26 @@ void RestuarantManagement::resizeEvent(QResizeEvent *event){
 
     resize(newWidth, newHeight);
 
+
     int newSizeFont = width() / 88;  // ปรับขนาดฟอนต์ตามความกว้างของหน้าต่าง
     QString f = QString::number(newSizeFont);
     //QFont font("Arial", std::max(newSizeFont, 10));  // กำหนดฟอนต์ขั้นต่ำ 10
     //->setFont(font);
     ui.frame->setStyleSheet("font: 800 "+f+"pt Segoe UI;");
-    QWidget::resizeEvent(event);
 
-    //ui.frame->setStretch(1, 1);
+    int sizebotton = newWidth*100/1024;
+    //if(sizebotton <= 100)
+    qDebug() << sizebotton;
+    for(int i=1;i<=Table_Count;++i){
+        QString btnName = QString("Table_").append(QString::number(i));
+        QPushButton *button = this->findChild<QPushButton *>(btnName);
 
+
+        if(button){
+            button->setFixedSize(sizebotton,sizebotton);
+        }
+        else  qDebug()<<"Error: Button Not Found (Button Name: "<<btnName<<")";
+    }
 
 
 }
@@ -231,6 +242,7 @@ void RestuarantManagement::on_comboBox_activated(int index)
     int x = 1024, h = 768;
     switch(index){
     case 0:
+        //double scale = 3.5;
         setFixedSize(x*3.5, h*3.5);
         break;
     case 1:
@@ -241,6 +253,7 @@ void RestuarantManagement::on_comboBox_activated(int index)
         break;
     case 3:
         setFixedSize(x, h);
+        //qDebug() <<
         break;
     case 4:
         setFixedSize(x*0.9, h*0.9);
@@ -248,3 +261,19 @@ void RestuarantManagement::on_comboBox_activated(int index)
     }
 }
 
+void RestuarantManagement::on_Eventscreen_buttontablesize(){
+    double side = 125;
+
+    for(int i=1;i<=Table_Count;++i){
+        QString btnName = QString("Table_").append(QString::number(i));
+        QPushButton *button = this->findChild<QPushButton *>(btnName);
+
+
+        if(button){
+        button->setFixedSize(side,side);
+        }
+        else  qDebug()<<"Error: Button Not Found (Button Name: "<<btnName<<")";
+    }
+
+
+}

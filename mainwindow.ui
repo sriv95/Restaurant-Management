@@ -157,7 +157,7 @@
       <property name="frameShadow">
        <enum>QFrame::Shadow::Raised</enum>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,1,1">
+      <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="10,13,10">
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_5">
          <item>
