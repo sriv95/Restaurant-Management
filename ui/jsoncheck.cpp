@@ -4,7 +4,7 @@
 #include <QFileDialog>
 #include <QFileInfo>
 #include <header/json.h>
-#include <QSettings>
+#include <mainwindow.h>
 
 using namespace std;
 
@@ -18,17 +18,9 @@ jsoncheck::jsoncheck(QWidget *parent)
     ui->textlabel->setWordWrap(true);
     ui->continueBtn->setVisible(false);
 
-    QSettings settings("MyApp", "RestaurantSystem");
-    QString lastUsedPath = settings.value("jsonFilePath", "").toString();
-
-    if (!lastUsedPath.isEmpty()) {
-        QFileInfo fileInfo(lastUsedPath);
-        if (fileInfo.exists()) {
-            ui->textlabel->setText("✅Data found at " + fileInfo.absoluteFilePath() + "✅");
-            ui->continueBtn->setVisible(true);
-        } else {
-            ui->textlabel->setText("⚠️Data Not Found⚠️");
-        }
+    if (checkData()) {
+        ui->textlabel->setText("✅Data found at " + QString::fromStdString(getPATH()) + "✅");
+        ui->continueBtn->setVisible(true);
     } else {
         ui->textlabel->setText("⚠️Data Not Found⚠️");
     }
@@ -46,19 +38,14 @@ void jsoncheck::on_newBtn_clicked()
 {
     newData();
     QString filePath = QDir::currentPath() + "/data.json";
-
-    QSettings settings("MyApp", "RestaurantSystem");
-    settings.setValue("jsonFilePath", filePath);
-
-        QFileInfo fileInfo("data.json");
-
+    updateFilePath(filePath.toStdString());
         QMessageBox Created;
         Created.setText("data.json has been created successfully. 😃😘💪🏿💪🏿");
         Created.setIcon(QMessageBox::Information);
         Created.setWindowFlags(Qt::Popup);
         Created.exec();
 
-        ui->textlabel->setText("Data created at " + fileInfo.absoluteFilePath() + " ✔️");
+        ui->textlabel->setText("Data created at " + filePath + " ✔️");
         ui->continueBtn->setVisible(true);
 
 }
@@ -70,13 +57,8 @@ void jsoncheck::on_openBtn_clicked()
     QString filePath = QFileDialog::getOpenFileName(this, "Select data.json", "", "JSON Files (*.json)");
 
     if (!filePath.isEmpty()) {
-        QSettings settings("MyApp", "RestaurantSystem");
-        settings.setValue("jsonFilePath", filePath);
-
-        qDebug() << "File selected: " << filePath;
 
         updateFilePath(filePath.toStdString());
-        // currentFilePath = filePath;
 
         QMessageBox Opened;
         Opened.setText("data.json has been opened successfully. 😉💋💋");

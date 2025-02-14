@@ -13,3 +13,4 @@ int lenData(json &);
 string updateFilePath(const string &);
 bool checkData();
 void newData();
+string getPATH();

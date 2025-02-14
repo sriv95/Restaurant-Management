@@ -2,12 +2,9 @@
 #include <fstream>
 #include <iomanip>
 #include "ui/jsoncheck.h"
-#include <QSettings>
+#include <QDir>
 
-QSettings settings("MyApp", "RestaurantSystem");
-QString lastUsedFile = settings.value("jsonFilePath", "data.json").toString();
-
-string PATH= lastUsedFile.toStdString();
+string PATH= (QDir::currentPath() + "/data.json").toStdString();
 
 void getData(json &Data,string key){
     if(!checkData()) return;
@@ -64,20 +61,12 @@ string updateFilePath(const string& newpath){
 }
 
 bool checkData(){
-
     ifstream file(PATH);
     if (file.is_open()) {
         return true;
+    }else {
+        return false;
     }
-
-    jsoncheck *jsonCheck = new jsoncheck();
-    jsonCheck->setWindowTitle("File Configuration");
-    jsonCheck->exec();
-
-    delete jsonCheck;
-
-    ifstream recheck(PATH);
-    return recheck.is_open();
 }
 
 
@@ -115,6 +104,8 @@ void newData() {
     ofstream file("data.json"); //กันเขียนทับ data.json ใน example ตอนใช้ไฟล์อันนั้น
     updateFilePath("data.json"); //ให้ไปอ่านที่ data.json ไม่งั้นจะค้างที่ path ของ open(ถ้าใช้อยู่)
     file<<setw(4)<<templatedata;
-
 }
 
+string getPATH(){
+    return PATH;
+}

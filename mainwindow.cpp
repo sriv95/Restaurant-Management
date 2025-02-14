@@ -324,5 +324,6 @@ void RestuarantManagement::on_backtosetup_clicked()
     jsoncheck *jsonCheck = new jsoncheck(this);
     jsonCheck->setWindowTitle("File Configuration");
     jsonCheck->exec();
+    if(!checkData()) on_backtosetup_clicked();
 }
 
