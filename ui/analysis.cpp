@@ -1,13 +1,15 @@
 #include "analysis.h"
 #include "ui_analysis.h"
 #include <header/json.h>
-#include <QtCore>
-#include <QtGui>
+// #include <QtCore>
+// #include <QtGui>
 #include <QtCharts/QtCharts>
 #include <QtCharts/QLineSeries>
 #include <vector>
 #include <algorithm>
 #include <cmath>
+#include <QTextFormat>
+#include <QScatterSeries>
 
 using namespace std;
 
@@ -26,9 +28,7 @@ analysis::~analysis()
     delete ui;
 }
 
-//========================================//
-
-json menus , statement;
+//=================== struct =====================//
 
 struct Dishes
 {
@@ -42,6 +42,10 @@ struct Drinks
     vector<int> amount;
 };
 
+//=================== global variable =====================//
+
+json menus , statement;
+
 vector<Dishes> Dishes_data;
 vector<Drinks> Drinks_data;
 
@@ -51,7 +55,10 @@ vector<string> all_Drinks_name;
 Dishes template_Dishes;
 Drinks template_Drinks;
 
-//========================================//
+//=================== global variable =====================//
+
+double Total_Income_in_selected_range = 0;
+double Total_Expenses_in_selected_range = 0;
 
 vector<double> chartData_income , chartData_expenses;
 vector<QDate> chartData_Date;
@@ -60,7 +67,7 @@ vector<QDate> week_dates , month_dates , year_dates;
 
 QChartView *chartView;
 
-//========================================//
+//=================== global variable =====================//
 
 void analysis::startUI_setup()
 {
@@ -80,10 +87,8 @@ void analysis::startUI_setup()
     ui->Top_Dished->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
     ui->Top_Dished->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
 
-
     ui->Top_Drinks->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
     ui->Top_Drinks->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
-
 
     //========================================//
 
@@ -347,24 +352,21 @@ void analysis::on_calendar_start_date_selectionChanged()
         QDate endDate = ui->calendar_end_date->selectedDate();
         if (startDate > endDate) ui->calendar_end_date->setSelectedDate(startDate);
         Update_Selectable_and_Highlight_DateRange();
-        Show_Chart();
     }
     else if (searchmode == 2)
     {
         Update_Highlight_Week();
-        Show_Chart();
     }
     else if (searchmode == 3)
     {
         Update_Highlight_Month();
-        Show_Chart();
     }
     else if (searchmode == 4)
     {
         Update_Highlight_Year();
-        Show_Chart();
     }
-    else Show_Chart();
+
+    Show_Chart();
 }
 
 
@@ -429,47 +431,40 @@ void analysis::Refresh_calendar()
 
 void analysis::on_comboBox_search_mode_currentIndexChanged(int searchmode)
 {
-    switch (searchmode) {
+    Refresh_calendar();
+
+    switch (searchmode)
+    {
     case 0:
-        Refresh_calendar();
         ui->calendar_start_date->setEnabled(true);
         ui->calendar_end_date->setEnabled(true);
-        Show_Chart();
         break;
     case 1:
-        Refresh_calendar();
         ui->calendar_start_date->setEnabled(true);
         ui->calendar_end_date->setEnabled(false);
-        Show_Chart();
         break;
     case 2:
-        Refresh_calendar();
         ui->calendar_start_date->setEnabled(true);
         ui->calendar_end_date->setEnabled(false);
         Update_Highlight_Week();
-        Show_Chart();
         break;
     case 3:
-        Refresh_calendar();
         ui->calendar_start_date->setEnabled(true);
         ui->calendar_end_date->setEnabled(false);
         Update_Highlight_Month();
-        Show_Chart();
         break;
     case 4:
-        Refresh_calendar();
         ui->calendar_start_date->setEnabled(true);
         ui->calendar_end_date->setEnabled(false);
         Update_Highlight_Year();
-        Show_Chart();
         break;
     case 5:
-        Refresh_calendar();
         ui->calendar_start_date->setEnabled(false);
         ui->calendar_end_date->setEnabled(false);
-        Show_Chart();
         break;
     }
+
+    Show_Chart();
 }
 
 
@@ -585,6 +580,11 @@ void analysis::Show_Chart()
 
     //==================================================================================//
 
+    Total_Income_in_selected_range = 0;
+    Total_Expenses_in_selected_range = 0;
+
+    //==================================================================================//
+
     if (chartView != 0)
     {
         ui->Chart_Layout->removeWidget(chartView);
@@ -601,17 +601,32 @@ void analysis::Show_Chart()
     //==================================================================================//
 
     // Create a line series
-    QLineSeries *series_income = new QLineSeries;
+    QLineSeries *series_income = new QLineSeries; // กราฟเส้น
     QLineSeries *series_expenses = new QLineSeries;
+    QScatterSeries *Dot_series_income = new QScatterSeries; // กราฟจุด
+    QScatterSeries *Dot_series_expenses = new QScatterSeries;
 
     int add_count = 0;
     for (unsigned int i = 0; i < chartData_Date.size(); i++)
     {
         if (chartData_Date[i] < minDate_range or chartData_Date[i] > maxDate_range) continue;
 
+        //---------------total-----------------//
+        Total_Income_in_selected_range += chartData_income[i];
+        Total_Expenses_in_selected_range += chartData_expenses[i];
+        //---------------total-----------------//
+
         qint64 xValue = chartData_Date[i].startOfDay().toMSecsSinceEpoch();
+
+        //---------------line series-----------------//
         series_income->append(xValue, chartData_income[i]);
         series_expenses->append(xValue, chartData_expenses[i]);
+        //---------------line series-----------------//
+
+        //---------------Dot series-----------------//
+        Dot_series_income->append(xValue, chartData_income[i]);
+        Dot_series_expenses->append(xValue, chartData_expenses[i]);
+        //---------------Dot series-----------------//
         add_count++;
     }
 
@@ -631,6 +646,7 @@ void analysis::Show_Chart()
         series_expenses->append(expenses_ONE_point.x()+2 , expenses_ONE_point.y());
     }
 
+    //==========Line===========//
     //==================================================================================//
 
     QPen pen_income(Qt::green); //ตั้งค่าสีให้กับเส้นกราฟ
@@ -640,8 +656,19 @@ void analysis::Show_Chart()
 
     QPen pen_expenses(Qt::red); //ตั้งค่าสีให้กับเส้นกราฟ
     pen_expenses.setWidth(2);  // ตั้งค่าความหนาของเส้นกราฟ
-    series_expenses->setName("expenses"); // ชื่อให้กับเส้นกราฟ
+    series_expenses->setName("Expenses"); // ชื่อให้กับเส้นกราฟ
     series_expenses->setPen(pen_expenses); //ตั้งค่าเส้นของกราฟ income ให้เป็น pen_income ตามที่ตั้งค่าก่อนหน้า
+
+    //==========Dot===========//
+    //==================================================================================//
+
+    Dot_series_income->setMarkerSize(10); // ตั้งค่าขนาดของจุด
+    Dot_series_income->setColor(Qt::darkGreen); // ตั้งค่าสีของจุด
+    Dot_series_income->setName("Dot-Income");
+
+    Dot_series_expenses->setMarkerSize(10); // ตั้งค่าขนาดของจุด
+    Dot_series_expenses->setColor(Qt::darkRed); // ตั้งค่าสีของจุด
+    Dot_series_expenses->setName("Dot-Expensese");
 
     //==================================================================================//
 
@@ -650,6 +677,45 @@ void analysis::Show_Chart()
     chart->addSeries(series_income); //เพิ่มเส้นกราฟ series_income ลงไปใน chart
     chart->addSeries(series_expenses); //เพิ่มเส้นกราฟ series_expenses ลงไปใน chart
     chart->setTitle("Analysis"); //ตั้งชื่อ chart
+
+    chart->addSeries(Dot_series_income); // เพิ่มจุดของ Dot_series_income ลงไปใน chart
+    chart->addSeries(Dot_series_expenses); // พิ่มจุดของ Dot_series_expenses ลงไปใน chart
+
+    //==================================================================================//
+
+    connect(Dot_series_income, &QScatterSeries::hovered, this, [=](const QPointF &point, bool state)
+        {
+            if (state)
+            {
+                QString Income_at_the_cursor_position = QString::number(point.y());
+                QString DateTime_at_the_cursor_position = QDateTime::fromMSecsSinceEpoch(point.x()).toString("dd-MM-yyyy");
+
+                QString Text_Show_at_the_cursor_position_income = "📅Date: " + DateTime_at_the_cursor_position + "  📈Income: " + Income_at_the_cursor_position;
+                QToolTip::showText(QCursor::pos(), Text_Show_at_the_cursor_position_income);
+            }
+            else
+            {
+                QToolTip::hideText();
+            }
+        }
+    );
+
+    connect(Dot_series_expenses, &QScatterSeries::hovered, this, [=](const QPointF &point, bool state)
+        {
+            if (state)
+            {
+                QString Expenses_at_the_cursor_position = QString::number(point.y());
+                QString DateTime_at_the_cursor_position = QDateTime::fromMSecsSinceEpoch(point.x()).toString("dd-MM-yyyy");
+
+                QString Text_Show_at_the_cursor_position_Expenses = "📅Date: " + DateTime_at_the_cursor_position + " 📉Expense: " + Expenses_at_the_cursor_position;
+                QToolTip::showText(QCursor::pos(), Text_Show_at_the_cursor_position_Expenses);
+            }
+            else
+            {
+                QToolTip::hideText();
+            }
+        }
+    );
 
     //==================================================================================//
 
@@ -681,7 +747,7 @@ void analysis::Show_Chart()
     axisY->setRange(0, *max_element(max_y.begin() , max_y.end()));
     axisY->setTickCount(10);
     axisY->setLabelFormat("%.2f");
-    axisY->setTitleText("Amount");
+    axisY->setTitleText("Amount (THB)");
 
     chart->addAxis(axisX, Qt::AlignBottom);
     chart->addAxis(axisY, Qt::AlignLeft);
@@ -689,6 +755,10 @@ void analysis::Show_Chart()
     series_income->attachAxis(axisY);
     series_expenses->attachAxis(axisX);
     series_expenses->attachAxis(axisY);
+    Dot_series_expenses->attachAxis(axisX);
+    Dot_series_expenses->attachAxis(axisY);
+    Dot_series_income->attachAxis(axisX);
+    Dot_series_income->attachAxis(axisY);
 
     //==================================================================================//
 
@@ -708,7 +778,7 @@ void analysis::Show_Chart()
         ui->NO_DATA->show();
     }
 
-    //💓💓💓💓//
+    //😲😲😲😲😲😲//
     Summary();
 }
 
@@ -717,6 +787,14 @@ void analysis::on_accept_clicked()
 {
     Show_Chart();
     Summary();
+
+    double total = 0;
+    for (int i = 0 ; i < statement.size() ; i++)
+    {
+        if (statement[i][2] > 0) total += double(statement[i][2]);
+    }
+
+    qDebug() << total;
 }
 
 
@@ -767,8 +845,8 @@ void analysis::Summary()
 
     //======================================================================================//
 
-    Dishes count_Dishes_data_in_range = template_Dishes;
-    Drinks count_Drinks_data_in_range = template_Drinks;
+    Dishes Total_Dishes_data_in_range = template_Dishes;
+    Drinks Total_Drinks_data_in_range = template_Drinks;
 
     for (unsigned int i = 0 ; i < Date_in_range.size() ; i++)
     {
@@ -777,8 +855,8 @@ void analysis::Summary()
             string name_menu = Dishes_data_in_range[i].name[j];
             int amount = Dishes_data_in_range[i].amount[j];
 
-            int index_in_count_Dishes = std::distance(count_Dishes_data_in_range.name.begin() , std::find(count_Dishes_data_in_range.name.begin() , count_Dishes_data_in_range.name.end() , name_menu));
-            count_Dishes_data_in_range.amount[index_in_count_Dishes] += amount;
+            int index_in_count_Dishes = std::distance(Total_Dishes_data_in_range.name.begin() , std::find(Total_Dishes_data_in_range.name.begin() , Total_Dishes_data_in_range.name.end() , name_menu));
+            Total_Dishes_data_in_range.amount[index_in_count_Dishes] += amount;
         }
 
         for (unsigned int j = 0 ; j < Drinks_data_in_range[i].name.size() ; j++)
@@ -786,8 +864,8 @@ void analysis::Summary()
             string name_menu = Drinks_data_in_range[i].name[j];
             int amount = Drinks_data_in_range[i].amount[j];
 
-            int index_in_count_Drinks = std::distance(count_Drinks_data_in_range.name.begin() , std::find(count_Drinks_data_in_range.name.begin() , count_Drinks_data_in_range.name.end() , name_menu));
-            count_Drinks_data_in_range.amount[index_in_count_Drinks] += amount;
+            int index_in_count_Drinks = std::distance(Total_Drinks_data_in_range.name.begin() , std::find(Total_Drinks_data_in_range.name.begin() , Total_Drinks_data_in_range.name.end() , name_menu));
+            Total_Drinks_data_in_range.amount[index_in_count_Drinks] += amount;
         }
     }
 
@@ -795,88 +873,88 @@ void analysis::Summary()
 
     // qDebug() << "\n\ncount_in_range";
     // qDebug() << "Dished";
-    // for (int i = 0 ; i < count_Dishes_data_in_range.name.size() ; i++)
+    // for (int i = 0 ; i < Total_Dishes_data_in_range.name.size() ; i++)
     // {
-    //     qDebug() << "Name : " << count_Dishes_data_in_range.name[i] << " Amount : " << count_Dishes_data_in_range.amount[i];
+    //     qDebug() << "Name : " << Total_Dishes_data_in_range.name[i] << " Amount : " << Total_Dishes_data_in_range.amount[i];
     // }
 
     // qDebug() << "Drinks";
-    // for (int i = 0 ; i < count_Drinks_data_in_range.name.size() ; i++)
+    // for (int i = 0 ; i < Total_Drinks_data_in_range.name.size() ; i++)
     // {
-    //     qDebug() << "Name : " << count_Drinks_data_in_range.name[i] << " Amount : " << count_Drinks_data_in_range.amount[i];
+    //     qDebug() << "Name : " << Total_Drinks_data_in_range.name[i] << " Amount : " << Total_Drinks_data_in_range.amount[i];
     // }
 
     //======================================================================================//
     // Sort count_data_in_range //
 
-    for(unsigned int i = 0 ; i < count_Dishes_data_in_range.name.size() ; i++)
+    for(unsigned int i = 0 ; i < Total_Dishes_data_in_range.name.size() ; i++)
     {
-        int max = count_Dishes_data_in_range.amount[i];
+        int max = Total_Dishes_data_in_range.amount[i];
         int index_max = i;
-        for (unsigned int j = i ; j < count_Dishes_data_in_range.name.size() ; j++)
+        for (unsigned int j = i ; j < Total_Dishes_data_in_range.name.size() ; j++)
         {
-            if (count_Dishes_data_in_range.amount[j] > max)
+            if (Total_Dishes_data_in_range.amount[j] > max)
             {
-                max = count_Dishes_data_in_range.amount[j];
+                max = Total_Dishes_data_in_range.amount[j];
                 index_max = j;
             }
         }
 
         // swap
-        int amount1 = count_Dishes_data_in_range.amount[i];
+        int amount1 = Total_Dishes_data_in_range.amount[i];
         int amount2 = max;
-        count_Dishes_data_in_range.amount[i] = amount2;
-        count_Dishes_data_in_range.amount[index_max] = amount1;
+        Total_Dishes_data_in_range.amount[i] = amount2;
+        Total_Dishes_data_in_range.amount[index_max] = amount1;
 
-        string name1 = count_Dishes_data_in_range.name[i];
-        string name2 = count_Dishes_data_in_range.name[index_max];
-        count_Dishes_data_in_range.name[i] = name2;
-        count_Dishes_data_in_range.name[index_max] = name1;
+        string name1 = Total_Dishes_data_in_range.name[i];
+        string name2 = Total_Dishes_data_in_range.name[index_max];
+        Total_Dishes_data_in_range.name[i] = name2;
+        Total_Dishes_data_in_range.name[index_max] = name1;
 
 
     }
 
-    for(unsigned int i = 0 ; i < count_Drinks_data_in_range.name.size() ; i++)
+    for(unsigned int i = 0 ; i < Total_Drinks_data_in_range.name.size() ; i++)
     {
-        int max = count_Drinks_data_in_range.amount[i];
+        int max = Total_Drinks_data_in_range.amount[i];
         int index_max = i;
-        for (unsigned int j = i ; j < count_Drinks_data_in_range.name.size() ; j++)
+        for (unsigned int j = i ; j < Total_Drinks_data_in_range.name.size() ; j++)
         {
-            if (count_Drinks_data_in_range.amount[j] > max)
+            if (Total_Drinks_data_in_range.amount[j] > max)
             {
-                max = count_Drinks_data_in_range.amount[j];
+                max = Total_Drinks_data_in_range.amount[j];
                 index_max = j;
             }
         }
 
         // swap
-        int amount1 = count_Drinks_data_in_range.amount[i];
+        int amount1 = Total_Drinks_data_in_range.amount[i];
         int amount2 = max;
-        count_Drinks_data_in_range.amount[i] = amount2;
-        count_Drinks_data_in_range.amount[index_max] = amount1;
+        Total_Drinks_data_in_range.amount[i] = amount2;
+        Total_Drinks_data_in_range.amount[index_max] = amount1;
 
-        string name1 = count_Drinks_data_in_range.name[i];
-        string name2 = count_Drinks_data_in_range.name[index_max];
-        count_Drinks_data_in_range.name[i] = name2;
-        count_Drinks_data_in_range.name[index_max] = name1;
+        string name1 = Total_Drinks_data_in_range.name[i];
+        string name2 = Total_Drinks_data_in_range.name[index_max];
+        Total_Drinks_data_in_range.name[i] = name2;
+        Total_Drinks_data_in_range.name[index_max] = name1;
 
 
     }
 
     //======================================================================================//
 
-    qDebug() << "\n\ncount_in_range";
-    qDebug() << "Dished";
-    for (int i = 0 ; i < count_Dishes_data_in_range.name.size() ; i++)
-    {
-        qDebug() << "Name : " << count_Dishes_data_in_range.name[i] << " Amount : " << count_Dishes_data_in_range.amount[i];
-    }
+    // qDebug() << "\n\nTotal_in_range";
+    // qDebug() << "Dished";
+    // for (int i = 0 ; i < Total_Dishes_data_in_range.name.size() ; i++)
+    // {
+    //     qDebug() << "Name : " << Total_Dishes_data_in_range.name[i] << " Amount : " << Total_Dishes_data_in_range.amount[i];
+    // }
 
-    qDebug() << "Drinks";
-    for (int i = 0 ; i < count_Drinks_data_in_range.name.size() ; i++)
-    {
-        qDebug() << "Name : " << count_Drinks_data_in_range.name[i] << " Amount : " << count_Drinks_data_in_range.amount[i];
-    }
+    // qDebug() << "Drinks";
+    // for (int i = 0 ; i < Total_Drinks_data_in_range.name.size() ; i++)
+    // {
+    //     qDebug() << "Name : " << Total_Drinks_data_in_range.name[i] << " Amount : " << Total_Drinks_data_in_range.amount[i];
+    // }
 
     //======================================================================================//
 
@@ -886,21 +964,54 @@ void analysis::Summary()
     ui->Top_Drinks->clearContents();
     for (int i = ui->Top_Drinks->rowCount()-1 ; i >= 0  ; i--) ui->Top_Drinks->removeRow(i);
 
-    for (unsigned int i = 0 ; i < count_Dishes_data_in_range.name.size() ; i++)
+    //--------total_order----------//
+    int total_order = 0;
+    //--------total_order----------//
+
+    for (unsigned int i = 0 ; i < Total_Dishes_data_in_range.name.size() ; i++)
     {
         ui->Top_Dished->insertRow(ui->Top_Dished->rowCount());
-        ui->Top_Dished->setItem(i , 0 , new QTableWidgetItem(QString::fromStdString(count_Dishes_data_in_range.name[i])));
-        ui->Top_Dished->setItem(i , 1 , new QTableWidgetItem(QString::number(count_Dishes_data_in_range.amount[i])));
+        ui->Top_Dished->setItem(i , 0 , new QTableWidgetItem(QString::fromStdString(Total_Dishes_data_in_range.name[i])));
+        ui->Top_Dished->setItem(i , 1 , new QTableWidgetItem(QString::number(Total_Dishes_data_in_range.amount[i])));
+
+        //--------total_order----------//
+        total_order += Total_Dishes_data_in_range.amount[i];
+        //--------total_order----------//
     }
 
-    for (unsigned int i = 0 ; i < count_Drinks_data_in_range.name.size() ; i++)
+    for (unsigned int i = 0 ; i < Total_Drinks_data_in_range.name.size() ; i++)
     {
         ui->Top_Drinks->insertRow(ui->Top_Drinks->rowCount());
-        ui->Top_Drinks->setItem(i , 0 , new QTableWidgetItem(QString::fromStdString(count_Drinks_data_in_range.name[i])));
-        ui->Top_Drinks->setItem(i , 1 , new QTableWidgetItem(QString::number(count_Drinks_data_in_range.amount[i])));
+        ui->Top_Drinks->setItem(i , 0 , new QTableWidgetItem(QString::fromStdString(Total_Drinks_data_in_range.name[i])));
+        ui->Top_Drinks->setItem(i , 1 , new QTableWidgetItem(QString::number(Total_Drinks_data_in_range.amount[i])));
+
+        //--------total_order----------//
+        total_order += Total_Drinks_data_in_range.amount[i];
+        //--------total_order----------//
     }
 
-    //======================================================================================//
-    //======================================================================================//
-    //======================================================================================//
+    //00000000000000000000000000000000000000000000000000000000000000000000000000000000000000//
+    //00000000000000000000000000000000000000000000000000000000000000000000000000000000000000//
+
+    QFont Format_Fonnt_Bold_Center_16;
+    Format_Fonnt_Bold_Center_16.setBold(true);
+    Format_Fonnt_Bold_Center_16.setPointSize(16);
+
+    ui->Income_in_range->setText(QString::number(Total_Income_in_selected_range , 'f' ,2));
+    ui->Income_in_range->setFont(Format_Fonnt_Bold_Center_16);
+    ui->Income_in_range->setAlignment(Qt::AlignCenter);
+
+    ui->Expenses_in_range->setText(QString::number(Total_Expenses_in_selected_range , 'f' ,2));
+    ui->Expenses_in_range->setFont(Format_Fonnt_Bold_Center_16);
+    ui->Expenses_in_range->setAlignment(Qt::AlignCenter);
+
+    //00000000000000000000000000000000000000000000000000000000000000000000000000000000000000//
+    //00000000000000000000000000000000000000000000000000000000000000000000000000000000000000//
+
+
+    ui->Total_Order_in_range->setText(QString::number(total_order));
+    ui->Total_Order_in_range->setFont(Format_Fonnt_Bold_Center_16);
+    ui->Total_Order_in_range->setAlignment(Qt::AlignCenter);
+
+
 }
