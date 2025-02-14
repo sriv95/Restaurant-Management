@@ -15,6 +15,7 @@ SOURCES += \
     func/tables.cpp \
     main.cpp \
     mainwindow.cpp \
+    ui/oderfood.cpp \
     ui/opentabledialog.cpp \
     ui/reserve.cpp \
     ui/stockwindow.cpp \
@@ -26,6 +27,7 @@ HEADERS += \
     header/tables.h \
     mainwindow.h \
     ui/opentabledialog.h \
+    ui/orderfood.h \
     ui/reserve.h \
     ui/stockwindow.h \
 
