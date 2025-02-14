@@ -18,16 +18,20 @@ jsoncheck::jsoncheck(QWidget *parent)
     ui->textlabel->setWordWrap(true);
     ui->continueBtn->setVisible(false);
 
-        QString openFilePath = "data.json";
-        QFileInfo openFileInfo(openFilePath);
+    QSettings settings("MyApp", "RestaurantSystem");
+    QString lastUsedPath = settings.value("jsonFilePath", "").toString();
 
-        if (openFileInfo.exists()) {
-            ui->textlabel->setText("✅ Data found at " + openFileInfo.absoluteFilePath() + "✅");
+    if (!lastUsedPath.isEmpty()) {
+        QFileInfo fileInfo(lastUsedPath);
+        if (fileInfo.exists()) {
+            ui->textlabel->setText("✅Data found at " + fileInfo.absoluteFilePath() + "✅");
             ui->continueBtn->setVisible(true);
         } else {
             ui->textlabel->setText("⚠️Data Not Found⚠️");
         }
-
+    } else {
+        ui->textlabel->setText("⚠️Data Not Found⚠️");
+    }
 }
 
 
@@ -41,7 +45,10 @@ jsoncheck::~jsoncheck()
 void jsoncheck::on_newBtn_clicked()
 {
     newData();
-    currentFilePath = "data.json";
+    QString filePath = QDir::currentPath() + "/data.json";
+
+    QSettings settings("MyApp", "RestaurantSystem");
+    settings.setValue("jsonFilePath", filePath);
 
         QFileInfo fileInfo("data.json");
 
@@ -63,10 +70,13 @@ void jsoncheck::on_openBtn_clicked()
     QString filePath = QFileDialog::getOpenFileName(this, "Select data.json", "", "JSON Files (*.json)");
 
     if (!filePath.isEmpty()) {
+        QSettings settings("MyApp", "RestaurantSystem");
+        settings.setValue("jsonFilePath", filePath);
+
         qDebug() << "File selected: " << filePath;
 
         updateFilePath(filePath.toStdString());
-        currentFilePath = filePath;
+        // currentFilePath = filePath;
 
         QMessageBox Opened;
         Opened.setText("data.json has been opened successfully. 😉💋💋");
