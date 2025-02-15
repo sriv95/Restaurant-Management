@@ -218,6 +218,7 @@ void RestuarantManagement::on_CheckBills_clicked()
 
         ui.Receipt->hide();
         ui.CheckBills->setText("Check Bills");
+        on_RefreshBtn_clicked()
         return;
     }
 
