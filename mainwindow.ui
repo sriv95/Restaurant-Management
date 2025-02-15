@@ -132,19 +132,6 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="OrderFoodBtn">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>45</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Order Food</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QPushButton" name="Analysis">
           <property name="minimumSize">
            <size>
@@ -216,13 +203,6 @@
       </item>
       <item>
        <layout class="QGridLayout" name="GridTable">
-        <item row="4" column="3">
-         <widget class="QPushButton" name="ReserveBtn">
-          <property name="text">
-           <string>Reserve</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="3">
          <widget class="QPushButton" name="Table_7">
           <property name="minimumSize">
@@ -377,13 +357,6 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="2">
-         <widget class="QPushButton" name="OpenTableBtn">
-          <property name="text">
-           <string>Open Table</string>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="2">
          <widget class="QPushButton" name="Table_5">
           <property name="minimumSize">
@@ -484,6 +457,37 @@ padding: 10px 10px;
            <string>Table#2</string>
           </property>
          </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QPushButton" name="OrderFoodBtn">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>45</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Order Food</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="3">
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QPushButton" name="OpenTableBtn">
+            <property name="text">
+             <string>Open Table</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="ReserveBtn">
+            <property name="text">
+             <string>Reserve</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>
