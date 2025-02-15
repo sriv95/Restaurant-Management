@@ -103,7 +103,7 @@
        <x>0</x>
        <y>0</y>
        <width>1251</width>
-       <height>771</height>
+       <height>774</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
@@ -132,6 +132,19 @@
          </spacer>
         </item>
         <item>
+         <widget class="QPushButton" name="OrderFoodBtn">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>45</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Order Food</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="Analysis">
           <property name="minimumSize">
            <size>
@@ -151,6 +164,9 @@
             <width>150</width>
             <height>45</height>
            </size>
+          </property>
+          <property name="toolTipDuration">
+           <number>-1</number>
           </property>
           <property name="text">
            <string>Statement</string>
