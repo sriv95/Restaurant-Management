@@ -244,48 +244,6 @@
         <item row="4" column="0">
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QLabel" name="label_3">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>15</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>Segoe UI</family>
-              <pointsize>12</pointsize>
-              <italic>false</italic>
-              <fontweight>ExtraBold</fontweight>
-             </font>
-            </property>
-            <property name="text">
-             <string>Last Updated:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="LastUpdate">
-            <property name="maximumSize">
-             <size>
-              <width>1000</width>
-              <height>20</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>Segoe UI</family>
-              <pointsize>12</pointsize>
-              <italic>false</italic>
-              <fontweight>ExtraBold</fontweight>
-             </font>
-            </property>
-            <property name="text">
-             <string>3 seconds ago</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QPushButton" name="RefreshBtn">
             <property name="maximumSize">
              <size>
