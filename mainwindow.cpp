@@ -12,6 +12,7 @@
 #include <ui/opentabledialog.h>
 #include <ui/reserve.h>
 #include <ui/stockwindow.h>
+#include <ui/analysis.h>
 
 json restaurantData;
 
@@ -390,4 +391,11 @@ void RestuarantManagement::on_Stocks_clicked()
     stockWin->activateWindow();
 }
 
+
+
+void RestuarantManagement::on_Analysis_clicked()
+{
+    analysis analysis(this);
+    analysis.exec();
+}
 
