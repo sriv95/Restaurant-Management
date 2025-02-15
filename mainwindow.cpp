@@ -413,6 +413,17 @@ void RestuarantManagement::on_OrderFoodBtn_clicked()
 
     json restaurantData;
     getAllData(restaurantData);
+
+    
+    json &tableData = restaurantData["Tables"][tableNo - 1];
+
+    // added 15/2/25
+    if (tableData["Seats"].get<int>() == 0) {
+        QMessageBox::warning(this, "No customers",
+                             "No customers are seated at this table.");
+        return;
+    }
+
     json &stocks = restaurantData["Stocks"];
 
     OrderFoodDialog orderDialog(this);
@@ -443,8 +454,8 @@ void RestuarantManagement::on_OrderFoodBtn_clicked()
                                 hasEnoughStock = false;
                                 QMessageBox::warning(this, "Insufficient Stock",
                                                      QString("Not enough stock for %1. Remain: %2 in stock")
-                                                        .arg(QString::fromStdString(ingredient))
-                                                        .arg(stock[1].get<double>()));
+                                                         .arg(QString::fromStdString(ingredient))
+                                                         .arg(stock[1].get<double>()));
                                 break;
                             }
                         }
@@ -456,7 +467,6 @@ void RestuarantManagement::on_OrderFoodBtn_clicked()
                     return;
                 }
 
-
                 for (size_t i = 0; i < ingredients.size(); ++i) {
                     std::string ingredient = ingredients[i];
                     double amountNeeded = amounts[i].get<double>() * quantity;
@@ -465,7 +475,6 @@ void RestuarantManagement::on_OrderFoodBtn_clicked()
                         if (stock[0] == ingredient) {
                             double remainingStock = stock[1].get<double>() - amountNeeded;
                             stock[1] = std::max(0.0, remainingStock);
-
 
                             if (remainingStock < 10) {
                                 QMessageBox::warning(this, "Low Stock",
@@ -481,14 +490,12 @@ void RestuarantManagement::on_OrderFoodBtn_clicked()
             }
         }
 
-        json &tableBills = restaurantData["Tables"][tableNo - 1]["Bills"];
+        json &tableBills = tableData["Bills"];
         json emptyBills = json::array({json::array({""}), json::array(), json::array()});
-
 
         if (tableBills == emptyBills || (tableBills[0].size() == 1 && tableBills[0][0] == "")) {
             tableBills[0].clear();
         }
-
 
         tableBills[0].push_back(food.toStdString());
         tableBills[1].push_back(quantity);
