@@ -13,6 +13,7 @@
 #include <ui/reserve.h>
 #include <ui/stockwindow.h>
 #include <ui/orderfood.h>
+#include <ui/analysis.h>
 
 json restaurantData;
 
@@ -396,7 +397,6 @@ void RestuarantManagement::on_Stocks_clicked()
     stockWin->activateWindow();
 }
 
-
 void RestuarantManagement::on_OrderFoodBtn_clicked()
 {
     int tableNo = GetSelectingTableNo();
@@ -489,5 +489,8 @@ void RestuarantManagement::on_OrderFoodBtn_clicked()
     }
 }
 
-
-
+void RestuarantManagement::on_Analysis_clicked()
+{
+    analysis analysis(this);
+    analysis.exec();
+}
