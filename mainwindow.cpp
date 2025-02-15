@@ -283,6 +283,7 @@ void RestuarantManagement::on_OpenTableBtn_clicked()
 {
     OpenTableDialog OpenTableDialog;
     OpenTableDialog.setModal(true);
+    OpenTableDialog.setWindowTitle("Open Table");
     connect(&OpenTableDialog, &OpenTableDialog::returnValue, this, &RestuarantManagement::onTableReturnValue);
     OpenTableDialog.exec();
 }
@@ -327,6 +328,7 @@ void RestuarantManagement::on_ReserveBtn_clicked()
     } else {
         reserve reserve(tableNo);
         reserve.setModal(true);
+        reserve.setWindowTitle("Reserve");
         reserve.exec();
     }
     on_RefreshBtn_clicked();
