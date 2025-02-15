@@ -21,6 +21,12 @@ employee::employee(QWidget *parent)
     this->setWindowTitle("Employee");
     Refresh_TableData();
     ui->Table->clearSelection();
+
+    ui->Table->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+    ui->Table->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+    ui->Table->horizontalHeader()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
+    ui->Table->horizontalHeader()->setSectionResizeMode(3, QHeaderView::Stretch);
+    ui->Table->horizontalHeader()->setSectionResizeMode(4, QHeaderView::Stretch);
 }
 
 employee::~employee()

@@ -37,7 +37,7 @@ void OpenTableDialog::on_buttonBox_accepted()
         QMessageBox::about(this , "warning" , "Invalid data type. It should be an integer non-negative." );
 
     }
-    //this->close();
+    this->close();
 }
 
 void OpenTableDialog::on_buttonBox_rejected() //cansel

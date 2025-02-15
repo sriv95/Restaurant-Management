@@ -1,4 +1,4 @@
-QT       += core gui widgets
+QT       += core gui widgets charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -10,29 +10,34 @@ CONFIG += c++17
 
 SOURCES += \
     ui/editmenu.cpp \
+    ui/analysis.cpp \
     ui/employee.cpp \
     func/json.cpp \
     func/stocks.cpp \
     func/tables.cpp \
     main.cpp \
     mainwindow.cpp \
+    ui/oderfood.cpp \
     ui/opentabledialog.cpp \
     ui/reserve.cpp \
     ui/stockwindow.cpp \
 
 HEADERS += \
     ui/editmenu.h \
+    ui/analysis.h \
     ui/employee.h \
     header/json.h \
     header/nlohmann-json.hpp \
     header/tables.h \
     mainwindow.h \
     ui/opentabledialog.h \
+    ui/orderfood.h \
     ui/reserve.h \
     ui/stockwindow.h \
 
 FORMS += \
     ui/editmenu.ui \
+    ui/analysis.ui \
     ui/employee.ui \
     mainwindow.ui \
     ui/opentabledialog.ui \
