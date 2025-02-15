@@ -13,7 +13,7 @@ My Restaurant Manager using C++, Qt 6 and [nlohmann-json](https://github.com/nlo
 
 -  **📋Table Management**: Easily view and manage table availability and reservations.
 
--  **(⚒️WIP) 📲Reserve Table**: Reserve Table and save in JSON file.
+-  **📲Reserve Table**: Reserve Table and save in JSON file.
 
 -  **(⚒️WIP) 🛒Order Processing**: Track customer orders and update their status from data.
 

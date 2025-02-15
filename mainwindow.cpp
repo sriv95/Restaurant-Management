@@ -4,6 +4,9 @@
 #include <QTextStream>
 #include <QDateTime>
 #include <header/json.h>
+#include <QTimer> //TT
+#include <QDateTime> //TT
+
 #include <ui/reserve.h>
 #include <ui/employee.h>
 #include <ui/opentabledialog.h>
@@ -42,7 +45,22 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
     ui.Receipt->hide();
     ui.OrderFoodBtn->hide();
     setMainBtnVisible(false);
+
+    //บอกเวลาเเละวันที่
+    QTimer *timer=new QTimer(this);
+    connect (timer ,SIGNAL(timeout()),this,SLOT(showTime()));
+    timer->start();
 }
+
+void  RestuarantManagement::showTime() //TT
+{
+    // ดึงวันที่และเวลา
+    QDateTime dateTime = QDateTime::currentDateTime();
+    QString dateTimeText = dateTime.toString("dd/MM/yyyy HH:mm:ss");
+
+    ui.Digital_clock->setText(dateTimeText);
+}
+
 
 RestuarantManagement::~RestuarantManagement()
 {}
@@ -73,6 +91,7 @@ void RestuarantManagement::SetSelectingTable(QString no){
         ui.SelectingTable->setText(QString(no));
         setMainBtnVisible(true);
         ui.OrderFoodBtn->show();
+        updateReserveButtonText(no.toInt()); //TT
         QString btnName = QString("Table_").append(no);
         QPushButton *button = this->findChild<QPushButton *>(btnName);
         button->setStyleSheet("QPushButton {"
@@ -125,8 +144,17 @@ void RestuarantManagement::updateTablesStatus()
         QPushButton *button = this->findChild<QPushButton *>(btnName);
         if(button){
             if(seat != 0)button->setText("Table#"+ QString::number(i) + "\n" + QString::number(seat)+ "👤");
-            else if(Reserved !="")button->setText("Table#"+ QString::number(i) + "\nReserved: "+ Reserved);
-            else button->setText("Table#"+ QString::number(i) + "\nAvallable");
+            else if(Reserved !=""){
+                json Reservation;
+                ::getData(Reservation,"Reservation");
+                for(auto item : Reservation){
+                    if(item[0]==i&&item[1]==Reserved.toStdString()){
+                        button->setText("Table#"+ QString::number(i) + "\nReserved: "+ Reserved +"\n"+QString::fromStdString(item[2])+"\n"+QString::fromStdString(item[3]));
+                        break;
+                    }
+                }
+            }
+            else button->setText("Table#"+ QString::number(i) + "\nAvailable");
 
         }
         else  qDebug()<<"Error: Button Not Found (Button Name: "<<btnName<<")";
@@ -290,10 +318,59 @@ void RestuarantManagement::Changeseats() //แก้บัค
 
 void RestuarantManagement::on_ReserveBtn_clicked()
 {
-    reserve reserve;
-    reserve.setModal(true);
-    //connect returnValue
-    reserve.exec();
+    int tableNo = GetSelectingTableNo();
+    if (ui.ReserveBtn->text() == "Unreserve") {
+        removeReservation(tableNo);
+        ui.ReserveBtn->setText("Reserve");
+    } else {
+        reserve reserve(tableNo);
+        reserve.setModal(true);
+        reserve.exec();
+    }
+    on_RefreshBtn_clicked();
+}
+
+bool RestuarantManagement::isTableReserved(int tableNo) {
+    json reservations;
+    ::getData(reservations, "Reservation");
+
+    for (const auto &reservation : reservations) {
+        if (reservation[0] == tableNo) {
+            return true;
+        }
+    }
+    return false;
+}
+
+void RestuarantManagement::updateReserveButtonText(int tableNo) {
+    if (isTableReserved(tableNo)) {
+        ui.ReserveBtn->setText("Unreserve");
+    } else {
+        ui.ReserveBtn->setText("Reserve");
+    }
+}
+
+void RestuarantManagement::removeReservation(int tableNo) {
+    json allData;
+    getAllData(allData);
+
+    json updatedReservations = json::array();
+    for (const auto &reservation : allData["Reservation"]) {
+        if (reservation[0] != tableNo) {
+            updatedReservations.push_back(reservation);
+        }
+    }
+    allData["Reservation"] = updatedReservations;
+
+    for (auto &table : allData["Tables"]) {
+        if (table["No"] == tableNo) {
+            table["Reserved"] = "";
+        }
+    }
+
+    setAllData(allData);
+
+    qDebug() << "Reservation for table" << tableNo << "removed.";
 }
 
 // void RestuarantManagement::onReserveReturnValue(const QString &data){
