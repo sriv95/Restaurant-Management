@@ -79,5 +79,6 @@ void jsoncheck::on_continueBtn_clicked()
 void jsoncheck::on_cancelBtn_clicked()
 {
     this->close();
+    QApplication::quit();
     makecrash();
 }

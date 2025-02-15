@@ -148,8 +148,8 @@ string getPATH(){
 }
 
 
-void makecrash(){ //เพื่อบังคับปิดโปรแกรมตอนไม่มีไฟล์
-    ifstream file(PATH);
+void makecrash(){ //เพื่อบังคับปิดโปรแกรมทั้งหมดทันที
+    ifstream file("");
     json j = json::parse(file);
     file.close();
 }
