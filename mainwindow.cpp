@@ -12,6 +12,7 @@
 #include <ui/opentabledialog.h>
 #include <ui/reserve.h>
 #include <ui/stockwindow.h>
+#include <ui/editmenu.h>
 #include <ui/orderfood.h>
 #include <ui/analysis.h>
 
@@ -398,6 +399,12 @@ void RestuarantManagement::on_Stocks_clicked()
     stockWin->show();
     stockWin->raise();
     stockWin->activateWindow();
+}
+
+void RestuarantManagement::on_EditMenu_clicked()
+{
+    editmenu editmenu(this);
+    editmenu.exec();
 }
 
 void RestuarantManagement::on_OrderFoodBtn_clicked()

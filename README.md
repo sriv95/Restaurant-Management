@@ -23,7 +23,7 @@ My Restaurant Manager using C++, Qt 6 and [nlohmann-json](https://github.com/nlo
 
 -  **👥Employee Management**: Maintain records of staff, including roles and work schedules.
 
--  **(⚒️WIP) 📖Menu Editing**: Add, update, or remove menu items as needed.
+-  **📖Menu Editing**: Add, update, or remove menu items as needed.
 
 -  **🍽️Order Food**: Process food orders efficiently, link them to customer bills, update stock levels accordingly.
 
