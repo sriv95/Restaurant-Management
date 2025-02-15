@@ -196,10 +196,12 @@ void editmenu::on_DelMenuBtn_clicked()
 void editmenu::on_AddIngBtn_clicked()
 {
     int i = ui->ingNo->text().toInt()-1; //Find current editing
-    int rowCount = ingtable->rowCount(); //get last row position
-    Menus[i][3][rowCount]="";
-    Menus[i][4][rowCount]=0;
-    RefreshIng(i);
+    if(i>=0){
+        int rowCount = ingtable->rowCount(); //get last row position
+        Menus[i][3][rowCount]="";
+        Menus[i][4][rowCount]=0;
+        RefreshIng(i);
+    }
 }
 
 
