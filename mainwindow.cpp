@@ -4,14 +4,15 @@
 #include <QTextStream>
 #include <QDateTime>
 #include <header/json.h>
-#include <QTimer> //TT
-#include <QDateTime> //TT
+#include <QTimer>
+#include <QDateTime>
 
 #include <ui/reserve.h>
 #include <ui/employee.h>
 #include <ui/opentabledialog.h>
 #include <ui/reserve.h>
 #include <ui/stockwindow.h>
+#include <ui/statement.h>
 
 json restaurantData;
 
@@ -44,15 +45,13 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
     ui.Receipt->hide();
     setMainBtnVisible(false);
 
-    //บอกเวลาเเละวันที่
     QTimer *timer=new QTimer(this);
     connect (timer ,SIGNAL(timeout()),this,SLOT(showTime()));
     timer->start();
 }
 
-void  RestuarantManagement::showTime() //TT
+void  RestuarantManagement::showTime()
 {
-    // ดึงวันที่และเวลา
     QDateTime dateTime = QDateTime::currentDateTime();
     QString dateTimeText = dateTime.toString("dd/MM/yyyy HH:mm:ss");
 
@@ -390,4 +389,19 @@ void RestuarantManagement::on_Stocks_clicked()
     stockWin->activateWindow();
 }
 
+
+
+void RestuarantManagement::on_Statement_clicked()
+{
+    /*Statement *statementWin = new Statement(this);
+
+
+    statementWin->setWindowFlags(Qt::Window);
+    statementWin->show();
+    statementWin->raise();
+    statementWin->activateWindow();*/
+
+    Statement stateWin(this);
+    stateWin.exec();
+}
 

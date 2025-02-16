@@ -51,6 +51,8 @@ private slots:
     void on_Employee_clicked();
     void on_Stocks_clicked();
 
+    void on_Statement_clicked();
+
 private:
 
     Ui::RestuarantManagementClass ui;

@@ -17,6 +17,7 @@ SOURCES += \
     mainwindow.cpp \
     ui/opentabledialog.cpp \
     ui/reserve.cpp \
+    ui/statement.cpp \
     ui/stockwindow.cpp \
 
 HEADERS += \
@@ -27,6 +28,7 @@ HEADERS += \
     mainwindow.h \
     ui/opentabledialog.h \
     ui/reserve.h \
+    ui/statement.h \
     ui/stockwindow.h \
 
 FORMS += \
@@ -34,6 +36,7 @@ FORMS += \
     mainwindow.ui \
     ui/opentabledialog.ui \
     ui/reserve.ui \
+    ui/statement.ui \
     ui/stockwindow.ui \
 
 
