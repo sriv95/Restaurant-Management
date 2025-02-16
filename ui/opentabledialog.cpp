@@ -55,7 +55,26 @@ void OpenTableDialog::resizeEvent(QResizeEvent *event){
     QSize newSize = event->size();
     int newWidth = newSize.width();
     int newHeight = newSize.height();
+    qDebug() << "-------------------OpenTableDialog-------------------";
     qDebug() << "New Width:" << newWidth << ", New Height:" << newHeight;
+
+    // setStyleSheetFrame -----------------------------------------------------------------------------------------------------------------------
+
+    int newSizeFont = newWidth/20;
+    QString FontOpenTableDialog = QString::number(newSizeFont);
+    qDebug() <<"newSizeFont: " << newSizeFont;
+
+    QDialog OpenTableDialog;
+    ui->frame->setStyleSheet("font: 400 "+FontOpenTableDialog+"pt Segoe UI;");
+
+    // QFont checkOpenTableDialogFont = OpenTableDialog.font();
+    // qDebug() <<"OpenTableDialog->font(): " << checkOpenTableDialogFont;
+
+    // setFrontbuttonBox -----------------------------------------------------------------------------------------------------------------------
+
+    int intFrontbuttonBoxsize = newWidth/40;
+    QString FrontbuttonBoxsize = QString::number(intFrontbuttonBoxsize);
+    ui->buttonBox->setStyleSheet("font: 400 "+FrontbuttonBoxsize+"pt Segoe UI;");
 }
 
 void OpenTableDialog::OpenScreen(int index){

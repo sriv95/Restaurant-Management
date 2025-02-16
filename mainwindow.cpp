@@ -224,14 +224,13 @@ void RestuarantManagement::resizeEvent(QResizeEvent *event){
     // setStyleSheetFrame -----------------------------------------------------------------------------------------------------------------------
 
     int newSizeFont = width() / 104;  // ปรับขนาดฟอนต์ตามความกว้างของหน้าต่าง //88,104
-    QString f = QString::number(newSizeFont);
+    QString FontFrame = QString::number(newSizeFont);
     qDebug() <<"newSizeFont: " << newSizeFont;
 
     QFont font("Segoe UI", std::max(newSizeFont, 10));  // กำหนดฟอนต์ขั้นต่ำ 10
-    //->setFont(font);
-    ui.frame->setStyleSheet("font: 800 "+f+"pt Segoe UI;");
+    ui.frame->setStyleSheet("font: 800 "+FontFrame+"pt Segoe UI;");
     qDebug() <<"newSizeFont: " << newSizeFont;
-    qDebug() <<"newframeSizeFont: " << f;
+    qDebug() <<"newframeSizeFont: " << FontFrame;
 
     // FontheaderFont -----------------------------------------------------------------------------------------------------------------------
 
