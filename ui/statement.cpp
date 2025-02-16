@@ -88,7 +88,8 @@ void Statement::loadData()
 
     double netProfit = totalIncome - totalExpense;
 
-    ui->Total_Income->setText(QString::number(totalIncome, 'f', 2) + "฿");
-    ui->Total_Expense->setText(QString::number(totalExpense, 'f', 2) + "฿");
-    ui->Net_Balance->setText(QString::number(netProfit, 'f', 2) + "฿");
+    // set text with comma separator
+    ui->Total_Income->setText(QLocale(QLocale::English).toString(totalIncome, 'f', 2) + "฿");
+    ui->Total_Expense->setText(QLocale(QLocale::English).toString(totalExpense, 'f', 2) + "฿");
+    ui->Net_Balance->setText(QLocale(QLocale::English).toString(netProfit, 'f', 2) + "฿");
 }
