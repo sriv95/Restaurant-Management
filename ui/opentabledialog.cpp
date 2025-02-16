@@ -2,13 +2,15 @@
 #include "ui_opentabledialog.h"
 #include <QMessageBox>
 
-OpenTableDialog::OpenTableDialog(QWidget *parent)
+OpenTableDialog::OpenTableDialog(QWidget *parent,int index)
     : QDialog(parent)
     , ui(new Ui::OpenTableDialog)
 {
     ui->setupUi(this);
+    OpenScreen(index);
 
     this->setWindowTitle("Opentable");
+    //connect(&RestuarantManagement, &RestuarantManagement::returnIndexscreen, this, &OpenTableDialog::resizeEvent);
     connect(ui->one, &QPushButton::clicked, this, &OpenTableDialog::on_numBtn_clicked);
     connect(ui->two, &QPushButton::clicked, this, &OpenTableDialog::on_numBtn_clicked);
     connect(ui->three, &QPushButton::clicked, this, &OpenTableDialog::on_numBtn_clicked);
@@ -47,4 +49,34 @@ void OpenTableDialog::on_buttonBox_accepted()
 void OpenTableDialog::on_buttonBox_rejected() //cansel
 {
     this->close();
+}
+
+void OpenTableDialog::resizeEvent(QResizeEvent *event){
+    QSize newSize = event->size();
+    int newWidth = newSize.width();
+    int newHeight = newSize.height();
+    qDebug() << "New Width:" << newWidth << ", New Height:" << newHeight;
+}
+
+void OpenTableDialog::OpenScreen(int index){
+    int w = 320, h =240;
+
+    switch(index){
+    case 0:
+        setFixedSize(w*3.5, h*3.5);
+        break;
+    case 1:
+        setFixedSize(w*1.50, h*1.50);
+        break;
+    case 2:
+        setFixedSize(w*1.25, h*1.25);
+        break;
+    case 3:
+        setFixedSize(w, h);
+        break;
+    case 4:
+        setFixedSize(w*0.9, h*0.9);
+        break;
+    }
+
 }

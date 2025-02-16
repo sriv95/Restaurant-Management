@@ -24,7 +24,8 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
 {
     ui.setupUi(this);
     ui.comboBox->setCurrentIndex(2);
-    on_comboBox_activated(2);
+    MoreScreensize(2);
+    //resize(1280,960);
 
     updateTablesStatus();
     for(int i=1;i<=Table_Count;++i){
@@ -131,7 +132,9 @@ void RestuarantManagement::on_CheckBills_clicked()
 
 void RestuarantManagement::on_OpenTableBtn_clicked()
 {
-    OpenTableDialog OpenTableDialog;
+    qDebug() << ui.comboBox->currentIndex();
+    int Index = ui.comboBox->currentIndex();
+    OpenTableDialog OpenTableDialog(this,Index);
     OpenTableDialog.setModal(true);
     connect(&OpenTableDialog, &OpenTableDialog::returnValue, this, &RestuarantManagement::onTableReturnValue);
     OpenTableDialog.exec();
@@ -273,12 +276,11 @@ void RestuarantManagement::resizeEvent(QResizeEvent *event){
     ui.Receipt->setStyleSheet("background-color: rgb(255, 255, 255);"
                                 "font: 800 "+fReceipt+"pt Segoe UI;"
                                 "color: rgb(0, 0, 0);");
-    //ui.Receipt->setFont(Receiptfont);
 
-    QFont c = ui.Receipt->font();
-    qDebug() <<"Receipt->font(): " <<c;
-    // QSize d = ui.Receipt->frameSize();
-    //  qDebug() <<"Receipt->frameSize: " <<d;
+    // QFont R = ui.Receipt->font();
+    // qDebug() <<"Receipt->font(): " <<R;
+    // QSize fR = ui.Receipt->frameSize();
+    //  qDebug() <<"Receipt->frameSize: " <<fR;
 
 
     qDebug() <<"--------------------------------------------------------------------------------------------------------------";
@@ -289,7 +291,11 @@ void RestuarantManagement::resizeEvent(QResizeEvent *event){
 
 void RestuarantManagement::on_comboBox_activated(int index)
 {
-    //int x = 1024, h = 768;
+    MoreScreensize(index);
+}
+
+void RestuarantManagement::MoreScreensize(int index){
+
     switch(index){
     case 0:
         setFixedSize(3584,2688);
@@ -314,19 +320,22 @@ void RestuarantManagement::on_comboBox_activated(int index)
     }
 }
 
-void RestuarantManagement::on_Eventscreen_buttontablesize(){
-    double side = 125;
-
-    for(int i=1;i<=Table_Count;++i){
-        QString btnName = QString("Table_").append(QString::number(i));
-        QPushButton *button = this->findChild<QPushButton *>(btnName);
 
 
-        if(button){
-        button->setFixedSize(side,side);
-        }
-        else  qDebug()<<"Error: Button Not Found (Button Name: "<<btnName<<")";
-    }
+
+// void RestuarantManagement::on_Eventscreen_buttontablesize(){
+//     double side = 125;
+
+//     for(int i=1;i<=Table_Count;++i){
+//         QString btnName = QString("Table_").append(QString::number(i));
+//         QPushButton *button = this->findChild<QPushButton *>(btnName);
 
 
-}
+//         if(button){
+//         button->setFixedSize(side,side);
+//         }
+//         else  qDebug()<<"Error: Button Not Found (Button Name: "<<btnName<<")";
+//     }
+
+
+// }

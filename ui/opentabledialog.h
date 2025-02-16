@@ -12,7 +12,7 @@ class OpenTableDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit OpenTableDialog(QWidget *parent = nullptr);
+    explicit OpenTableDialog(QWidget *parent = nullptr, int Index = 2);
     ~OpenTableDialog();
 
 signals:
@@ -24,6 +24,10 @@ private slots:
     void on_buttonBox_accepted();
 
     void on_buttonBox_rejected();
+
+    void resizeEvent(QResizeEvent *event) override ;
+
+    void OpenScreen(int index);
 
 private:
     Ui::OpenTableDialog *ui;

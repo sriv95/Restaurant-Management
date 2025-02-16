@@ -41,11 +41,14 @@ private slots:
     // void onReserveReturnValue(const QString &);
 
     void on_Employee_clicked();
+
     void on_Stocks_clicked();
 
     void on_comboBox_activated(int index);
 
-    void on_Eventscreen_buttontablesize();
+    void MoreScreensize(int index);
+
+    //void on_Eventscreen_buttontablesize();
 
 private:
     Ui::RestuarantManagementClass ui;
