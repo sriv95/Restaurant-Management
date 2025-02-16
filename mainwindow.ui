@@ -103,7 +103,7 @@
        <x>0</x>
        <y>0</y>
        <width>1251</width>
-       <height>771</height>
+       <height>774</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
@@ -151,6 +151,9 @@
             <width>150</width>
             <height>45</height>
            </size>
+          </property>
+          <property name="toolTipDuration">
+           <number>-1</number>
           </property>
           <property name="text">
            <string>Statement</string>
@@ -200,13 +203,6 @@
       </item>
       <item>
        <layout class="QGridLayout" name="GridTable">
-        <item row="4" column="3">
-         <widget class="QPushButton" name="ReserveBtn">
-          <property name="text">
-           <string>Reserve</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="3">
          <widget class="QPushButton" name="Table_7">
           <property name="minimumSize">
@@ -247,48 +243,6 @@
         </item>
         <item row="4" column="0">
          <layout class="QVBoxLayout" name="verticalLayout_2">
-          <item>
-           <widget class="QLabel" name="label_3">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>15</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>Segoe UI</family>
-              <pointsize>12</pointsize>
-              <italic>false</italic>
-              <fontweight>ExtraBold</fontweight>
-             </font>
-            </property>
-            <property name="text">
-             <string>Last Updated:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="LastUpdate">
-            <property name="maximumSize">
-             <size>
-              <width>1000</width>
-              <height>20</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>Segoe UI</family>
-              <pointsize>12</pointsize>
-              <italic>false</italic>
-              <fontweight>ExtraBold</fontweight>
-             </font>
-            </property>
-            <property name="text">
-             <string>3 seconds ago</string>
-            </property>
-           </widget>
-          </item>
           <item>
            <widget class="QPushButton" name="RefreshBtn">
             <property name="maximumSize">
@@ -358,13 +312,6 @@
           </property>
           <property name="text">
            <string>Table#9</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="2">
-         <widget class="QPushButton" name="OpenTableBtn">
-          <property name="text">
-           <string>Open Table</string>
           </property>
          </widget>
         </item>
@@ -468,6 +415,37 @@ padding: 10px 10px;
            <string>Table#2</string>
           </property>
          </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QPushButton" name="OrderFoodBtn">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>45</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Order Food</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="3">
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QPushButton" name="OpenTableBtn">
+            <property name="text">
+             <string>Open Table</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="ReserveBtn">
+            <property name="text">
+             <string>Reserve</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>

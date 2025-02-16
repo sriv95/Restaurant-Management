@@ -13,6 +13,9 @@
 #include <ui/reserve.h>
 #include <ui/stockwindow.h>
 #include <ui/statement.h>
+#include <ui/editmenu.h>
+#include <ui/orderfood.h>
+#include <ui/analysis.h>
 
 json restaurantData;
 
@@ -43,6 +46,7 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
     }
 
     ui.Receipt->hide();
+    ui.OrderFoodBtn->hide();
     setMainBtnVisible(false);
 
     QTimer *timer=new QTimer(this);
@@ -82,10 +86,12 @@ void RestuarantManagement::SetSelectingTable(QString no){
         ui.Receipt->hide();
         ui.CheckBills->setText("Check Bills");
     }
+
     if(ui.SelectingTable->text()!=no) {
         ui.Receipt->show();
         ui.SelectingTable->setText(QString(no));
         setMainBtnVisible(true);
+        ui.OrderFoodBtn->show();
         updateReserveButtonText(no.toInt()); //TT
         QString btnName = QString("Table_").append(no);
         QPushButton *button = this->findChild<QPushButton *>(btnName);
@@ -99,12 +105,14 @@ void RestuarantManagement::SetSelectingTable(QString no){
     }
     else {
         ui.SelectingTable->setText(QString('0'));
+        ui.OrderFoodBtn->hide();
         setMainBtnVisible(false);
     }
 }
 
 void RestuarantManagement::on_TableBtn_clicked()
 {
+
     if (ui.Receipt->isVisible() && ui.CheckBills->text() == "Confirm Payment") {
         ui.Receipt->hide();
         ui.CheckBills->setText("Check Bills");
@@ -210,6 +218,7 @@ void RestuarantManagement::on_CheckBills_clicked()
 
         ui.Receipt->hide();
         ui.CheckBills->setText("Check Bills");
+        on_RefreshBtn_clicked();
         return;
     }
 
@@ -274,6 +283,7 @@ void RestuarantManagement::on_OpenTableBtn_clicked()
 {
     OpenTableDialog OpenTableDialog;
     OpenTableDialog.setModal(true);
+    OpenTableDialog.setWindowTitle("Open Table");
     connect(&OpenTableDialog, &OpenTableDialog::returnValue, this, &RestuarantManagement::onTableReturnValue);
     OpenTableDialog.exec();
 }
@@ -318,6 +328,7 @@ void RestuarantManagement::on_ReserveBtn_clicked()
     } else {
         reserve reserve(tableNo);
         reserve.setModal(true);
+        reserve.setWindowTitle("Reserve");
         reserve.exec();
     }
     on_RefreshBtn_clicked();
@@ -389,19 +400,114 @@ void RestuarantManagement::on_Stocks_clicked()
     stockWin->activateWindow();
 }
 
+void RestuarantManagement::on_EditMenu_clicked()
+{
+    editmenu editmenu(this);
+    editmenu.exec();
+}
 
 
 void RestuarantManagement::on_Statement_clicked()
 {
-    /*Statement *statementWin = new Statement(this);
-
-
-    statementWin->setWindowFlags(Qt::Window);
-    statementWin->show();
-    statementWin->raise();
-    statementWin->activateWindow();*/
-
     Statement stateWin(this);
+    stateWin.setWindowTitle("Statement");
     stateWin.exec();
 }
 
+void RestuarantManagement::on_OrderFoodBtn_clicked()
+{
+    int tableNo = GetSelectingTableNo();
+
+    json restaurantData;
+    getAllData(restaurantData);
+    json &stocks = restaurantData["Stocks"];
+
+    OrderFoodDialog orderDialog(this);
+
+    json menuData;
+    ::getData(menuData, "Menus");
+    orderDialog.loadMenu(menuData);
+
+    if (orderDialog.exec() == QDialog::Accepted) {
+        QString food = orderDialog.getSelectedFood();
+        int quantity = orderDialog.getQuantity();
+        int extraPrice = orderDialog.getExtraPrice();
+
+        for (const auto &menu : menuData) {
+            if (menu[0] == food.toStdString()) {
+                auto ingredients = menu[3];
+                auto amounts = menu[4];
+                bool hasEnoughStock = true;
+
+                for (size_t i = 0; i < ingredients.size(); ++i) {
+                    std::string ingredient = ingredients[i];
+                    double amountNeeded = amounts[i].get<double>() * quantity;
+
+                    for (auto &stock : stocks) {
+                        if (stock[0] == ingredient) {
+                            double remainingStock = stock[1].get<double>() - amountNeeded;
+                            if (remainingStock < 0) {
+                                hasEnoughStock = false;
+                                QMessageBox::warning(this, "Insufficient Stock",
+                                                     QString("Not enough stock for %1. Remain: %2 in stock")
+                                                        .arg(QString::fromStdString(ingredient))
+                                                        .arg(stock[1].get<double>()));
+                                break;
+                            }
+                        }
+                    }
+                    if (!hasEnoughStock) break;
+                }
+
+                if (!hasEnoughStock) {
+                    return;
+                }
+
+
+                for (size_t i = 0; i < ingredients.size(); ++i) {
+                    std::string ingredient = ingredients[i];
+                    double amountNeeded = amounts[i].get<double>() * quantity;
+
+                    for (auto &stock : stocks) {
+                        if (stock[0] == ingredient) {
+                            double remainingStock = stock[1].get<double>() - amountNeeded;
+                            stock[1] = std::max(0.0, remainingStock);
+
+
+                            if (remainingStock < 10) {
+                                QMessageBox::warning(this, "Low Stock",
+                                                     QString("Low stock warning: %1 is running low (remaining: %2 in stock).")
+                                                         .arg(QString::fromStdString(ingredient))
+                                                         .arg(remainingStock));
+                            }
+                            break;
+                        }
+                    }
+                }
+                break;
+            }
+        }
+
+        json &tableBills = restaurantData["Tables"][tableNo - 1]["Bills"];
+        json emptyBills = json::array({json::array({""}), json::array(), json::array()});
+
+
+        if (tableBills == emptyBills || (tableBills[0].size() == 1 && tableBills[0][0] == "")) {
+            tableBills[0].clear();
+        }
+
+
+        tableBills[0].push_back(food.toStdString());
+        tableBills[1].push_back(quantity);
+        tableBills[2].push_back(extraPrice);
+
+        setAllData(restaurantData);
+        updateTablesStatus();
+    }
+}
+
+void RestuarantManagement::on_Analysis_clicked()
+{
+    analysis analysis(this);
+    analysis.exec();
+}
