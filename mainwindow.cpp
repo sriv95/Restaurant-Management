@@ -525,11 +525,11 @@ void RestuarantManagement::on_OrderFoodBtn_clicked()
 
 void RestuarantManagement::on_Analysis_clicked()
 {
-    json Data;
-    ::getAllData(Data);
-    if(Data["Statements"].size()<=0&&Data["Menus"].size()<=0) {
-        showError(".json file data Statements or Menus is empty");
-        return;}
+    // json Data;
+    // ::getAllData(Data);
+    // if(Data["Statements"].size()<=0&&Data["Menus"].size()<=0) {
+    //     showError(".json file data Statements or Menus is empty");
+    //     return;}
     analysis analysis(this);
     analysis.exec();
 }
