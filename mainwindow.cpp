@@ -215,6 +215,23 @@ void RestuarantManagement::resizeEvent(QResizeEvent *event){
     double Scale = perScale/100.0;
     qDebug() <<"perScale: " << perScale <<" Scale: "<< Scale;
 
+    // -----------------------------------------------------------------------------------------------------------------------
+
+    QFont FontheaderFont("Sitka", max(36, 10));
+    ui.MyRestuarantManager->setFont(FontheaderFont);
+    QFont checkFontheaderFont = ui.MyRestuarantManager->font();
+    qDebug() <<"MyRestuarantManager->font(): " << checkFontheaderFont;
+
+
+    // -----------------------------------------------------------------------------------------------------------------------
+
+    QFont FontDatetime("SimSun", max(16, 10));
+    ui.label_2->setFont(FontDatetime);
+    QFont checkFontDatetime = ui.label_2->font();
+    qDebug() <<"label_2->font(): " <<checkFontDatetime;
+
+    // -----------------------------------------------------------------------------------------------------------------------
+
     int newSizeFont = width() / 88;  // ปรับขนาดฟอนต์ตามความกว้างของหน้าต่าง
     QString f = QString::number(newSizeFont);
     qDebug() <<"newSizeFont: " << newSizeFont;
@@ -224,6 +241,9 @@ void RestuarantManagement::resizeEvent(QResizeEvent *event){
     ui.frame->setStyleSheet("font: 800 "+f+"pt Segoe UI;");
     qDebug() <<"newSizeFont: " << newSizeFont;
     qDebug() <<"newframeSizeFont: " << f;
+
+    // -----------------------------------------------------------------------------------------------------------------------
+
 
     int sizebutton = perScale;
     qDebug() <<"BottonTable size: " <<sizebutton;
@@ -240,6 +260,22 @@ void RestuarantManagement::resizeEvent(QResizeEvent *event){
         else  qDebug()<<"Error: Button Not Found (Button Name: "<<btnName<<")";
     }
 
+    // -----------------------------------------------------------------------------------------------------------------------
+
+    int newsizefontReceipt = newSizeFont*4/5;
+    qDebug() <<"newsizefontReceipt: " <<newsizefontReceipt;
+    QString fReceipt = QString::number(newsizefontReceipt);
+
+    QFont Receiptfont("Segoe UI", std::max(newsizefontReceipt, 3));
+    ui.Receipt->setStyleSheet("background-color: rgb(255, 255, 255);"
+                                "font: 800 "+fReceipt+"pt Segoe UI;"
+                                "color: rgb(0, 0, 0);");
+    //ui.Receipt->setFont(Receiptfont);
+
+    QFont c = ui.Receipt->font();
+    qDebug() <<"Receipt->font(): " <<c;
+    // QSize d = ui.Receipt->frameSize();
+    //  qDebug() <<"Receipt->frameSize: " <<d;
 
 }
 
