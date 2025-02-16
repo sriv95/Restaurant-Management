@@ -3,6 +3,7 @@
 #include "header/json.h"
 #include <QMessageBox>
 #include <QHeaderView>
+#include <QDateTime>
 
 
 Statement::Statement(QWidget *parent)
@@ -57,7 +58,7 @@ void Statement::loadData()
         int quantity = entry[1];
         double price = entry[2];
         QString date = QString::fromStdString(entry[3]);
-        QString time = QString::fromStdString(entry[4]);
+        QString time = QDateTime::fromString(QString::fromStdString(entry[4]),"hh:mm:ss:ms").toString("hh:mm");
 
         QStringList dateParts = date.split("-");
         if (dateParts.size() != 3) continue;
