@@ -4,14 +4,15 @@
 #include <QTextStream>
 #include <QDateTime>
 #include <header/json.h>
-#include <QTimer> //TT
-#include <QDateTime> //TT
+#include <QTimer>
+#include <QDateTime>
 
 #include <ui/reserve.h>
 #include <ui/employee.h>
 #include <ui/opentabledialog.h>
 #include <ui/reserve.h>
 #include <ui/stockwindow.h>
+#include <ui/statement.h>
 #include <ui/editmenu.h>
 #include <ui/orderfood.h>
 #include <ui/analysis.h>
@@ -48,15 +49,13 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
     ui.OrderFoodBtn->hide();
     setMainBtnVisible(false);
 
-    //บอกเวลาเเละวันที่
     QTimer *timer=new QTimer(this);
     connect (timer ,SIGNAL(timeout()),this,SLOT(showTime()));
     timer->start();
 }
 
-void  RestuarantManagement::showTime() //TT
+void  RestuarantManagement::showTime()
 {
-    // ดึงวันที่และเวลา
     QDateTime dateTime = QDateTime::currentDateTime();
     QString dateTimeText = dateTime.toString("dd/MM/yyyy HH:mm:ss");
 
@@ -405,6 +404,14 @@ void RestuarantManagement::on_EditMenu_clicked()
 {
     editmenu editmenu(this);
     editmenu.exec();
+}
+
+
+void RestuarantManagement::on_Statement_clicked()
+{
+    Statement stateWin(this);
+    stateWin.setWindowTitle("Statement");
+    stateWin.exec();
 }
 
 void RestuarantManagement::on_OrderFoodBtn_clicked()

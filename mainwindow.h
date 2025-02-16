@@ -55,6 +55,8 @@ private slots:
 
     void on_EditMenu_clicked();
 
+    void on_Statement_clicked();
+
 private:
 
     Ui::RestuarantManagementClass ui;
