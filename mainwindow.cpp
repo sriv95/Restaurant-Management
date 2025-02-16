@@ -16,10 +16,19 @@
 #include <ui/editmenu.h>
 #include <ui/orderfood.h>
 #include <ui/analysis.h>
+#include "ui/jsoncheck.h"
 
 json restaurantData;
 
 int Table_Count = 9;
+
+void RestuarantManagement::showError(QString text){
+    QMessageBox Error;
+    Error.setText(text);
+    Error.setIcon(QMessageBox::Warning);
+    Error.setWindowTitle("Error!");
+    Error.exec();
+}
 
 void RestuarantManagement::setMainBtnVisible(bool tf){
     ui.CheckBills->setVisible(tf);
@@ -31,6 +40,7 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
+    on_backtosetup_clicked();
     updateTablesStatus();
     for(int i=1;i<=Table_Count;++i){
         QString btnName = QString("Table_").append(QString::number(i));
@@ -515,6 +525,29 @@ void RestuarantManagement::on_OrderFoodBtn_clicked()
 
 void RestuarantManagement::on_Analysis_clicked()
 {
+    json Data;
+    ::getAllData(Data);
+    if(Data["Statements"].size()<=0&&Data["Menus"].size()<=0) {
+        showError(".json file data Statements or Menus is empty");
+        return;}
     analysis analysis(this);
     analysis.exec();
+}
+
+void RestuarantManagement::on_backtosetup_clicked()
+{
+    // static int Counter = 0;
+    // if (Counter > 2) {
+    //     this->close();
+    //     return;
+    // }
+
+    jsoncheck *jsonCheck = new jsoncheck(this);
+    jsonCheck->setWindowTitle("File Configuration");
+    jsonCheck->exec();
+
+    if (!checkData()) {
+        // Counter++;
+        on_backtosetup_clicked();
+    }
 }

@@ -17,6 +17,7 @@ SOURCES += \
     func/tables.cpp \
     main.cpp \
     mainwindow.cpp \
+    ui/jsoncheck.cpp \
     ui/oderfood.cpp \
     ui/opentabledialog.cpp \
     ui/reserve.cpp \
@@ -31,6 +32,7 @@ HEADERS += \
     header/nlohmann-json.hpp \
     header/tables.h \
     mainwindow.h \
+    ui/jsoncheck.h \
     ui/opentabledialog.h \
     ui/orderfood.h \
     ui/reserve.h \
@@ -42,6 +44,7 @@ FORMS += \
     ui/analysis.ui \
     ui/employee.ui \
     mainwindow.ui \
+    ui/jsoncheck.ui \
     ui/opentabledialog.ui \
     ui/reserve.ui \
     ui/statement.ui \
