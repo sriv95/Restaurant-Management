@@ -41,8 +41,21 @@ private slots:
 
     // void onReserveReturnValue(const QString &);
 
+    void showTime();
+
+    void updateReserveButtonText(int tableNo);
+
+    bool isTableReserved(int tableNo);
+
+    void removeReservation(int tableNo);
     void on_Employee_clicked();
     void on_Stocks_clicked();
+    void on_OrderFoodBtn_clicked() ;
+    void on_Analysis_clicked();
+
+    void on_EditMenu_clicked();
+
+    void on_Statement_clicked();
 
     void on_backtosetup_clicked();
 
