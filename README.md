@@ -27,6 +27,6 @@ My Restaurant Manager using C++, Qt 6 and [nlohmann-json](https://github.com/nlo
 
 -  **🍽️Order Food**: Process food orders efficiently, link them to customer bills, update stock levels accordingly.
 
--  **(⚒️WIP) 📊Financial Statements**: Read JSON and report daily, weekly, or monthly sales, including expenses.
+-  **📊Financial Statements**: Read JSON and report daily, weekly, or monthly sales, including expenses.
 
 -  **📈Business Analysis**: Analyze trends and performance to optimize operations using JSON-based data.
