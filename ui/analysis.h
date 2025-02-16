@@ -58,6 +58,8 @@ private:
     void Summary();
 
     vector<QDate> Date_range_now();
+
+    void CloseUI();
 };
 
 #endif // ANALYSIS_H

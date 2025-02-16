@@ -25,6 +25,7 @@ analysis::analysis(QWidget *parent)
 
 analysis::~analysis()
 {
+    CloseUI();
     delete ui;
 }
 
@@ -246,6 +247,26 @@ void analysis::startUI_setup()
 
         qDebug() << "\n";
     }
+}
+
+
+void analysis::CloseUI()
+{
+    Dishes_data.clear();
+    Drinks_data.clear();
+
+    all_Dishes_name.clear();
+    all_Drinks_name.clear();
+
+    chartData_income.clear();
+    chartData_expenses.clear();
+    chartData_Date.clear();
+
+    week_dates.clear();
+    month_dates.clear();
+    year_dates.clear();
+
+    delete chartView;
 }
 
 
@@ -741,8 +762,16 @@ void analysis::Show_Chart()
 
     \
     vector<long double> max_y(2);
-    max_y.push_back(*max_element(chartData_income.begin() , chartData_income.end()));
-    max_y.push_back(*max_element(chartData_expenses.begin() , chartData_expenses.end()));
+
+    if (chartData_income.size() <= 0) max_y.push_back(0);
+    else max_y.push_back(*max_element(chartData_income.begin() , chartData_income.end()));
+
+    if (chartData_expenses.size() <= 0) max_y.push_back(0);
+    else max_y.push_back(*max_element(chartData_expenses.begin() , chartData_expenses.end()));
+
+    // max_y.push_back(*max_element(chartData_income.begin() , chartData_income.end()));
+    // max_y.push_back(*max_element(chartData_expenses.begin() , chartData_expenses.end()));
+
     QValueAxis *axisY = new QValueAxis;
     axisY->setRange(0, *max_element(max_y.begin() , max_y.end()));
     axisY->setTickCount(10);
