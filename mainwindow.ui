@@ -158,6 +158,9 @@
        <enum>QFrame::Shadow::Raised</enum>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="10,13,10">
+       <property name="topMargin">
+        <number>0</number>
+       </property>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_5">
          <item>
@@ -263,7 +266,7 @@
            <height>16777215</height>
           </size>
          </property>
-         <layout class="QGridLayout" name="gridLayout">
+         <layout class="QGridLayout" name="gridLayout" rowstretch="1,1,1,1" columnstretch="1,1,1" rowminimumheight="1,1,1,1" columnminimumwidth="1,1,1">
           <item row="1" column="0">
            <widget class="QPushButton" name="Table_2">
             <property name="minimumSize">
@@ -280,6 +283,57 @@
             </property>
             <property name="text">
              <string>Table#2</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QPushButton" name="Table_7">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>150</width>
+              <height>150</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Table#7</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QPushButton" name="Table_8">
+            <property name="minimumSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>150</width>
+              <height>150</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Table#8</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QPushButton" name="OpenTableBtn">
+            <property name="text">
+             <string>Open Table</string>
             </property>
            </widget>
           </item>
@@ -308,80 +362,10 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
-           <widget class="QPushButton" name="Table_6">
-            <property name="minimumSize">
-             <size>
-              <width>50</width>
-              <height>50</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>150</width>
-              <height>150</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Table#6</string>
-            </property>
-           </widget>
-          </item>
           <item row="3" column="2">
            <widget class="QPushButton" name="ReserveBtn">
             <property name="text">
              <string>Reserve</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QPushButton" name="OpenTableBtn">
-            <property name="text">
-             <string>Open Table</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <widget class="QPushButton" name="Table_8">
-            <property name="minimumSize">
-             <size>
-              <width>50</width>
-              <height>50</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>150</width>
-              <height>150</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Table#8</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QPushButton" name="Table_7">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>50</width>
-              <height>50</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>150</width>
-              <height>150</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Table#7</string>
             </property>
            </widget>
           </item>
@@ -432,6 +416,25 @@ padding: 10px 10px;
             </property>
            </widget>
           </item>
+          <item row="2" column="1">
+           <widget class="QPushButton" name="Table_6">
+            <property name="minimumSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>150</width>
+              <height>150</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Table#6</string>
+            </property>
+           </widget>
+          </item>
           <item row="1" column="1">
            <widget class="QPushButton" name="Table_5">
             <property name="minimumSize">
@@ -448,6 +451,25 @@ padding: 10px 10px;
             </property>
             <property name="text">
              <string>Table#5</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QPushButton" name="Table_9">
+            <property name="minimumSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>150</width>
+              <height>150</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Table#9</string>
             </property>
            </widget>
           </item>
@@ -473,95 +495,99 @@ padding: 10px 10px;
             </property>
            </widget>
           </item>
-          <item row="2" column="2">
-           <widget class="QPushButton" name="Table_9">
-            <property name="minimumSize">
-             <size>
-              <width>50</width>
-              <height>50</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>150</width>
-              <height>150</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Table#9</string>
-            </property>
-           </widget>
-          </item>
           <item row="3" column="0">
-           <layout class="QVBoxLayout" name="verticalLayout_2">
-            <item>
-             <widget class="QLabel" name="label_3">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <family>Segoe UI</family>
-                <pointsize>12</pointsize>
-                <italic>false</italic>
-                <fontweight>ExtraBold</fontweight>
-               </font>
-              </property>
-              <property name="text">
-               <string>Last Updated:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="LastUpdate">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <family>Segoe UI</family>
-                <pointsize>12</pointsize>
-                <italic>false</italic>
-                <fontweight>ExtraBold</fontweight>
-               </font>
-              </property>
-              <property name="text">
-               <string>3 seconds ago</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="RefreshBtn">
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>Refresh</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QWidget" name="widget_2" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_2">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="label_3">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Segoe UI</family>
+                 <pointsize>12</pointsize>
+                 <italic>false</italic>
+                 <fontweight>ExtraBold</fontweight>
+                </font>
+               </property>
+               <property name="text">
+                <string>Last Updated:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="LastUpdate">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Segoe UI</family>
+                 <pointsize>12</pointsize>
+                 <italic>false</italic>
+                 <fontweight>ExtraBold</fontweight>
+                </font>
+               </property>
+               <property name="text">
+                <string>3 seconds ago</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="RefreshBtn">
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Refresh</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -587,11 +613,17 @@ padding: 10px 10px;
           </size>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
+          <property name="topMargin">
+           <number>0</number>
+          </property>
           <item alignment="Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTop">
-           <widget class="QWidget" name="" native="true">
+           <widget class="QWidget" name="widget" native="true">
             <layout class="QHBoxLayout" name="horizontalLayout_2">
              <property name="sizeConstraint">
               <enum>QLayout::SizeConstraint::SetFixedSize</enum>
+             </property>
+             <property name="topMargin">
+              <number>9</number>
              </property>
              <item>
               <widget class="QLabel" name="Selecting">
@@ -641,20 +673,26 @@ padding: 10px 10px;
            </widget>
           </item>
           <item>
-           <spacer name="verticalSpacer">
-            <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Policy::Preferred</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
+           <widget class="QWidget" name="widget_3" native="true">
+            <property name="minimumSize">
              <size>
-              <width>20</width>
-              <height>40</height>
+              <width>0</width>
+              <height>36</height>
              </size>
             </property>
-           </spacer>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>140</height>
+             </size>
+            </property>
+            <property name="sizeIncrement">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+           </widget>
           </item>
           <item alignment="Qt::AlignmentFlag::AlignHCenter">
            <widget class="QWidget" name="Receipt" native="true">
@@ -671,8 +709,8 @@ padding: 10px 10px;
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(255, 255, 255);
-font: 10pt &quot;Segoe UI&quot;;
+             <string notr="true"> background-color: rgb(255, 255, 255);
+/* font: 10pt &quot;Segoe UI&quot;; */
 color: rgb(0, 0, 0);</string>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout">
@@ -686,16 +724,16 @@ color: rgb(0, 0, 0);</string>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>392</width>
-                 <height>20</height>
+                 <width>16777215</width>
+                 <height>16777215</height>
                 </size>
                </property>
                <property name="font">
                 <font>
                  <family>Segoe UI</family>
-                 <pointsize>10</pointsize>
+                 <pointsize>12</pointsize>
                  <italic>false</italic>
-                 <bold>false</bold>
+                 <fontweight>ExtraBold</fontweight>
                 </font>
                </property>
                <property name="styleSheet">
@@ -709,7 +747,7 @@ color: rgb(0, 0, 0);</string>
                </property>
               </widget>
              </item>
-             <item alignment="Qt::AlignmentFlag::AlignHCenter">
+             <item>
               <widget class="QLabel" name="Receipt_label">
                <property name="minimumSize">
                 <size>
@@ -719,16 +757,16 @@ color: rgb(0, 0, 0);</string>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>325</width>
-                 <height>20</height>
+                 <width>16777215</width>
+                 <height>16777215</height>
                 </size>
                </property>
                <property name="font">
                 <font>
                  <family>Segoe UI</family>
-                 <pointsize>10</pointsize>
+                 <pointsize>12</pointsize>
                  <italic>false</italic>
-                 <bold>false</bold>
+                 <fontweight>ExtraBold</fontweight>
                 </font>
                </property>
                <property name="styleSheet">
@@ -752,16 +790,16 @@ color: rgb(0, 0, 0);</string>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>392</width>
-                 <height>20</height>
+                 <width>16777215</width>
+                 <height>16777215</height>
                 </size>
                </property>
                <property name="font">
                 <font>
                  <family>Segoe UI</family>
-                 <pointsize>10</pointsize>
+                 <pointsize>12</pointsize>
                  <italic>false</italic>
-                 <bold>false</bold>
+                 <fontweight>ExtraBold</fontweight>
                 </font>
                </property>
                <property name="styleSheet">
@@ -787,21 +825,21 @@ color: rgb(0, 0, 0);</string>
                  </property>
                  <property name="maximumSize">
                   <size>
-                   <width>325</width>
-                   <height>20</height>
+                   <width>16777215</width>
+                   <height>16777215</height>
                   </size>
                  </property>
                  <property name="font">
                   <font>
                    <family>Segoe UI</family>
-                   <pointsize>10</pointsize>
+                   <pointsize>12</pointsize>
                    <italic>false</italic>
                    <fontweight>ExtraBold</fontweight>
                   </font>
                  </property>
                  <property name="styleSheet">
                   <string notr="true">color: rgb(0, 0, 0);
-font: 800 10pt &quot;Segoe UI&quot;;</string>
+/* font: 800 10pt &quot;Segoe UI&quot;;</string>
                  </property>
                  <property name="text">
                   <string>Table#0</string>
@@ -821,16 +859,16 @@ font: 800 10pt &quot;Segoe UI&quot;;</string>
                  </property>
                  <property name="maximumSize">
                   <size>
-                   <width>325</width>
-                   <height>20</height>
+                   <width>16777215</width>
+                   <height>16777215</height>
                   </size>
                  </property>
                  <property name="font">
                   <font>
                    <family>Segoe UI</family>
-                   <pointsize>10</pointsize>
+                   <pointsize>12</pointsize>
                    <italic>false</italic>
-                   <bold>false</bold>
+                   <fontweight>ExtraBold</fontweight>
                   </font>
                  </property>
                  <property name="styleSheet">
@@ -856,16 +894,16 @@ font: 800 10pt &quot;Segoe UI&quot;;</string>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>392</width>
-                 <height>20</height>
+                 <width>16777215</width>
+                 <height>16777215</height>
                 </size>
                </property>
                <property name="font">
                 <font>
                  <family>Segoe UI</family>
-                 <pointsize>10</pointsize>
+                 <pointsize>12</pointsize>
                  <italic>false</italic>
-                 <bold>false</bold>
+                 <fontweight>ExtraBold</fontweight>
                 </font>
                </property>
                <property name="styleSheet">
@@ -899,16 +937,16 @@ font: 800 10pt &quot;Segoe UI&quot;;</string>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>392</width>
-                 <height>20</height>
+                 <width>16777215</width>
+                 <height>16777215</height>
                 </size>
                </property>
                <property name="font">
                 <font>
                  <family>Segoe UI</family>
-                 <pointsize>10</pointsize>
+                 <pointsize>12</pointsize>
                  <italic>false</italic>
-                 <bold>false</bold>
+                 <fontweight>ExtraBold</fontweight>
                 </font>
                </property>
                <property name="styleSheet">
@@ -935,16 +973,16 @@ font: 800 10pt &quot;Segoe UI&quot;;</string>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>392</width>
-                 <height>20</height>
+                 <width>16777215</width>
+                 <height>16777215</height>
                 </size>
                </property>
                <property name="font">
                 <font>
                  <family>Segoe UI</family>
-                 <pointsize>10</pointsize>
+                 <pointsize>12</pointsize>
                  <italic>false</italic>
-                 <bold>false</bold>
+                 <fontweight>ExtraBold</fontweight>
                 </font>
                </property>
                <property name="styleSheet">
@@ -970,8 +1008,8 @@ font: 800 10pt &quot;Segoe UI&quot;;</string>
                  </property>
                  <property name="maximumSize">
                   <size>
-                   <width>325</width>
-                   <height>20</height>
+                   <width>16777215</width>
+                   <height>16777215</height>
                   </size>
                  </property>
                  <property name="font">
@@ -1004,8 +1042,8 @@ font: 800 10pt &quot;Segoe UI&quot;;</string>
                  </property>
                  <property name="maximumSize">
                   <size>
-                   <width>325</width>
-                   <height>20</height>
+                   <width>16777215</width>
+                   <height>16777215</height>
                   </size>
                  </property>
                  <property name="font">
@@ -1040,16 +1078,16 @@ font: 800 10pt &quot;Segoe UI&quot;;</string>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>392</width>
-                 <height>20</height>
+                 <width>16777215</width>
+                 <height>16777215</height>
                 </size>
                </property>
                <property name="font">
                 <font>
                  <family>Segoe UI</family>
-                 <pointsize>10</pointsize>
+                 <pointsize>12</pointsize>
                  <italic>false</italic>
-                 <bold>false</bold>
+                 <fontweight>ExtraBold</fontweight>
                 </font>
                </property>
                <property name="styleSheet">
@@ -1073,16 +1111,16 @@ font: 800 10pt &quot;Segoe UI&quot;;</string>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>392</width>
-                 <height>20</height>
+                 <width>16777215</width>
+                 <height>16777215</height>
                 </size>
                </property>
                <property name="font">
                 <font>
                  <family>Segoe UI</family>
-                 <pointsize>10</pointsize>
+                 <pointsize>12</pointsize>
                  <italic>false</italic>
-                 <bold>false</bold>
+                 <fontweight>ExtraBold</fontweight>
                 </font>
                </property>
                <property name="styleSheet">
@@ -1106,16 +1144,16 @@ font: 800 10pt &quot;Segoe UI&quot;;</string>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>392</width>
-                 <height>20</height>
+                 <width>16777215</width>
+                 <height>16777215</height>
                 </size>
                </property>
                <property name="font">
                 <font>
                  <family>Segoe UI</family>
-                 <pointsize>10</pointsize>
+                 <pointsize>12</pointsize>
                  <italic>false</italic>
-                 <bold>false</bold>
+                 <fontweight>ExtraBold</fontweight>
                 </font>
                </property>
                <property name="styleSheet">

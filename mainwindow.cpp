@@ -24,7 +24,7 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
 {
     ui.setupUi(this);
     ui.comboBox->setCurrentIndex(2);
-    //setFixedSize(1280, 960);
+    on_comboBox_activated(2);
 
     updateTablesStatus();
     for(int i=1;i<=Table_Count;++i){
@@ -34,7 +34,7 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
                               "background-color: #535455;"  // background-color
                               "color: white;"               // text-color
                               "border-radius: 12px;"        // Rounded corners
-                              "font-size: 16px;"            // Font size
+                              //"font-size: 16px;"            // Font size
                               "}");
         if(button) connect(button, &QPushButton::clicked, this, &RestuarantManagement::on_TableBtn_clicked);
         else  qDebug()<<"Error: Button Not Found (Button Name: "<<btnName<<")";
@@ -60,7 +60,7 @@ void RestuarantManagement::SetSelectingTable(QString no){
                               "background-color: #535455;"  // background-color
                               "color: white;"               // text-color
                               "border-radius: 12px;"        // Rounded corners
-                              "font-size: 16px;"            // Font size
+                              //"font-size: 16px;"            // Font size
                               "}");
     }
     if(ui.SelectingTable->text()!=no) {
@@ -73,7 +73,7 @@ void RestuarantManagement::SetSelectingTable(QString no){
                               "color: white;"               // White text
                               "border-radius: 12px;"        // Rounded corners
                               //"border:5px solid "
-                              "font-size: 16px;"            // Font size
+                              //"font-size: 16px;"            // Font size
                               "}");
     }
     else {
@@ -201,33 +201,41 @@ void RestuarantManagement::on_Stocks_clicked()
 
 void RestuarantManagement::resizeEvent(QResizeEvent *event){
     QSize newSize = event->size();
-    // คำนวณขนาดใหม่ตามอัตราส่วน 4:3
-
 
     int newWidth = newSize.width();
-    int newHeight = (newWidth * 3) / 4;
+    int newHeight = newSize.height();
 
+    //int newHeight = (newWidth * 3) / 4; // คำนวณขนาดใหม่ตามอัตราส่วน 4:3
     qDebug() << "New Width:" << newWidth << ", New Height:" << newHeight;
+    //resize(newWidth, newHeight);
 
-    resize(newWidth, newHeight);
 
+
+    int perScale = newWidth*100/1024;
+    double Scale = perScale/100.0;
+    qDebug() <<"perScale: " << perScale <<" Scale: "<< Scale;
 
     int newSizeFont = width() / 88;  // ปรับขนาดฟอนต์ตามความกว้างของหน้าต่าง
     QString f = QString::number(newSizeFont);
-    //QFont font("Arial", std::max(newSizeFont, 10));  // กำหนดฟอนต์ขั้นต่ำ 10
+    qDebug() <<"newSizeFont: " << newSizeFont;
+
+    QFont font("Segoe UI", std::max(newSizeFont, 10));  // กำหนดฟอนต์ขั้นต่ำ 10
     //->setFont(font);
     ui.frame->setStyleSheet("font: 800 "+f+"pt Segoe UI;");
+    qDebug() <<"newSizeFont: " << newSizeFont;
+    qDebug() <<"newframeSizeFont: " << f;
 
-    int sizebotton = newWidth*100/1024;
-    //if(sizebotton <= 100)
-    qDebug() << sizebotton;
+    int sizebutton = perScale;
+    qDebug() <<"BottonTable size: " <<sizebutton;
+
     for(int i=1;i<=Table_Count;++i){
         QString btnName = QString("Table_").append(QString::number(i));
         QPushButton *button = this->findChild<QPushButton *>(btnName);
 
 
         if(button){
-            button->setFixedSize(sizebotton,sizebotton);
+            button->setFixedSize(sizebutton,sizebutton);
+            button->setFont(font);
         }
         else  qDebug()<<"Error: Button Not Found (Button Name: "<<btnName<<")";
     }
@@ -239,24 +247,27 @@ void RestuarantManagement::resizeEvent(QResizeEvent *event){
 
 void RestuarantManagement::on_comboBox_activated(int index)
 {
-    int x = 1024, h = 768;
+    //int x = 1024, h = 768;
     switch(index){
     case 0:
-        //double scale = 3.5;
-        setFixedSize(x*3.5, h*3.5);
+        setFixedSize(3584,2688);
+        //setFixedSize(x*3.5, h*3.5);
         break;
     case 1:
-        setFixedSize(x*1.50, h*1.50);
+        setFixedSize(1536,1152);
+        //setFixedSize(x*1.50, h*1.50);
         break;
     case 2:
-        setFixedSize(x*1.25, h*1.25);
+        setFixedSize(1280,960);
+        //setFixedSize(x*1.25, h*1.25);
         break;
     case 3:
-        setFixedSize(x, h);
-        //qDebug() <<
+        setFixedSize(1024,768);
+        //setFixedSize(x, h);
         break;
     case 4:
-        setFixedSize(x*0.9, h*0.9);
+        setFixedSize(922,692);
+        //setFixedSize(x*0.9, h*0.9);
         break;
     }
 }
