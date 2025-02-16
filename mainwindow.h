@@ -55,6 +55,12 @@ private slots:
 
     void on_EditMenu_clicked();
 
+    void on_Statement_clicked();
+
+    void on_backtosetup_clicked();
+
+    void showError(QString);
+
 private:
 
     Ui::RestuarantManagementClass ui;

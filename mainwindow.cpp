@@ -4,21 +4,31 @@
 #include <QTextStream>
 #include <QDateTime>
 #include <header/json.h>
-#include <QTimer> //TT
-#include <QDateTime> //TT
+#include <QTimer>
+#include <QDateTime>
 
 #include <ui/reserve.h>
 #include <ui/employee.h>
 #include <ui/opentabledialog.h>
 #include <ui/reserve.h>
 #include <ui/stockwindow.h>
+#include <ui/statement.h>
 #include <ui/editmenu.h>
 #include <ui/orderfood.h>
 #include <ui/analysis.h>
+#include "ui/jsoncheck.h"
 
 json restaurantData;
 
 int Table_Count = 9;
+
+void RestuarantManagement::showError(QString text){
+    QMessageBox Error;
+    Error.setText(text);
+    Error.setIcon(QMessageBox::Warning);
+    Error.setWindowTitle("Error!");
+    Error.exec();
+}
 
 void RestuarantManagement::setMainBtnVisible(bool tf){
     ui.CheckBills->setVisible(tf);
@@ -30,6 +40,7 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
+    on_backtosetup_clicked();
     updateTablesStatus();
     for(int i=1;i<=Table_Count;++i){
         QString btnName = QString("Table_").append(QString::number(i));
@@ -48,15 +59,13 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
     ui.OrderFoodBtn->hide();
     setMainBtnVisible(false);
 
-    //บอกเวลาเเละวันที่
     QTimer *timer=new QTimer(this);
     connect (timer ,SIGNAL(timeout()),this,SLOT(showTime()));
     timer->start();
 }
 
-void  RestuarantManagement::showTime() //TT
+void  RestuarantManagement::showTime()
 {
-    // ดึงวันที่และเวลา
     QDateTime dateTime = QDateTime::currentDateTime();
     QString dateTimeText = dateTime.toString("dd/MM/yyyy HH:mm:ss");
 
@@ -407,12 +416,31 @@ void RestuarantManagement::on_EditMenu_clicked()
     editmenu.exec();
 }
 
+
+void RestuarantManagement::on_Statement_clicked()
+{
+    Statement stateWin(this);
+    stateWin.setWindowTitle("Statement");
+    stateWin.exec();
+}
+
 void RestuarantManagement::on_OrderFoodBtn_clicked()
 {
     int tableNo = GetSelectingTableNo();
 
     json restaurantData;
     getAllData(restaurantData);
+
+    
+    json &tableData = restaurantData["Tables"][tableNo - 1];
+
+    // added 15/2/25
+    if (tableData["Seats"].get<int>() == 0) {
+        QMessageBox::warning(this, "No customers",
+                             "No customers are seated at this table.");
+        return;
+    }
+
     json &stocks = restaurantData["Stocks"];
 
     OrderFoodDialog orderDialog(this);
@@ -443,8 +471,8 @@ void RestuarantManagement::on_OrderFoodBtn_clicked()
                                 hasEnoughStock = false;
                                 QMessageBox::warning(this, "Insufficient Stock",
                                                      QString("Not enough stock for %1. Remain: %2 in stock")
-                                                        .arg(QString::fromStdString(ingredient))
-                                                        .arg(stock[1].get<double>()));
+                                                         .arg(QString::fromStdString(ingredient))
+                                                         .arg(stock[1].get<double>()));
                                 break;
                             }
                         }
@@ -456,7 +484,6 @@ void RestuarantManagement::on_OrderFoodBtn_clicked()
                     return;
                 }
 
-
                 for (size_t i = 0; i < ingredients.size(); ++i) {
                     std::string ingredient = ingredients[i];
                     double amountNeeded = amounts[i].get<double>() * quantity;
@@ -465,7 +492,6 @@ void RestuarantManagement::on_OrderFoodBtn_clicked()
                         if (stock[0] == ingredient) {
                             double remainingStock = stock[1].get<double>() - amountNeeded;
                             stock[1] = std::max(0.0, remainingStock);
-
 
                             if (remainingStock < 10) {
                                 QMessageBox::warning(this, "Low Stock",
@@ -481,14 +507,12 @@ void RestuarantManagement::on_OrderFoodBtn_clicked()
             }
         }
 
-        json &tableBills = restaurantData["Tables"][tableNo - 1]["Bills"];
+        json &tableBills = tableData["Bills"];
         json emptyBills = json::array({json::array({""}), json::array(), json::array()});
-
 
         if (tableBills == emptyBills || (tableBills[0].size() == 1 && tableBills[0][0] == "")) {
             tableBills[0].clear();
         }
-
 
         tableBills[0].push_back(food.toStdString());
         tableBills[1].push_back(quantity);
@@ -501,6 +525,29 @@ void RestuarantManagement::on_OrderFoodBtn_clicked()
 
 void RestuarantManagement::on_Analysis_clicked()
 {
+    json Data;
+    ::getAllData(Data);
+    if(Data["Statements"].size()<=0&&Data["Menus"].size()<=0) {
+        showError(".json file data Statements or Menus is empty");
+        return;}
     analysis analysis(this);
     analysis.exec();
+}
+
+void RestuarantManagement::on_backtosetup_clicked()
+{
+    // static int Counter = 0;
+    // if (Counter > 2) {
+    //     this->close();
+    //     return;
+    // }
+
+    jsoncheck *jsonCheck = new jsoncheck(this);
+    jsonCheck->setWindowTitle("File Configuration");
+    jsonCheck->exec();
+
+    if (!checkData()) {
+        // Counter++;
+        on_backtosetup_clicked();
+    }
 }
