@@ -59,6 +59,8 @@ private slots:
 
     void on_backtosetup_clicked();
 
+    void showError(QString);
+
 private:
 
     Ui::RestuarantManagementClass ui;
