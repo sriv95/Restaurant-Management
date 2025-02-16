@@ -209,30 +209,18 @@ void RestuarantManagement::resizeEvent(QResizeEvent *event){
     qDebug() << "New Width:" << newWidth << ", New Height:" << newHeight;
     //resize(newWidth, newHeight);
 
+    //Default font size ------------------------------------------------------------------------------------------------------
 
-
+    qDebug() <<"--------------------------------------------------------------------------------------------------------------";
     int perScale = newWidth*100/1024;
     double Scale = perScale/100.0;
     qDebug() <<"perScale: " << perScale <<" Scale: "<< Scale;
 
-    // -----------------------------------------------------------------------------------------------------------------------
-
-    QFont FontheaderFont("Sitka", max(36, 10));
-    ui.MyRestuarantManager->setFont(FontheaderFont);
-    QFont checkFontheaderFont = ui.MyRestuarantManager->font();
-    qDebug() <<"MyRestuarantManager->font(): " << checkFontheaderFont;
 
 
-    // -----------------------------------------------------------------------------------------------------------------------
+    // setStyleSheetFrame -----------------------------------------------------------------------------------------------------------------------
 
-    QFont FontDatetime("SimSun", max(16, 10));
-    ui.label_2->setFont(FontDatetime);
-    QFont checkFontDatetime = ui.label_2->font();
-    qDebug() <<"label_2->font(): " <<checkFontDatetime;
-
-    // -----------------------------------------------------------------------------------------------------------------------
-
-    int newSizeFont = width() / 88;  // ปรับขนาดฟอนต์ตามความกว้างของหน้าต่าง
+    int newSizeFont = width() / 104;  // ปรับขนาดฟอนต์ตามความกว้างของหน้าต่าง //88,104
     QString f = QString::number(newSizeFont);
     qDebug() <<"newSizeFont: " << newSizeFont;
 
@@ -242,7 +230,22 @@ void RestuarantManagement::resizeEvent(QResizeEvent *event){
     qDebug() <<"newSizeFont: " << newSizeFont;
     qDebug() <<"newframeSizeFont: " << f;
 
-    // -----------------------------------------------------------------------------------------------------------------------
+    // FontheaderFont -----------------------------------------------------------------------------------------------------------------------
+
+    QFont FontheaderFont("Sitka", max(newSizeFont*3, 25));
+    ui.MyRestuarantManager->setFont(FontheaderFont);
+    QFont checkFontheaderFont = ui.MyRestuarantManager->font();
+    qDebug() <<"MyRestuarantManager->font(): " << checkFontheaderFont;
+
+
+    // FontDatetime -----------------------------------------------------------------------------------------------------------------------
+
+    QFont FontDatetime("SimSun", max(newSizeFont*4/3, 11));
+    ui.label_2->setFont(FontDatetime);
+    QFont checkFontDatetime = ui.label_2->font();
+    qDebug() <<"label_2->font(): " <<checkFontDatetime;
+
+    // setscaleButton-----------------------------------------------------------------------------------------------------------------------
 
 
     int sizebutton = perScale;
@@ -260,7 +263,7 @@ void RestuarantManagement::resizeEvent(QResizeEvent *event){
         else  qDebug()<<"Error: Button Not Found (Button Name: "<<btnName<<")";
     }
 
-    // -----------------------------------------------------------------------------------------------------------------------
+    // setStyleSheetReceipt-----------------------------------------------------------------------------------------------------------------------
 
     int newsizefontReceipt = newSizeFont*4/5;
     qDebug() <<"newsizefontReceipt: " <<newsizefontReceipt;
@@ -276,6 +279,9 @@ void RestuarantManagement::resizeEvent(QResizeEvent *event){
     qDebug() <<"Receipt->font(): " <<c;
     // QSize d = ui.Receipt->frameSize();
     //  qDebug() <<"Receipt->frameSize: " <<d;
+
+
+    qDebug() <<"--------------------------------------------------------------------------------------------------------------";
 
 }
 

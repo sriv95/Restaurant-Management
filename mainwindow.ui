@@ -12,8 +12,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>0</width>
-    <height>0</height>
+    <width>922</width>
+    <height>692</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -33,6 +33,9 @@
     <item>
      <widget class="QWidget" name="widget_2" native="true">
       <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
        <item>
         <widget class="QLabel" name="MyRestuarantManager">
          <property name="sizePolicy">
