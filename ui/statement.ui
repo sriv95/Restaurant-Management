@@ -52,6 +52,9 @@
    </property>
   </widget>
   <widget class="QTableWidget" name="Statement_Table">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -65,6 +68,9 @@
      <pointsize>10</pointsize>
      <bold>true</bold>
     </font>
+   </property>
+   <property name="editTriggers">
+    <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
    </property>
    <column>
     <property name="text">

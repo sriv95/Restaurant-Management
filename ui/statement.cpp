@@ -36,9 +36,10 @@ void Statement::loadData()
         return;
     }
 
-    QString selectedMonth = ui->Month_ComboBox->currentText();
+    QString selectedMonth = QString::number(ui->Month_ComboBox->currentIndex()+1);
     QString selectedYear = ui->Year_Input->text();
-
+    int IntMonth=ui->Month_ComboBox->currentIndex()+1;
+    if(IntMonth < 10)selectedMonth="0"+QString::number(IntMonth);
     if (selectedMonth.isEmpty()) {
         QMessageBox::warning(this, "Error", "Please select a month");
         return;
@@ -60,8 +61,6 @@ void Statement::loadData()
 
         QStringList dateParts = date.split("-");
         if (dateParts.size() != 3) continue;
-
-        //qDebug() << "Checking Date:" << date << "Month in JSON:" << dateParts[1] << "Selected Month:" << selectedMonth;
 
         if (dateParts[1] != selectedMonth) continue;
         if (!selectedYear.isEmpty() && dateParts[2] != selectedYear) continue;
@@ -87,8 +86,6 @@ void Statement::loadData()
     }
 
     double netProfit = totalIncome - totalExpense;
-
-    //qDebug() << "Updating Summary - Income:" << totalIncome << "Expense:" << totalExpense << "Net Balance:" << netProfit;
 
     ui->Total_Income->setText(QString::number(totalIncome, 'f', 2) + "฿");
     ui->Total_Expense->setText(QString::number(totalExpense, 'f', 2) + "฿");
