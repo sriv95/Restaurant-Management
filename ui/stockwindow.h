@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QTableWidgetItem>
-#include "header\json.h"
+#include "header/json.h"
 
 
 using namespace std;

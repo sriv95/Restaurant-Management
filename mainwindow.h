@@ -12,6 +12,8 @@ public:
     RestuarantManagement(QWidget *parent = nullptr);
     ~RestuarantManagement();
 
+    // void on_TableBtn_clicked();
+
 private slots:
 
     void on_RefreshBtn_clicked();
@@ -34,15 +36,33 @@ private slots:
 
     void on_ReserveBtn_clicked();
 
+    void getData();
     void updateTablesStatus();
 
     void resizeEvent(QResizeEvent *event) override;
 
     // void onReserveReturnValue(const QString &);
 
+    void showTime();
+
+    void updateReserveButtonText(int tableNo);
+
+    bool isTableReserved(int tableNo);
+
+    void removeReservation(int tableNo);
     void on_Employee_clicked();
 
     void on_Stocks_clicked();
+    void on_OrderFoodBtn_clicked() ;
+    void on_Analysis_clicked();
+
+    void on_EditMenu_clicked();
+
+    void on_Statement_clicked();
+
+    void on_backtosetup_clicked();
+
+    void showError(QString);
 
     void on_comboBox_activated(int index);
 
@@ -51,6 +71,8 @@ private slots:
     //void on_Eventscreen_buttontablesize();
 
 private:
+
     Ui::RestuarantManagementClass ui;
     OpenTableDialog *openTableDialog; // Declare OpenTableDialog as a member
+
 };
