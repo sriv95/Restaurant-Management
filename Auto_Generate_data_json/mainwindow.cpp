@@ -4,6 +4,9 @@
 #include <filesystem>
 #include <header/json.h>
 #include <QMessageBox>
+#include <algorithm>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -12,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    ui->seed_input->setText("12345");
 }
 
 MainWindow::~MainWindow()
@@ -23,6 +26,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
+    int seed = ui->seed_input->toPlainText().toInt();
+    srand(seed);
+
     RunGenerate();
 }
 
@@ -31,7 +37,7 @@ void MainWindow::RunGenerate()
 {
     create_empty_data_json();
     Employee();
-    Menus();
+    Menus_and_Stocks();
 }
 
 
@@ -100,8 +106,21 @@ void MainWindow::Employee()
 }
 
 
-void MainWindow::Menus()
+void MainWindow::Menus_and_Stocks()
 {
+    vector<vector<string>> Dished_Ingredients;
+    vector<vector<string>> Drinks_Ingredients;
+
+    Menus(Dished_Ingredients , Drinks_Ingredients);
+
+    Stocks(Dished_Ingredients , Drinks_Ingredients);
+}
+
+
+void MainWindow::Menus(vector<vector<string>> &Dished_Ingredients , vector<vector<string>> &Drinks_Ingredients)
+{
+    //-------------------------------------------------------------//
+
     vector<string> Menus_Dished_Names = {"Spaghetti Carbonara", "Chicken Caesar Salad", "Grilled Salmon", "Beef Steak", "Margarita Pizza", "Fried Chicken", "Tom Yum Soup", "Pad Thai",
                                          "Green Curry Chicken", "Sushi Roll", "Burger", "Tacos", "French Fries", "Omelette", "Lasagna", "Fried Rice", "Clam Chowder", "Spring Rolls",
                                          "BBQ Ribs", "Chocolate Cake"};
@@ -119,24 +138,27 @@ void MainWindow::Menus()
     vector<vector<double>> Menus_Dished_Ingredients_Amounts = {{1, 0.2, 1, 0.1}, {0.2, 1, 0.1, 0.1}, {1, 0.2, 0.1, 0.1}, {1, 0.01, 0.01, 0.1}, {1, 0.5, 0.3, 0.1}, {1, 0.3, 1, 0.5}, {0.3, 0.2, 0.1, 0.1},
                                                                {1, 0.2, 1, 0.1}, {0.3, 0.5, 0.1, 0.1}, {1, 1, 0.3, 0.2}, {1, 1, 0.1, 0.2}, {1, 0.3, 0.2, 0.2}, {1, 0.01, 0.2}, {2, 0.1, 0.1},
                                                                {1, 0.3, 0.5, 0.3}, {1, 1, 0.1, 0.1}, {0.3, 0.5, 0.5, 0.1}, {1, 0.3, 0.2, 0.2}, {1, 0.2, 0.1, 0.01}, {1, 0.5, 2, 0.5}};
+
     {
-    //============================ qDebug Dished ============================//
+        //============================ qDebug Dished ============================//
 
-    // qDebug() << "Menus_Dished_Names.size() :" << Menus_Dished_Names.size() << "Menus_Dished_Price.size() :" << Menus_Dished_Price.size()
-    //          << "Menus_Dished_Ingredients.size() :" << Menus_Dished_Ingredients.size() << "Menus_Dished_Ingredients_Amounts.size() :" << Menus_Dished_Ingredients_Amounts.size();
+        // qDebug() << "Menus_Dished_Names.size() :" << Menus_Dished_Names.size() << "Menus_Dished_Price.size() :" << Menus_Dished_Price.size()
+        //          << "Menus_Dished_Ingredients.size() :" << Menus_Dished_Ingredients.size() << "Menus_Dished_Ingredients_Amounts.size() :" << Menus_Dished_Ingredients_Amounts.size();
 
-    // for (unsigned int i = 0 ; i < Menus_Dished_Names.size() ; i++)
-    // {
-    //     qDebug() << Menus_Dished_Ingredients[i].size() << " : " << Menus_Dished_Ingredients_Amounts[i].size();
-    //     if (Menus_Dished_Ingredients[i].size() != Menus_Dished_Ingredients_Amounts[i].size())
-    //     {
-    //         QMessageBox::about(this , "❗warning❗" , "❗size not match❗");
-    //     }
-    // }
-    // QMessageBox::about(this , "✅✅✅✅" , "✅✅✅✅ Ingredients and Ingredients_Amounts correct");
+        // for (unsigned int i = 0 ; i < Menus_Dished_Names.size() ; i++)
+        // {
+        //     qDebug() << Menus_Dished_Ingredients[i].size() << " : " << Menus_Dished_Ingredients_Amounts[i].size();
+        //     if (Menus_Dished_Ingredients[i].size() != Menus_Dished_Ingredients_Amounts[i].size())
+        //     {
+        //         QMessageBox::about(this , "❗warning❗" , "❗size not match❗");
+        //     }
+        // }
+        // QMessageBox::about(this , "✅✅✅✅" , "✅✅✅✅ Ingredients and Ingredients_Amounts correct");
 
-    //============================ qDebug Dished ============================//
+        //============================ qDebug Dished ============================//
     }
+
+    //-------------------------------------------------------------//
 
     vector<string> Menus_Drinks_Names = {"Iced Coffee", "Green Tea Latte", "Smoothie (Berry)", "Lemonade", "Mango Juice", "Coconut Shake", "Mojito (Non-alcoholic)", "Hot Chocolate",
                                          "Iced Matcha", "Orange Juice"};
@@ -149,30 +171,120 @@ void MainWindow::Menus()
 
     vector<vector<double>> Menus_Drinks_Ingredients_Amounts = {{1, 0.2, 1, 0.1}, {1, 0.2, 0.1}, {0.5, 0.3, 0.1}, {1, 0.2, 1}, {1, 0.1, 1}, {1, 0.3, 1}, {0.1, 0.2, 1, 0.1}, {0.3, 0.5, 0.2}, {1, 0.3, 1},
                                                                {1, 0.1, 1}};
+
     {
-    //============================ qDebug Drinks ============================//
+        //============================ qDebug Drinks ============================//
 
-    // qDebug() << "Menus_Drinks_Names.size() :" << Menus_Drinks_Names.size() << "Menus_Drinks_Price.size() :" << Menus_Drinks_Price.size()
-    //          << "Menus_Drinks_Ingredients.size() :" << Menus_Drinks_Ingredients.size() << "Menus_Drinks_Ingredients_Amounts.size() :" << Menus_Drinks_Ingredients_Amounts.size();
+        // qDebug() << "Menus_Drinks_Names.size() :" << Menus_Drinks_Names.size() << "Menus_Drinks_Price.size() :" << Menus_Drinks_Price.size()
+        //          << "Menus_Drinks_Ingredients.size() :" << Menus_Drinks_Ingredients.size() << "Menus_Drinks_Ingredients_Amounts.size() :" << Menus_Drinks_Ingredients_Amounts.size();
 
-    // for (unsigned int i = 0 ; i < Menus_Drinks_Names.size() ; i++)
-    // {
-    //     qDebug() << Menus_Drinks_Ingredients[i].size() << " : " << Menus_Drinks_Ingredients_Amounts[i].size();
-    //     if (Menus_Drinks_Ingredients[i].size() != Menus_Drinks_Ingredients_Amounts[i].size())
-    //     {
-    //         QMessageBox::about(this , "❗warning❗" , "❗size not match❗");
-    //     }
-    // }
-    // QMessageBox::about(this , "✅✅✅✅" , "✅✅✅✅ Ingredients and Ingredients_Amounts correct");
+        // for (unsigned int i = 0 ; i < Menus_Drinks_Names.size() ; i++)
+        // {
+        //     qDebug() << Menus_Drinks_Ingredients[i].size() << " : " << Menus_Drinks_Ingredients_Amounts[i].size();
+        //     if (Menus_Drinks_Ingredients[i].size() != Menus_Drinks_Ingredients_Amounts[i].size())
+        //     {
+        //         QMessageBox::about(this , "❗warning❗" , "❗size not match❗");
+        //     }
+        // }
+        // QMessageBox::about(this , "✅✅✅✅" , "✅✅✅✅ Ingredients and Ingredients_Amounts correct");
 
-    //============================ qDebug Drinks ============================//
+        //============================ qDebug Drinks ============================//
     }
+
+    //-------------------------------------------------------------//
+
+    json Menus;
+    unsigned int i = 0;
+    for ( ; i < Menus_Dished_Names.size() ; i++)
+    {
+        Menus[i][0] = Menus_Dished_Names[i];
+        Menus[i][1] = Menus_Dished_Price[i];
+        Menus[i][2] = "Dishes";
+        Menus[i][3] = Menus_Dished_Ingredients[i];
+        Menus[i][4] = Menus_Dished_Ingredients_Amounts[i];
+    }
+
+    for (unsigned int j = 0 ; j < Menus_Drinks_Names.size() ; i++ , j++)
+    {
+        Menus[i][0] = Menus_Drinks_Names[j];
+        Menus[i][1] = Menus_Drinks_Price[j];
+        Menus[i][2] = "Drinks";
+        Menus[i][3] = Menus_Drinks_Ingredients[j];
+        Menus[i][4] = Menus_Drinks_Ingredients_Amounts[j];
+    }
+
+    //-------------------------------------------------------------//
+
+    setData(Menus , "Menus");
+
+    //------------ To - Stocks -------------//
+
+    Dished_Ingredients = Menus_Dished_Ingredients;
+    Drinks_Ingredients = Menus_Drinks_Ingredients;
+
+
+    //------------ To - Stocks -------------//
 }
 
 
-void MainWindow::Reservation()
+void MainWindow::Stocks(vector<vector<string>> Dished_Ingredients , vector<vector<string>> Drinks_Ingredients)
 {
+    //-------------------------------------------------------------//
 
+    vector<string> split_Ingredients;
+
+    for (unsigned int i = 0 ; i < Dished_Ingredients.size() ; i++)
+    {
+        for (unsigned int j = 0 ; j < Dished_Ingredients[i].size() ; j++)
+        {
+            if (std::find(split_Ingredients.begin() , split_Ingredients.end() , Dished_Ingredients[i][j]) == split_Ingredients.end())
+            {
+                split_Ingredients.push_back(Dished_Ingredients[i][j]);
+            }
+        }
+    }
+
+    for (unsigned int i = 0 ; i < Drinks_Ingredients.size() ; i++)
+    {
+        for (unsigned int j = 0 ; j < Drinks_Ingredients[i].size() ; j++)
+        {
+            if (std::find(split_Ingredients.begin() , split_Ingredients.end() , Drinks_Ingredients[i][j]) == split_Ingredients.end())
+            {
+                split_Ingredients.push_back(Drinks_Ingredients[i][j]);
+            }
+        }
+    }
+
+    {
+        //============================ qDebug ============================//
+
+        int total_in_vector = 0;
+        for (int i = 0 ; i < split_Ingredients.size() ; i++)
+        {
+            total_in_vector = 0;
+            for (int j = 0 ; j < split_Ingredients.size() ; j++)
+            {
+                if(split_Ingredients[i] == split_Ingredients[j]) total_in_vector++;
+            }
+            qDebug() << QString::fromStdString(split_Ingredients[i]) << " : " << total_in_vector;
+        }
+
+        //============================ qDebug ============================//
+    }
+
+    //-------------------------------------------------------------//
+
+
+    json Stocks;
+    for (unsigned int i = 0 ; i < split_Ingredients.size() ; i++)
+    {
+        Stocks[i][0] = split_Ingredients[i];
+        Stocks[i][1] = 0;
+    }
+
+    setData(Stocks , "Stocks");
+
+    //-------------------------------------------------------------//
 }
 
 
@@ -182,7 +294,4 @@ void MainWindow::Statement()
 }
 
 
-void MainWindow::Stocks()
-{
 
-}

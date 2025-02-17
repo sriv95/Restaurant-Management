@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <string>
+
+using namespace std;
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -29,13 +32,15 @@ private:
 
     void Employee();
 
-    void Menus();
+    void Menus(vector<vector<string>> &Dished_Ingredients , vector<vector<string>> &Drinks_Ingredients);
 
     void Reservation();
 
     void Statement();
 
-    void Stocks();
+    void Stocks(vector<vector<string>> Stocks_Dished_Ingredients , vector<vector<string>> Stocks_Drinks_Ingredients);
+
+    void Menus_and_Stocks();
 
 };
 #endif // MAINWINDOW_H
