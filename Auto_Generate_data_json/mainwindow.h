@@ -17,7 +17,25 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
+
+    void RunGenerate();
+
+    void create_empty_data_json();
+
+    void Employee();
+
+    void Menus();
+
+    void Reservation();
+
+    void Statement();
+
+    void Stocks();
+
 };
 #endif // MAINWINDOW_H
