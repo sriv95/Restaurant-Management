@@ -24,11 +24,17 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_Generate_Button_clicked()
 {
-    int seed = ui->seed_input->toPlainText().toInt();
-    srand(seed);
+    int seed;
+    if(ui->checkBox_Auto_random->isChecked())
+    {
+        seed = rand();
+        ui->seed_input->setText(QString::number(seed));
+    }
+    else seed = ui->seed_input->toPlainText().toInt();
 
+    srand(seed);
     RunGenerate();
 }
 
@@ -258,16 +264,16 @@ void MainWindow::Stocks(vector<vector<string>> Dished_Ingredients , vector<vecto
     {
         //============================ qDebug ============================//
 
-        int total_in_vector = 0;
-        for (int i = 0 ; i < split_Ingredients.size() ; i++)
-        {
-            total_in_vector = 0;
-            for (int j = 0 ; j < split_Ingredients.size() ; j++)
-            {
-                if(split_Ingredients[i] == split_Ingredients[j]) total_in_vector++;
-            }
-            qDebug() << QString::fromStdString(split_Ingredients[i]) << " : " << total_in_vector;
-        }
+        // int total_in_vector = 0;
+        // for (int i = 0 ; i < split_Ingredients.size() ; i++)
+        // {
+        //     total_in_vector = 0;
+        //     for (int j = 0 ; j < split_Ingredients.size() ; j++)
+        //     {
+        //         if(split_Ingredients[i] == split_Ingredients[j]) total_in_vector++;
+        //     }
+        //     qDebug() << QString::fromStdString(split_Ingredients[i]) << " : " << total_in_vector;
+        // }
 
         //============================ qDebug ============================//
     }
@@ -279,7 +285,7 @@ void MainWindow::Stocks(vector<vector<string>> Dished_Ingredients , vector<vecto
     for (unsigned int i = 0 ; i < split_Ingredients.size() ; i++)
     {
         Stocks[i][0] = split_Ingredients[i];
-        Stocks[i][1] = 0;
+        Stocks[i][1] = rand()%201 + 50;
     }
 
     setData(Stocks , "Stocks");
@@ -292,6 +298,3 @@ void MainWindow::Statement()
 {
 
 }
-
-
-

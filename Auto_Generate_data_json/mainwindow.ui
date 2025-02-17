@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>797</width>
-    <height>750</height>
+    <height>543</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QPushButton" name="Generate_Button">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>650</y>
+      <x>150</x>
+      <y>450</y>
       <width>471</width>
       <height>61</height>
      </rect>
@@ -35,9 +35,9 @@
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>530</y>
-      <width>591</width>
+      <x>180</x>
+      <y>360</y>
+      <width>391</width>
       <height>51</height>
      </rect>
     </property>
@@ -67,6 +67,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
      </item>
      <item>
       <widget class="QTextEdit" name="seed_input">
+       <property name="maximumSize">
+        <size>
+         <width>200</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <pointsize>16</pointsize>
@@ -85,6 +91,24 @@ li.checked::marker { content: &quot;\2612&quot;; }
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_Auto_random">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>320</y>
+      <width>211</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Auto Random?</string>
+    </property>
    </widget>
   </widget>
  </widget>
