@@ -26,6 +26,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_Generate_Button_clicked()
 {
+    ui->Generate_Button->setEnabled(false);
+
     int seed;
     if(ui->checkBox_Auto_random->isChecked())
     {
@@ -36,6 +38,8 @@ void MainWindow::on_Generate_Button_clicked()
 
     srand(seed);
     RunGenerate();
+
+    ui->Generate_Button->setEnabled(true);
 }
 
 
