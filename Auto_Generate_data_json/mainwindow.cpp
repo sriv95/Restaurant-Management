@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <ctime>
+#include <QMessageBox>
 
 using namespace std;
 
@@ -16,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->seed_input->setText("12345");
+    ui->calendar_Start->setSelectedDate(QDate::currentDate().addMonths(-5));
+    ui->calendar_End->setSelectedDate(QDate::currentDate().addMonths(5));
 }
 
 MainWindow::~MainWindow()
@@ -28,6 +31,14 @@ void MainWindow::on_Generate_Button_clicked()
 {
     ui->Generate_Button->setEnabled(false);
 
+    RunGenerate();
+
+    ui->Generate_Button->setEnabled(true);
+}
+
+
+void MainWindow::RunGenerate()
+{
     int seed;
     if(ui->checkBox_Auto_random->isChecked())
     {
@@ -37,17 +48,13 @@ void MainWindow::on_Generate_Button_clicked()
     else seed = ui->seed_input->toPlainText().toInt();
 
     srand(seed);
-    RunGenerate();
 
-    ui->Generate_Button->setEnabled(true);
-}
+    //------------------------------------------//
 
-
-void MainWindow::RunGenerate()
-{
     create_empty_data_json();
     Employee();
     Menus_and_Stocks();
+    Statement();
 }
 
 
@@ -300,5 +307,130 @@ void MainWindow::Stocks(vector<vector<string>> Dished_Ingredients , vector<vecto
 
 void MainWindow::Statement()
 {
+    //-------------------------------------------------------------//
 
+    json Statement;
+
+    QDateTime Start_DateTime = ui->calendar_Start->selectedDate().startOfDay();
+    QDateTime End_DateTime = ui->calendar_End->selectedDate().endOfDay();
+
+    if (Start_DateTime > End_DateTime)
+    {
+        QMessageBox::about(this , "❗warning❗" , "เลือกวันให้มันถูกๆ หน่อยดิเฮ้ย");
+        return;
+    }
+
+    int max_stock = ui->input_Max_Stock_per_day->toPlainText().toInt();
+    int max_amount_stock = ui->input_Max_amount_Stock_per_time->toPlainText().toInt();
+    int max_price_stock = ui->input_max_price_Stock->toPlainText().toInt();
+    int min_price_stock = ui->input_min_price_Stock->toPlainText().toInt();
+
+    if (min_price_stock > max_price_stock)
+    {
+        QMessageBox::about(this , "❗warning❗" , "Max Min ใส่ให้ถูกๆ หน่อยดิเฮ้ย");
+        return;
+    }
+
+    int max_order = ui->input_Max_order_per_day->toPlainText().toInt();
+    int chance_no_Statement = ui->input_Chance_of_no_Statement->toPlainText().toInt();
+    int chance_income = ui->input_Chance_of_income->toPlainText().toInt();
+
+    qDebug() << max_order << " " << chance_no_Statement << " " << chance_income;
+
+    json Menus;
+    json Stocks;
+    getData(Menus , "Menus");
+    getData(Stocks , "Stocks");
+    int Menus_size = Menus.size();
+    int Stocks_size = Stocks.size();
+
+    qDebug() << Menus_size << " " << Stocks_size;
+
+    //-------------------------------------------------------------//
+
+    QDateTime GenerateTime = Start_DateTime;
+    QDateTime temp_GenerateTime = Start_DateTime;
+    int i = 0;
+
+    for ( ; GenerateTime <= End_DateTime ; )
+    {
+        if (rand()%100 + 1 <= chance_no_Statement) continue;
+
+        if (rand()%100 + 1 <= chance_income)
+        {
+            //Income
+            int Amount_order_in_day = rand()%max_order + 1;
+            int min_minute = 1200/Amount_order_in_day;
+
+            for (int j = 0 ; j < Amount_order_in_day ; j++ , i++)
+            {
+                int rand_amount = rand()%10 + 1;
+                int rand_index_menu = rand()%Menus_size;
+
+                Statement[i][0] = Menus[rand_index_menu][0];
+                Statement[i][1] = rand_amount;
+                Statement[i][2] = double(Menus[rand_index_menu][1]) * rand_amount;
+
+                //---------------- TIME ----------------//
+
+                int rand_minute = rand()%min_minute + 1;
+                int rand_ms = rand()%50 + 1;
+
+                GenerateTime = GenerateTime.addSecs(rand_minute*60).addMSecs(rand_ms);
+
+                Statement[i][3] = GenerateTime.date().toString("dd-MM-yyyy").toStdString();
+                Statement[i][4] = GenerateTime.time().toString("HH:mm:ss:ms").toStdString();
+
+                //---------------- TIME ----------------//
+            }
+
+            // qDebug() << GenerateTime.toString("dd-MM-yyyy HH:mm:ss:ms");
+            if (temp_GenerateTime > GenerateTime) QMessageBox::about(this , "❌❌❌" , "❌❌❌ Time ➕➕➕ Incorrect");
+            temp_GenerateTime = GenerateTime;
+
+            GenerateTime = GenerateTime.addDays(1);
+            GenerateTime.setTime(QTime(0,0,0));
+        }
+        else
+        {
+            //Expenses
+            int Amount_order_in_day = rand()%max_stock + 1;
+            int min_minute = 1200/Amount_order_in_day;
+
+            for (int j = 0 ; j < Amount_order_in_day ; j++ , i++)
+            {
+                int rand_amount = rand()%max_amount_stock + 1;
+                int rand_index_menu = rand()%Stocks_size;
+                int rand_price = rand()%(max_price_stock - min_price_stock + 1) + min_price_stock;
+                Statement[i][0] = Stocks[rand_index_menu][0];
+                Statement[i][1] = rand_amount;
+                Statement[i][2] = -1 * (rand_amount * rand_price);
+
+                // qDebug() << rand_amount << " * " << rand_price;
+
+                //---------------- TIME ----------------//
+
+                int rand_minute = rand()%min_minute + 1;
+                int rand_ms = rand()%50 + 1;
+
+                GenerateTime = GenerateTime.addSecs(rand_minute*60).addMSecs(rand_ms);
+
+                Statement[i][3] = GenerateTime.date().toString("dd-MM-yyyy").toStdString();
+                Statement[i][4] = GenerateTime.time().toString("HH:mm:ss:ms").toStdString();
+
+                //---------------- TIME ----------------//
+            }
+
+            // qDebug() << GenerateTime.toString("dd-MM-yyyy HH:mm:ss:ms");
+            if (temp_GenerateTime > GenerateTime) QMessageBox::about(this , "❌❌❌" , "❌❌❌ Time ➕➕➕ Incorrect");
+            temp_GenerateTime = GenerateTime;
+
+            GenerateTime = GenerateTime.addDays(1);
+            GenerateTime.setTime(QTime(0,0,0));
+        }
+    }
+
+    //-------------------------------------------------------------//
+
+    setData(Statement , "Statement");
 }
