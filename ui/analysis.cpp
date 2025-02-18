@@ -645,8 +645,8 @@ void analysis::Show_Chart()
         //---------------line series-----------------//
 
         //---------------Dot series-----------------//
-        Dot_series_income->append(xValue, chartData_income[i]);
-        Dot_series_expenses->append(xValue, chartData_expenses[i]);
+        if (chartData_income[i] != 0) Dot_series_income->append(xValue, chartData_income[i]);
+        if (chartData_expenses[i] != 0) Dot_series_expenses->append(xValue, chartData_expenses[i]);
         //---------------Dot series-----------------//
         add_count++;
     }
