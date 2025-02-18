@@ -229,24 +229,24 @@ void analysis::startUI_setup()
 
     ui->comboBox_search_mode->setCurrentIndex(5);
 
-    for (unsigned int i = 0 ; i < chartData_Date.size() ; i++)
-    {
-        qDebug() << "Date : "<< chartData_Date[i].toString("dd-MM-yyyy") << "Income : " << QString::number(chartData_income[i]) << "expenses : " << QString::number(chartData_expenses[i]);
+    // for (unsigned int i = 0 ; i < chartData_Date.size() ; i++)
+    // {
+    //     qDebug() << "Date : "<< chartData_Date[i].toString("dd-MM-yyyy") << "Income : " << QString::number(chartData_income[i]) << "expenses : " << QString::number(chartData_expenses[i]);
 
-        qDebug() << "Dishes";
-        for (int j = 0 ; j < Dishes_data[i].name.size() ; j++)
-        {
-            qDebug() << "name : " << Dishes_data[i].name[j] << "amount : " << Dishes_data[i].amount[j];
-        }
+    //     qDebug() << "Dishes";
+    //     for (int j = 0 ; j < Dishes_data[i].name.size() ; j++)
+    //     {
+    //         qDebug() << "name : " << Dishes_data[i].name[j] << "amount : " << Dishes_data[i].amount[j];
+    //     }
 
-        qDebug() << "Drinks";
-        for (int j = 0 ; j < Drinks_data[i].name.size() ; j++)
-        {
-            qDebug() << "name : " << Drinks_data[i].name[j] << "amount : " << Drinks_data[i].amount[j];
-        }
+    //     qDebug() << "Drinks";
+    //     for (int j = 0 ; j < Drinks_data[i].name.size() ; j++)
+    //     {
+    //         qDebug() << "name : " << Drinks_data[i].name[j] << "amount : " << Drinks_data[i].amount[j];
+    //     }
 
-        qDebug() << "\n";
-    }
+    //     qDebug() << "\n";
+    // }
 }
 
 
