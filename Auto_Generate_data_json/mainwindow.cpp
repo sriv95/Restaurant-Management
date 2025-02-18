@@ -336,7 +336,7 @@ void MainWindow::Statement()
     int chance_no_Statement = ui->input_Chance_of_no_Statement->toPlainText().toInt();
     int chance_income = ui->input_Chance_of_income->toPlainText().toInt();
 
-    qDebug() << max_order << " " << chance_no_Statement << " " << chance_income;
+    // qDebug() << max_order << " " << chance_no_Statement << " " << chance_income;
 
     json Menus;
     json Stocks;
@@ -345,7 +345,7 @@ void MainWindow::Statement()
     int Menus_size = Menus.size();
     int Stocks_size = Stocks.size();
 
-    qDebug() << Menus_size << " " << Stocks_size;
+    // qDebug() << Menus_size << " " << Stocks_size;
 
     //-------------------------------------------------------------//
 
