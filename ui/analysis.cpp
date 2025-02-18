@@ -62,7 +62,7 @@ double Total_Income_in_selected_range = 0;
 double Total_Expenses_in_selected_range = 0;
 
 vector<double> chartData_income , chartData_expenses;
-vector<QDate> chartData_Date;
+vector<QDateTime> chartData_Date;
 
 vector<QDate> week_dates , month_dates , year_dates;
 
@@ -121,7 +121,8 @@ void analysis::startUI_setup()
 
     for (unsigned int i = 0 ; i < statement.size() ; i++)
     {
-        QDate Date_ = QDate::fromString(QString::fromStdString(statement[i][3]) , "dd-MM-yyyy");
+        QString String_DateTime = QString::fromStdString(statement[i][3]) + " " + QString::fromStdString(statement[i][4]);
+        QDateTime Date_ = QDateTime::fromString(String_DateTime , "dd-MM-yyyy HH:mm:ss:ms");
 
         auto it = std::find(chartData_Date.begin(), chartData_Date.end(), Date_);
         if (it == chartData_Date.end())
@@ -189,7 +190,7 @@ void analysis::startUI_setup()
 
 
 
-    vector<QDate> unSort_chartData_Date = ::chartData_Date;
+    vector<QDateTime> unSort_chartData_Date = ::chartData_Date;
     std::sort(chartData_Date.begin() , chartData_Date.end());
     vector<unsigned int> sorted_index;
 
@@ -616,8 +617,8 @@ void analysis::Show_Chart()
     //==================================================================================//
 
     vector<QDate> Date_Range_now = Date_range_now();
-    QDate minDate_range = Date_Range_now[0];
-    QDate maxDate_range = Date_Range_now[1];
+    QDateTime minDate_range = Date_Range_now[0].startOfDay();
+    QDateTime maxDate_range = Date_Range_now[1].endOfDay();
 
     //==================================================================================//
 
@@ -637,7 +638,7 @@ void analysis::Show_Chart()
         Total_Expenses_in_selected_range += chartData_expenses[i];
         //---------------total-----------------//
 
-        qint64 xValue = chartData_Date[i].startOfDay().toMSecsSinceEpoch();
+        qint64 xValue = chartData_Date[i].toMSecsSinceEpoch();
 
         //---------------line series-----------------//
         series_income->append(xValue, chartData_income[i]);
@@ -755,7 +756,7 @@ void analysis::Show_Chart()
     }
     else
     {
-        axisX->setRange(QDateTime(minDate_range , QTime(0,0,1)) , QDateTime(maxDate_range , QTime(0,0,2)));
+        axisX->setRange(minDate_range , maxDate_range);
         axisX->setTickCount(2);
     }
 
@@ -832,14 +833,14 @@ void analysis::Summary()
     //======================================================================================//
 
     vector<QDate> Date_Range_now = Date_range_now();
-    QDate minDate_range = Date_Range_now[0];
-    QDate maxDate_range = Date_Range_now[1];
+    QDateTime minDate_range = Date_Range_now[0].startOfDay();
+    QDateTime maxDate_range = Date_Range_now[1].endOfDay();
 
     //======================================================================================//
 
     vector<Dishes> Dishes_data_in_range;
     vector<Drinks> Drinks_data_in_range;
-    vector<QDate> Date_in_range;
+    vector<QDateTime> Date_in_range;
 
     for (unsigned int i = 0; i < chartData_Date.size(); i++)
     {
