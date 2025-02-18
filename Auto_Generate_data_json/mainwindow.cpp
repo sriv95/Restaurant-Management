@@ -355,7 +355,12 @@ void MainWindow::Statement()
 
     for ( ; GenerateTime <= End_DateTime ; )
     {
-        if (rand()%100 + 1 <= chance_no_Statement) continue;
+        if (rand()%100 + 1 <= chance_no_Statement)
+        {
+            GenerateTime = GenerateTime.addDays(1);
+            GenerateTime.setTime(QTime(0,0,0));
+            continue;
+        }
 
         if (rand()%100 + 1 <= chance_income)
         {
