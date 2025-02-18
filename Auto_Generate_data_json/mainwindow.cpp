@@ -332,6 +332,7 @@ void MainWindow::Statement()
     }
 
     int max_order = ui->input_Max_order_per_day->toPlainText().toInt();
+    int max_amount_order = ui->input_max_amount_Menus_per_time->toPlainText().toInt();
     int chance_no_Statement = ui->input_Chance_of_no_Statement->toPlainText().toInt();
     int chance_income = ui->input_Chance_of_income->toPlainText().toInt();
 
@@ -364,7 +365,7 @@ void MainWindow::Statement()
 
             for (int j = 0 ; j < Amount_order_in_day ; j++ , i++)
             {
-                int rand_amount = rand()%10 + 1;
+                int rand_amount = rand()%max_amount_order + 1;
                 int rand_index_menu = rand()%Menus_size;
 
                 Statement[i][0] = Menus[rand_index_menu][0];
@@ -402,6 +403,7 @@ void MainWindow::Statement()
                 int rand_amount = rand()%max_amount_stock + 1;
                 int rand_index_menu = rand()%Stocks_size;
                 int rand_price = rand()%(max_price_stock - min_price_stock + 1) + min_price_stock;
+
                 Statement[i][0] = Stocks[rand_index_menu][0];
                 Statement[i][1] = rand_amount;
                 Statement[i][2] = -1 * (rand_amount * rand_price);
