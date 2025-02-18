@@ -122,7 +122,7 @@ void analysis::startUI_setup()
     for (unsigned int i = 0 ; i < statement.size() ; i++)
     {
         QString String_DateTime = QString::fromStdString(statement[i][3]) + " " + QString::fromStdString(statement[i][4]);
-        QDateTime Date_ = QDateTime::fromString(String_DateTime , "dd-MM-yyyy HH:mm:ss:ms");
+        QDateTime Date_ = QDateTime::fromString(String_DateTime , "dd-MM-yyyy HH:mm:ss.zzz");
 
         auto it = std::find(chartData_Date.begin(), chartData_Date.end(), Date_);
         if (it == chartData_Date.end())
