@@ -385,7 +385,7 @@ void MainWindow::Statement()
                 GenerateTime = GenerateTime.addSecs(rand_minute*60).addMSecs(rand_ms);
 
                 Statement[i][3] = GenerateTime.date().toString("dd-MM-yyyy").toStdString();
-                Statement[i][4] = GenerateTime.time().toString("HH:mm:ss:ms").toStdString();
+                Statement[i][4] = GenerateTime.time().toString("HH:mm:ss.zzz").toStdString();
 
                 //---------------- TIME ----------------//
             }
@@ -423,7 +423,7 @@ void MainWindow::Statement()
                 GenerateTime = GenerateTime.addSecs(rand_minute*60).addMSecs(rand_ms);
 
                 Statement[i][3] = GenerateTime.date().toString("dd-MM-yyyy").toStdString();
-                Statement[i][4] = GenerateTime.time().toString("HH:mm:ss:ms").toStdString();
+                Statement[i][4] = GenerateTime.time().toString("HH:mm:ss.zzz").toStdString();
 
                 //---------------- TIME ----------------//
             }
