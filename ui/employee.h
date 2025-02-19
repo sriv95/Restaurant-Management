@@ -12,7 +12,7 @@ class employee : public QDialog
     Q_OBJECT
 
 public:
-    explicit employee(QWidget *parent = nullptr);
+    explicit employee(QWidget *parent = nullptr, int Index = 2);
     ~employee();
 
 private slots:
@@ -30,6 +30,10 @@ private slots:
     bool Check_Correct_DataType_in_cell();
 
     void on_Save_Button_clicked();
+
+    void resizeEvent(QResizeEvent *event) override ;
+
+    void OpenScreen(int index);
 
 private:
     Ui::employee *ui;

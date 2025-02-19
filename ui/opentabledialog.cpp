@@ -1,6 +1,7 @@
 #include "opentabledialog.h"
 #include "ui_opentabledialog.h"
 #include <QMessageBox>
+#include <QResizeEvent>
 
 OpenTableDialog::OpenTableDialog(QWidget *parent,int index)
     : QDialog(parent)

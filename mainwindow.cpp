@@ -401,7 +401,8 @@ void RestuarantManagement::removeReservation(int tableNo) {
 
 void RestuarantManagement::on_Employee_clicked()
 {
-    employee employee(this);
+    int Index = ui.comboBox->currentIndex();
+    employee employee(this,Index);
     employee.exec();
 }
 

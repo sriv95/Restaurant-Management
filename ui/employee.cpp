@@ -7,17 +7,19 @@
 #include <cstdlib>
 #include <QMessageBox>
 #include <algorithm>
+#include <QResizeEvent>
 
 using namespace std;
 
 const string Employee_Keys[] = {"Name" , "Age" , "Gender" , "Salary" , "Job"};
 const int len_Employee_Keys = 5;
 
-employee::employee(QWidget *parent)
+employee::employee(QWidget *parent,int index)
     : QDialog(parent)
     , ui(new Ui::employee)
 {
     ui->setupUi(this);
+    OpenScreen(index);
     this->setWindowTitle("Employee");
     Refresh_TableData();
     ui->Table->clearSelection();
@@ -183,4 +185,72 @@ void employee::on_Save_Button_clicked()
             // QMessageBox::about(this , "🎉🥳✅✅🥳🎉" , "✅🟢🥳🎉-Save successful-🎉🥳🟢✅");
         }
     }
+}
+
+void employee::resizeEvent(QResizeEvent *event){
+    QSize newSize = event->size();
+    int newWidth = newSize.width();
+    int newHeight = newSize.height();
+    qDebug() << "-------------------employee-------------------";
+    qDebug() << "New Width:" << newWidth << ", New Height:" << newHeight;
+
+    int defaultWidth = 1024;
+    int perScale = newWidth*100/defaultWidth;
+    double Scale = perScale/100.0;
+    qDebug() <<"perScale: " << perScale <<" Scale: "<< Scale;
+
+    // setFrontTable -----------------------------------------------------------------------------------------------------------------------
+
+    int defaultTableFont = 12;
+    int intTableFont = defaultTableFont*perScale/100;
+    QFont FontTable("Segoe UI", max(intTableFont, 3));
+    ui->Table->setFont(FontTable);
+    qDebug() <<"FrontTable: "  << ui->Table->font();
+
+
+    // int defaultTableFont = 12;
+    // int intFrontTable = defaultTableFont*100/defaultWidth;
+    // QString FrontTableSize = QString::number(intFrontTable);
+    // ui->Table->setStyleSheet("font: 400 "+FrontTableSize+"pt Segoe UI;");
+
+    // setStyleSheetWidgetButton -----------------------------------------------------------------------------------------------------------------------
+
+    int defaultButtonFont = 12;
+    int newFontbuttonSize = defaultButtonFont*perScale/100;
+    QString FontButton = QString::number(newFontbuttonSize);
+    qDebug() <<"newFontbuttonSize: " << newFontbuttonSize;
+
+    QDialog OpenTableDialog;
+    ui->widgetButton->setStyleSheet("font: 400 "+FontButton+"pt Segoe UI;");
+
+    // setLabelFont ---------------------------------------------------------------------------------------------------------------
+
+    int defaultLabelFont = 8;
+    int intLabelFont = defaultLabelFont*perScale/100;
+    QFont Fontlabel("Segoe UI", max(intLabelFont, 3));
+    ui->label->setFont(Fontlabel);
+
+}
+
+void employee::OpenScreen(int index){
+    int w = 1024, h = 768;
+
+    switch(index){
+    case 0:
+        setFixedSize(w*3.5, h*3.5);
+        break;
+    case 1:
+        setFixedSize(w*1.50, h*1.50);
+        break;
+    case 2:
+        setFixedSize(w*1.25, h*1.25);
+        break;
+    case 3:
+        setFixedSize(w, h);
+        break;
+    case 4:
+        setFixedSize(w*0.9, h*0.9);
+        break;
+    }
+
 }
