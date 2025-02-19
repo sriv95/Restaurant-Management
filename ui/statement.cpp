@@ -16,8 +16,24 @@ Statement::Statement(QWidget *parent)
     ui->Statement_Table->horizontalHeader()->setSortIndicatorShown(false);
     ui->Statement_Table->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeMode::Stretch);
 
+    //Add Year Input
+    QComboBox *Year_Input = ui->Year_Input;
+    json Statement;
+    getData(Statement, "Statement");
+    QSet<int> yearSet;
+    for (auto item : Statement) {
+        QDate date = QDate::fromString(QString::fromStdString(item[3]), "dd-MM-yyyy");
+        yearSet.insert(date.year());
+    }
+    QList<int> yearList = yearSet.values(); // Convert QSet to QList
+    std::sort(yearList.begin(), yearList.end()); //Sort
+    // Add to Combobox
+    for (int year : yearList) {
+        Year_Input->addItem(QString::number(year));
+    }
+    //Connect Function
     connect(ui->Month_ComboBox, &QComboBox::currentTextChanged, this, &Statement::loadData);
-    connect(ui->Year_Input, &QComboBox::currentTextChanged, this, &Statement::loadData);
+    connect(Year_Input, &QComboBox::currentTextChanged, this, &Statement::loadData);
 
     loadData();
 }
