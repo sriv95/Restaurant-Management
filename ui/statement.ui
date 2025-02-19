@@ -192,16 +192,6 @@
     <string>Year :</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="Year_Input">
-   <property name="geometry">
-    <rect>
-     <x>440</x>
-     <y>80</y>
-     <width>121</width>
-     <height>31</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
@@ -316,6 +306,31 @@
      <bold>true</bold>
     </font>
    </property>
+  </widget>
+  <widget class="QComboBox" name="Year_Input">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>80</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <item>
+    <property name="text">
+     <string>2024</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2025</string>
+    </property>
+   </item>
   </widget>
  </widget>
  <resources/>

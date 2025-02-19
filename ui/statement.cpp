@@ -17,7 +17,7 @@ Statement::Statement(QWidget *parent)
     ui->Statement_Table->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeMode::Stretch);
 
     connect(ui->Month_ComboBox, &QComboBox::currentTextChanged, this, &Statement::loadData);
-    connect(ui->Year_Input, &QLineEdit::textChanged, this, &Statement::loadData);
+    connect(ui->Year_Input, &QComboBox::currentTextChanged, this, &Statement::loadData);
 
     loadData();
 }
@@ -38,7 +38,7 @@ void Statement::loadData()
     }
 
     QString selectedMonth = QString::number(ui->Month_ComboBox->currentIndex()+1);
-    QString selectedYear = ui->Year_Input->text();
+    QString selectedYear = ui->Year_Input->currentText();
     int IntMonth=ui->Month_ComboBox->currentIndex()+1;
     if(IntMonth < 10)selectedMonth="0"+QString::number(IntMonth);
     if (selectedMonth.isEmpty()) {
