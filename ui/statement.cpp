@@ -3,13 +3,15 @@
 #include "header/json.h"
 #include <QMessageBox>
 #include <QHeaderView>
+#include <QResizeEvent>
 
 
-Statement::Statement(QWidget *parent)
+Statement::Statement(QWidget *parent, int index)
     : QDialog(parent)
     , ui(new Ui::Statement)
 {
     ui->setupUi(this);
+    OpenScreen(index);
 
     ui->Statement_Table->verticalHeader()->setVisible(false);
     ui->Statement_Table->horizontalHeader()->setSortIndicatorShown(false);
@@ -90,4 +92,83 @@ void Statement::loadData()
     ui->Total_Income->setText(QString::number(totalIncome, 'f', 2) + "฿");
     ui->Total_Expense->setText(QString::number(totalExpense, 'f', 2) + "฿");
     ui->Net_Balance->setText(QString::number(netProfit, 'f', 2) + "฿");
+}
+
+void Statement::resizeEvent(QResizeEvent *event){
+    QSize newSize = event->size();
+    int newWidth = newSize.width();
+    int newHeight = newSize.height();
+    qDebug() << "-------------------Statement-------------------";
+    qDebug() << "New Width:" << newWidth << ", New Height:" << newHeight;
+
+    int defaultWidth = 1024;
+    int perScale = newWidth*100/defaultWidth;
+    double Scale = perScale/100.0;
+    qDebug() <<"perScale: " << perScale <<" Scale: "<< Scale;
+
+    // setFontLabel ---------------------------------------------------------------------------------------------------------------
+
+    int defaultLabelFont = 16;
+    int newintLabelFont = defaultLabelFont*perScale/100;
+    QString FontLabel = QString::number(newintLabelFont);
+
+    ui->label->setStyleSheet("font: 400 "+FontLabel+"pt Segoe UI;");
+    qDebug() <<"FontLabel: "  << ui->label->font();
+
+
+    // setFrontWidget_Selection -----------------------------------------------------------------------------------------------------------------------
+
+    int defaultFrontWidget_Selection = 10;
+    int intFrontWidget_Selection = defaultFrontWidget_Selection*perScale/100;
+    QFont FrontWidget_Selection("Segoe UI", max(intFrontWidget_Selection, 3));
+    ui->Widget_Selection->setFont(FrontWidget_Selection);
+    qDebug() <<"FrontWidget_Selection: "  << ui->Widget_Selection->font();
+
+    //setFontStatement_Table -----------------------------------------------------------------------------------------------------------------------
+
+    int defaultHeaderFont = 12;
+    int intHeaderFont = defaultHeaderFont*perScale/100;
+    QFont HeaderFont("Segoe UI", intHeaderFont, QFont::Bold);
+    ui->Statement_Table->horizontalHeader()->setFont(HeaderFont);
+    qDebug() <<"HeaderFont: "  << ui->Statement_Table->horizontalHeader()->font();
+
+    int defaultFontStatement_Table = 10;
+    int intTableFont = defaultFontStatement_Table*perScale/100;
+    QFont FontStatement_Table("Segoe UI", max(intTableFont, 3));
+    ui->Statement_Table->setFont(FontStatement_Table);
+    qDebug() <<"FontStatement_Table: "  << ui->Statement_Table->font();
+
+    // setFontWidget_Total -----------------------------------------------------------------------------------------------------------------------
+
+    int defaultFontWidget_Total = 12;
+    int intFontWidget_Total = defaultFontWidget_Total*perScale/100;
+    QString Fontwidget_Total = QString::number(intFontWidget_Total);
+    ui->Widget_Total->setStyleSheet("font: 400 "+Fontwidget_Total+"pt Segoe UI;");
+    qDebug() <<"Widget_Total: "  << ui->Widget_Total->font();
+
+
+
+}
+
+void Statement::OpenScreen(int index){
+    int w = 1024, h = 768;
+
+    switch(index){
+    case 0:
+        setFixedSize(w*3.5, h*3.5);
+        break;
+    case 1:
+        setFixedSize(w*1.50, h*1.50);
+        break;
+    case 2:
+        setFixedSize(w*1.25, h*1.25);
+        break;
+    case 3:
+        setFixedSize(w, h);
+        break;
+    case 4:
+        setFixedSize(w*0.9, h*0.9);
+        break;
+    }
+
 }
