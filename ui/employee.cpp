@@ -207,18 +207,18 @@ void employee::resizeEvent(QResizeEvent *event){
     ui->Table->setFont(FontTable);
     qDebug() <<"FrontTable: "  << ui->Table->font();
 
-
-    // int defaultTableFont = 12;
-    // int intFrontTable = defaultTableFont*100/defaultWidth;
-    // QString FrontTableSize = QString::number(intFrontTable);
-    // ui->Table->setStyleSheet("font: 400 "+FrontTableSize+"pt Segoe UI;");
+    int defaultHeaderFont = 16;
+    int intHeaderFont = defaultHeaderFont*perScale/100;
+    QFont HeaderFont("Segoe UI", intHeaderFont, QFont::Bold);
+    ui->Table->horizontalHeader()->setFont(HeaderFont);
+    qDebug() <<"HeaderFont: "  << ui->Table->horizontalHeader()->font();
 
     // setStyleSheetWidgetButton -----------------------------------------------------------------------------------------------------------------------
 
     int defaultButtonFont = 12;
-    int newFontbuttonSize = defaultButtonFont*perScale/100;
-    QString FontButton = QString::number(newFontbuttonSize);
-    qDebug() <<"newFontbuttonSize: " << newFontbuttonSize;
+    int newFontButtonSize = defaultButtonFont*perScale/100;
+    QString FontButton = QString::number(newFontButtonSize);
+    qDebug() <<"newFontbuttonSize: " << newFontButtonSize;
 
     QDialog OpenTableDialog;
     ui->widgetButton->setStyleSheet("font: 400 "+FontButton+"pt Segoe UI;");
@@ -226,9 +226,10 @@ void employee::resizeEvent(QResizeEvent *event){
     // setLabelFont ---------------------------------------------------------------------------------------------------------------
 
     int defaultLabelFont = 8;
-    int intLabelFont = defaultLabelFont*perScale/100;
-    QFont Fontlabel("Segoe UI", max(intLabelFont, 3));
-    ui->label->setFont(Fontlabel);
+    int newintLabelFont = defaultLabelFont*perScale/100;
+    QString FontLabel = QString::number(newintLabelFont);
+
+    ui->label->setStyleSheet("font: 400 "+FontLabel+"pt Segoe UI;");
     qDebug() <<"FrontTable: "  << ui->label->font();
 
 }
