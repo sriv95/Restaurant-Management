@@ -421,7 +421,7 @@ void RestuarantManagement::on_Stocks_clicked()
 
 void RestuarantManagement::on_EditMenu_clicked()
 {
-    editmenu editmenu(this);
+    editmenu editmenu(this,ScreensizeComboBox);
     editmenu.exec();
 }
 

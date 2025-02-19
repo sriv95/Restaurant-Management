@@ -13,7 +13,7 @@ class editmenu : public QDialog
     Q_OBJECT
 
 public:
-    explicit editmenu(QWidget *parent = nullptr);
+    explicit editmenu(QWidget *parent = nullptr, int index = 2);
     ~editmenu();
 
 private slots:
@@ -30,6 +30,12 @@ private slots:
     void on_SaveMenuBtn_clicked();
 
     void onMenuTableItemChanged(QTableWidgetItem *);
+
+    void resizeEvent(QResizeEvent *event) override ;
+
+    void OpenScreen(int index);
+
+    void resizeFont(double perScale);
 
 private:
     Ui::editmenu *ui;

@@ -12,7 +12,7 @@ class Statement : public QDialog
     Q_OBJECT
 
 public:
-    explicit Statement(QWidget *parent = nullptr, int Index = 2);
+    explicit Statement(QWidget *parent = nullptr, int index = 2);
     ~Statement();
 
 private slots:

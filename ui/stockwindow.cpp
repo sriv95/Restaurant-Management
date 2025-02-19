@@ -139,7 +139,7 @@ void StockWindow::resizeEvent(QResizeEvent *event){
     QSize newSize = event->size();
     int newWidth = newSize.width();
     int newHeight = newSize.height();
-    qDebug() << "-------------------Statement-------------------";
+    qDebug() << "-------------------StockWindow-------------------";
     qDebug() << "New Width:" << newWidth << ", New Height:" << newHeight;
 
     int defaultWidth = 1024;

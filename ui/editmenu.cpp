@@ -4,6 +4,7 @@
 #include "qpushbutton.h"
 #include "ui_editmenu.h"
 #include "header/json.h"
+#include <QResizeEvent>
 
 #include <QSpinBox>
 
@@ -12,11 +13,12 @@ QTableWidget *menutable;
 QTableWidget *ingtable; //ingredient table
 json Menus;
 
-editmenu::editmenu(QWidget *parent)
+editmenu::editmenu(QWidget *parent, int index)
     : QDialog(parent)
     , ui(new Ui::editmenu)
 {
     ui->setupUi(this);
+    OpenScreen(index);
 
     this->setWindowTitle("Edit Menu");
 
@@ -258,4 +260,106 @@ void editmenu::onMenuTableItemChanged(QTableWidgetItem *item)
     int Row = item->row();
     int Col = item->column();
     if(Col==0) Menus[Row][0] = item->text().toStdString(); //Change Menu Name
+}
+
+void editmenu::resizeEvent(QResizeEvent *event){
+    QSize newSize = event->size();
+    int newWidth = newSize.width();
+    int newHeight = newSize.height();
+    qDebug() << "-------------------editmenu-------------------";
+    qDebug() << "New Width:" << newWidth << ", New Height:" << newHeight;
+
+    int defaultWidth = 1024;
+    int perScale = newWidth*100/defaultWidth;
+    double Scale = perScale/100.0;
+    qDebug() <<"perScale: " << perScale <<" Scale: "<< Scale;
+
+    resizeFont(perScale);
+
+
+
+}
+
+void editmenu::resizeFont(double perScale)
+{
+    // setFontLabel_3&4 ---------------------------------------------------------------------------------------------------------------
+
+    int defaultlFontLabel_3 = 20;
+    int intFontLabel_3 = defaultlFontLabel_3*perScale/100;
+    QString FontLabel_3 = QString::number(intFontLabel_3);
+
+    ui->label_3->setStyleSheet("font: 400 "+FontLabel_3+"pt Segoe UI;");
+    ui->label_4->setStyleSheet("font: 400 "+FontLabel_3+"pt Segoe UI;");
+
+    qDebug() <<"FontLabel_3&4: "  << ui->label_3->font();
+
+
+    // setFront TextSelecteMenu -----------------------------------------------------------------------------------------------------------------------
+
+    int defaultFrontTextSelecteMenu = 6;
+    int intFrontTextSelecteMenu = defaultFrontTextSelecteMenu*perScale/100;
+    QFont FrontTextSelecteMenu("Segoe UI", max(intFrontTextSelecteMenu, 3));
+    ui->TextSelecteMenu->setFont(FrontTextSelecteMenu);
+    qDebug() <<"TextSelecteMenu: "  << ui->TextSelecteMenu->font();
+
+    //setFont MenuTable & IngTable-----------------------------------------------------------------------------------------------------------------------
+
+    int defaultHeaderFont = 6;
+    int intHeaderFont = defaultHeaderFont*perScale/100;
+    QFont HeaderFont("Segoe UI", intHeaderFont, QFont::Bold);
+    ui->MenuTable->horizontalHeader()->setFont(HeaderFont);
+    ui->IngTable->horizontalHeader()->setFont(HeaderFont);
+    qDebug() <<"MenuTable_HeaderFont: "  << ui->MenuTable->horizontalHeader()->font();
+    qDebug() <<"IngTable_HeaderFont: "  << ui->IngTable->horizontalHeader()->font();
+
+    int defaultFontTable = 6;
+    int intFontTable = defaultFontTable*perScale/100;
+    QFont FontTable("Segoe UI", max(intFontTable, 3));
+    ui->MenuTable->setFont(FontTable);
+    ui->IngTable->setFont(FontTable);
+    qDebug() <<"FontMenuTable: "  << ui->MenuTable->font();
+    qDebug() <<"FontIngTable: "  << ui->IngTable->font();
+
+
+    // setFont Widget_Button2 -----------------------------------------------------------------------------------------------------------------------
+
+    int defaultFontWidget_Button2 = 9;
+    int intFontWidget_Button2 = defaultFontWidget_Button2*perScale/100;
+    QString FontWidget_Button2 = QString::number(intFontWidget_Button2);
+    ui->Widget_Button2->setStyleSheet("font: 400 "+FontWidget_Button2+"pt Segoe UI;");
+    qDebug() <<"Widget_Button: "  << ui->Widget_Button2->font();
+
+    // setFont Button -----------------------------------------------------------------------------------------------------------------------
+
+    ui->AddMenuBtn->setStyleSheet("font: 400 "+FontWidget_Button2+"pt Segoe UI;");
+    ui->DelMenuBtn->setStyleSheet("font: 400 "+FontWidget_Button2+"pt Segoe UI;");
+    ui->AddIngBtn->setStyleSheet("font: 400 "+FontWidget_Button2+"pt Segoe UI;");
+
+
+
+
+
+}
+
+void editmenu::OpenScreen(int index){
+    int w = 1024, h = 568; //18:10 1024x576 16:9
+
+    switch(index){
+    case 0:
+        setFixedSize(w*3.5, h*3.5);
+        break;
+    case 1:
+        setFixedSize(w*1.50, h*1.50);
+        break;
+    case 2:
+        setFixedSize(w*1.25, h*1.25);
+        break;
+    case 3:
+        setFixedSize(w, h);
+        break;
+    case 4:
+        setFixedSize(w*0.9, h*0.9);
+        break;
+    }
+
 }
