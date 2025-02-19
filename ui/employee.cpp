@@ -229,6 +229,7 @@ void employee::resizeEvent(QResizeEvent *event){
     int intLabelFont = defaultLabelFont*perScale/100;
     QFont Fontlabel("Segoe UI", max(intLabelFont, 3));
     ui->label->setFont(Fontlabel);
+    qDebug() <<"FrontTable: "  << ui->label->font();
 
 }
 

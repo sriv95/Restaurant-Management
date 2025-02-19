@@ -617,7 +617,7 @@ void RestuarantManagement::on_backtosetup_clicked()
 
         if(button){
             button->setFixedSize(sizebutton,sizebutton);
-            button->setFont(font);
+            //button->setFont(font);
         }
         else  qDebug()<<"Error: Button Not Found (Button Name: "<<btnName<<")";
     }

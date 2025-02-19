@@ -13,155 +13,145 @@
   <property name="windowTitle">
    <string>Stock</string>
   </property>
-  <widget class="QPushButton" name="AddBtn">
-   <property name="geometry">
-    <rect>
-     <x>870</x>
-     <y>40</y>
-     <width>161</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>15</pointsize>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="text">
-    <string>Add</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="SaveBtn">
-   <property name="geometry">
-    <rect>
-     <x>870</x>
-     <y>660</y>
-     <width>161</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>15</pointsize>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(0, 170, 0)</string>
-   </property>
-   <property name="text">
-    <string>Save</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="DeleteBtn">
-   <property name="geometry">
-    <rect>
-     <x>870</x>
-     <y>120</y>
-     <width>161</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>15</pointsize>
-    </font>
-   </property>
-   <property name="acceptDrops">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 0, 0);</string>
-   </property>
-   <property name="text">
-    <string>Delete</string>
-   </property>
-  </widget>
-  <widget class="QTableWidget" name="tableStocks">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>20</y>
-     <width>831</width>
-     <height>701</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>13</pointsize>
-    </font>
-   </property>
-   <property name="alternatingRowColors">
-    <bool>true</bool>
-   </property>
-   <property name="selectionMode">
-    <enum>QAbstractItemView::SelectionMode::ExtendedSelection</enum>
-   </property>
-   <property name="sortingEnabled">
-    <bool>false</bool>
-   </property>
-   <attribute name="horizontalHeaderCascadingSectionResizes">
-    <bool>false</bool>
-   </attribute>
-   <attribute name="horizontalHeaderStretchLastSection">
-    <bool>false</bool>
-   </attribute>
-   <attribute name="verticalHeaderCascadingSectionResizes">
-    <bool>false</bool>
-   </attribute>
-   <attribute name="verticalHeaderStretchLastSection">
-    <bool>false</bool>
-   </attribute>
-   <column>
-    <property name="text">
-     <string>No.</string>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-      <bold>true</bold>
-     </font>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Name</string>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-      <bold>true</bold>
-     </font>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Quantity</string>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-      <bold>true</bold>
-      <strikeout>false</strikeout>
-     </font>
-    </property>
-   </column>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>730</y>
-     <width>271</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>✏️Note: Double Click To Edit Value</string>
-   </property>
-  </widget>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QWidget" name="widget" native="true">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="45,10">
+      <item>
+       <widget class="QTableWidget" name="tableStocks">
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+         </font>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>true</bool>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::SelectionMode::ExtendedSelection</enum>
+        </property>
+        <property name="sortingEnabled">
+         <bool>false</bool>
+        </property>
+        <attribute name="horizontalHeaderCascadingSectionResizes">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="horizontalHeaderStretchLastSection">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderCascadingSectionResizes">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderStretchLastSection">
+         <bool>false</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>No.</string>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>15</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Name</string>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>15</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Quantity</string>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>15</pointsize>
+           <bold>true</bold>
+           <strikeout>false</strikeout>
+          </font>
+         </property>
+        </column>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="widget_2" native="true">
+        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,10">
+         <item alignment="Qt::AlignmentFlag::AlignTop">
+          <widget class="QWidget" name="widget_3" native="true">
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QPushButton" name="AddBtn">
+              <property name="font">
+               <font>
+                <pointsize>15</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>Add</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="DeleteBtn">
+              <property name="font">
+               <font>
+                <pointsize>15</pointsize>
+               </font>
+              </property>
+              <property name="acceptDrops">
+               <bool>false</bool>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color: rgb(255, 0, 0);</string>
+              </property>
+              <property name="text">
+               <string>Delete</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="SaveBtn">
+           <property name="font">
+            <font>
+             <pointsize>15</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(0, 170, 0)</string>
+           </property>
+           <property name="text">
+            <string>Save</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>✏️Note: Double Click To Edit Value</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>
