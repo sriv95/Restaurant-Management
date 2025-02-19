@@ -66,7 +66,7 @@ private slots:
 
     void on_comboBox_activated(int index);
 
-    void MoreScreensize(int index);
+    void MoreScreensize(int index, int &ScreensizeComboBox);
 
     //void on_Eventscreen_buttontablesize();
 

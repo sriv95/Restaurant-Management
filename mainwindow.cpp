@@ -23,6 +23,7 @@
 json restaurantData;
 
 int Table_Count = 9;
+int ScreensizeComboBox = 2;
 
 void RestuarantManagement::showError(QString text){
     QMessageBox Error;
@@ -43,8 +44,8 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
 {
     ui.setupUi(this);
     on_backtosetup_clicked();
-    ui.comboBox->setCurrentIndex(2);
-    MoreScreensize(2);
+    ui.comboBox->setCurrentIndex(ScreensizeComboBox);
+    MoreScreensize(ScreensizeComboBox,ScreensizeComboBox);
     //resize(1280,960);
 
     updateTablesStatus();
@@ -401,8 +402,7 @@ void RestuarantManagement::removeReservation(int tableNo) {
 
 void RestuarantManagement::on_Employee_clicked()
 {
-    int Index = ui.comboBox->currentIndex();
-    employee employee(this,Index);
+    employee employee(this,ScreensizeComboBox);
     employee.exec();
 }
 
@@ -428,7 +428,7 @@ void RestuarantManagement::on_EditMenu_clicked()
 
 void RestuarantManagement::on_Statement_clicked()
 {
-    Statement stateWin(this);
+    Statement stateWin(this, ScreensizeComboBox);
     stateWin.setWindowTitle("Statement");
     stateWin.exec();
 }
@@ -647,11 +647,12 @@ void RestuarantManagement::on_backtosetup_clicked()
 
 void RestuarantManagement::on_comboBox_activated(int index)
 {
-    MoreScreensize(index);
+    qDebug() <<"on_comboBox_activated: " <<index;
+    MoreScreensize(index,ScreensizeComboBox);
 }
 
-void RestuarantManagement::MoreScreensize(int index){
-
+void RestuarantManagement::MoreScreensize(int index,int &ScreensizeComboBox){
+    ScreensizeComboBox = index;
     switch(index){
     case 0:
         setFixedSize(3584,2688);
