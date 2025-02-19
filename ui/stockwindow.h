@@ -18,7 +18,7 @@ class StockWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit StockWindow(QWidget *parent = nullptr);
+    explicit StockWindow(QWidget *parent = nullptr, int Index = 2);
     ~StockWindow();
 
 private slots:
@@ -28,6 +28,10 @@ private slots:
     void on_DeleteBtn_clicked();
 
     void on_SaveBtn_clicked();
+
+    void resizeEvent(QResizeEvent *event) override ;
+
+    void OpenScreen(int index);
 
 
 

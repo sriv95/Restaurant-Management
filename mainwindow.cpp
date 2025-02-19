@@ -408,7 +408,7 @@ void RestuarantManagement::on_Employee_clicked()
 
 void RestuarantManagement::on_Stocks_clicked()
 {
-    StockWindow *stockWin = new StockWindow(this);
+    StockWindow *stockWin = new StockWindow(this, ScreensizeComboBox);
 
 
     stockWin->setWindowFlags(Qt::Window);

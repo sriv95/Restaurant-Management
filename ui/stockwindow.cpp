@@ -4,13 +4,15 @@
 #include <QMessageBox>
 #include <QSet>
 #include <QList>
+#include <QResizeEvent>
 
 
-StockWindow::StockWindow(QWidget *parent)
+StockWindow::StockWindow(QWidget *parent, int index)
     : QWidget(parent)
     , ui(new Ui::StockWindow)
 {
     ui->setupUi(this);
+    OpenScreen(index);
 
     ui->tableStocks->verticalHeader()->setVisible(false);
     ui->tableStocks->horizontalHeader()->setSortIndicatorShown(false);
@@ -131,4 +133,74 @@ void StockWindow::savetojson()
 void StockWindow::on_SaveBtn_clicked()
 {
     savetojson();
+}
+
+void StockWindow::resizeEvent(QResizeEvent *event){
+    QSize newSize = event->size();
+    int newWidth = newSize.width();
+    int newHeight = newSize.height();
+    qDebug() << "-------------------Statement-------------------";
+    qDebug() << "New Width:" << newWidth << ", New Height:" << newHeight;
+
+    int defaultWidth = 1024;
+    int perScale = newWidth*100/defaultWidth;
+    double Scale = perScale/100.0;
+    qDebug() <<"perScale: " << perScale <<" Scale: "<< Scale;
+
+    // setFontLabel ---------------------------------------------------------------------------------------------------------------
+
+    int defaultLabelFont = 8;
+    int newintLabelFont = defaultLabelFont*perScale/100;
+    QString FontLabel = QString::number(newintLabelFont);
+
+    ui->label->setStyleSheet("font: 400 "+FontLabel+"pt Segoe UI;");
+    qDebug() <<"FontLabel: "  << ui->label->font();
+
+    //setFontTableStocks -----------------------------------------------------------------------------------------------------------------------
+
+    int defaultHeaderFont = 12;
+    int intHeaderFont = defaultHeaderFont*perScale/100;
+    QFont HeaderFont("Segoe UI", intHeaderFont, QFont::Bold);
+    ui->tableStocks->horizontalHeader()->setFont(HeaderFont);
+    qDebug() <<"HeaderFont: "  << ui->tableStocks->horizontalHeader()->font();
+
+    int defaultFontTableStocks = 10;
+    int intFontTableStocks = defaultFontTableStocks*perScale/100;
+    QFont FontStatement_Table("Segoe UI", max(intFontTableStocks, 3));
+    ui->tableStocks->setFont(FontStatement_Table);
+    qDebug() <<"FontTableStocks: "  << ui->tableStocks->font();
+
+    // setFontWidget_Button -----------------------------------------------------------------------------------------------------------------------
+
+    int defaultFontWidget_Button = 12;
+    int intFontWidget_Button = defaultFontWidget_Button*perScale/100;
+    QString FontWidget_Button = QString::number(intFontWidget_Button);
+    ui->Widget_Button->setStyleSheet("font: 400 "+FontWidget_Button+"pt Segoe UI;");
+    qDebug() <<"Widget_Button: "  << ui->Widget_Button->font();
+
+
+
+}
+
+void StockWindow::OpenScreen(int index){
+    int w = 1024, h = 768;
+
+    switch(index){
+    case 0:
+        setFixedSize(w*3.5, h*3.5);
+        break;
+    case 1:
+        setFixedSize(w*1.50, h*1.50);
+        break;
+    case 2:
+        setFixedSize(w*1.25, h*1.25);
+        break;
+    case 3:
+        setFixedSize(w, h);
+        break;
+    case 4:
+        setFixedSize(w*0.9, h*0.9);
+        break;
+    }
+
 }
