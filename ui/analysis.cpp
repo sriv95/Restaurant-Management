@@ -733,6 +733,8 @@ void analysis::Show_Chart()
     }
 
     //==================================================================================//
+    qDebug() << add_count;
+
     QPointF income_ONE_point , expenses_ONE_point;
     if (add_count == 1)
     {
@@ -740,12 +742,14 @@ void analysis::Show_Chart()
         expenses_ONE_point = series_expenses->at(0);
 
         series_income->clear();
-        series_income->append(income_ONE_point.x()+1 , income_ONE_point.y());
-        series_income->append(income_ONE_point.x()+2 , income_ONE_point.y());
+        series_income->append(QDateTime::fromMSecsSinceEpoch(income_ONE_point.x()).date().startOfDay().toMSecsSinceEpoch()  , 0);
+        series_income->append(income_ONE_point.x() , income_ONE_point.y());
+        series_income->append(QDateTime::fromMSecsSinceEpoch(income_ONE_point.x()).date().endOfDay().toMSecsSinceEpoch() , 0);
 
         series_expenses->clear();
-        series_expenses->append(expenses_ONE_point.x()+1 , expenses_ONE_point.y());
-        series_expenses->append(expenses_ONE_point.x()+2 , expenses_ONE_point.y());
+        series_expenses->append(QDateTime::fromMSecsSinceEpoch(expenses_ONE_point.x()).date().startOfDay().toMSecsSinceEpoch() , 0);
+        series_expenses->append(expenses_ONE_point.x() , expenses_ONE_point.y());
+        series_expenses->append(QDateTime::fromMSecsSinceEpoch(expenses_ONE_point.x()).date().endOfDay().toMSecsSinceEpoch() , 0);
     }
 
     //==========Line===========//
@@ -838,7 +842,7 @@ void analysis::Show_Chart()
         else if (add_count < 10 and add_count > 1) axisX->setTickCount(add_count);
         else if (add_count == 1)
         {
-            axisX->setRange(QDateTime::fromMSecsSinceEpoch(income_ONE_point.x()+1) , QDateTime::fromMSecsSinceEpoch(income_ONE_point.x()+2));
+            axisX->setRange(QDateTime::fromMSecsSinceEpoch(income_ONE_point.x()).date().startOfDay() , QDateTime::fromMSecsSinceEpoch(income_ONE_point.x()).date().endOfDay());
             axisX->setTickCount(2);
         }
         else
@@ -854,7 +858,7 @@ void analysis::Show_Chart()
         else if (add_count < 7 and add_count > 1) axisX->setTickCount(add_count);
         else if (add_count == 1)
         {
-            axisX->setRange(QDateTime::fromMSecsSinceEpoch(income_ONE_point.x()+1) , QDateTime::fromMSecsSinceEpoch(income_ONE_point.x()+2));
+            axisX->setRange(QDateTime::fromMSecsSinceEpoch(income_ONE_point.x()).date().startOfDay() , QDateTime::fromMSecsSinceEpoch(income_ONE_point.x()).date().endOfDay());
             axisX->setTickCount(2);
         }
         else
