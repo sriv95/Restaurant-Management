@@ -16,6 +16,9 @@ public:
     explicit OrderStock(QWidget *parent = nullptr);
     ~OrderStock();
 
+private slots:
+    void on_AddBtn_clicked();
+
 private:
     Ui::OrderStock *ui;
 };
