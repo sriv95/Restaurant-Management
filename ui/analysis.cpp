@@ -733,7 +733,7 @@ void analysis::Show_Chart()
     }
 
     //==================================================================================//
-    qDebug() << add_count;
+    // qDebug() << add_count;
 
     QPointF income_ONE_point , expenses_ONE_point;
     if (add_count == 1)
