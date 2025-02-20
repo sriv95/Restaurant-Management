@@ -190,6 +190,13 @@ On the main UI, there is a button called `Edit Menu`.
 
 #### **Features**
 
+- ##### **Buttons**:
+  - `Edit Menu`: Opens the "Edit Menu" window.
+    
+    - `Refresh`: Returns to the state the last time the json file is saved.
+      
+    - `Save`: Saves all the texts/data in the "table" to the .json file.
+
 - ##### **Edit Menu**:
   - Left side "table"
   - Six columns are shown:
@@ -204,7 +211,7 @@ On the main UI, there is a button called `Edit Menu`.
       - `Edit Ingredients`
         - Shows the ingredients of that menu you clicked with on the right side "table".
           
-  - ###### **Buttons**:
+  - ###### **Edit Menu Buttons**:
   
     - `Add Menu`: Creates a new row in the left "table."
       - `No.` column has a value added by 1 each time `Add Menu` is clicked.
@@ -227,20 +234,11 @@ On the main UI, there is a button called `Edit Menu`.
     - `Del`
       - Appears as a big red X cross icon in each row. Delete the row X icon is associated with.
         
-  - ###### **Buttons**:
+  - ###### **Edit Ingredients Buttons**:
     - `Add Ingredients`: - Creates a new row in the "table."
       - `No.` column has a value added by 1 each time `Add` is clicked.
       - `Ingredients` has "-" as a default value.
       - `Quantity` has "0" as a default value.
-
-
-- ##### **Buttons**:
-  - `Edit Menu`: Opens the "Edit Menu" window.
-    
-    - `Refresh`: Returns to the state the last time the json file is saved.
-      
-    - `Save`: Saves all the texts/data in the "table" to the .json file.
-
 
 
 ---
