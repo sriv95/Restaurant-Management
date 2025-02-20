@@ -15,7 +15,7 @@ class analysis : public QDialog
     Q_OBJECT
 
 public:
-    explicit analysis(QWidget *parent = nullptr);
+    explicit analysis(QWidget *parent = nullptr, int index = 2);
     ~analysis();
 
 private slots:
@@ -31,6 +31,12 @@ private slots:
     void on_calendar_start_date_currentPageChanged(int year, int month);
 
     void on_accept_clicked();
+
+    void resizeEvent(QResizeEvent *event) override ;
+
+    void OpenScreen(int index);
+
+    void resizeFont(double perScale);
 
 private:
     Ui::analysis *ui;

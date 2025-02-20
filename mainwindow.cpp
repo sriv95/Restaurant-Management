@@ -298,9 +298,7 @@ void RestuarantManagement::on_CheckBills_clicked()
 
 void RestuarantManagement::on_OpenTableBtn_clicked()
 {
-    qDebug() << ui.comboBox->currentIndex();
-    int Index = ui.comboBox->currentIndex();
-    OpenTableDialog OpenTableDialog(this,Index);
+    OpenTableDialog OpenTableDialog(this, ScreensizeComboBox);
     OpenTableDialog.setModal(true);
     OpenTableDialog.setWindowTitle("Open Table");
     connect(&OpenTableDialog, &OpenTableDialog::returnValue, this, &RestuarantManagement::onTableReturnValue);
@@ -539,7 +537,7 @@ void RestuarantManagement::on_Analysis_clicked()
     // if(Data["Statements"].size()<=0&&Data["Menus"].size()<=0) {
     //     showError(".json file data Statements or Menus is empty");
     //     return;}
-    analysis analysis(this);
+    analysis analysis(this, ScreensizeComboBox);
     analysis.exec();
 }
 
@@ -654,24 +652,44 @@ void RestuarantManagement::on_comboBox_activated(int index)
 void RestuarantManagement::MoreScreensize(int index,int &ScreensizeComboBox){
     ScreensizeComboBox = index;
     switch(index){
+    // case 0:
+    //     setFixedSize(3584,2688);
+    //     //setFixedSize(x*3.5, h*3.5);
+    //     break;
+    // case 1:
+    //     setFixedSize(1536,1152);
+    //     //setFixedSize(x*1.50, h*1.50);
+    //     break;
+    // case 2:
+    //     setFixedSize(1280,960);
+    //     //setFixedSize(x*1.25, h*1.25);
+    //     break;
+    // case 3:
+    //     setFixedSize(1024,768);
+    //     //setFixedSize(x, h);
+    //     break;
+    // case 4:
+    //     setFixedSize(922,692);
+    //     //setFixedSize(x*0.9, h*0.9);
+    //     break;
     case 0:
-        setFixedSize(3584,2688);
+        resize(3584,2688);
         //setFixedSize(x*3.5, h*3.5);
         break;
     case 1:
-        setFixedSize(1536,1152);
+        resize(1536,1152);
         //setFixedSize(x*1.50, h*1.50);
         break;
     case 2:
-        setFixedSize(1280,960);
+        resize(1280,960);
         //setFixedSize(x*1.25, h*1.25);
         break;
     case 3:
-        setFixedSize(1024,768);
+        resize(1024,768);
         //setFixedSize(x, h);
         break;
     case 4:
-        setFixedSize(922,692);
+        resize(922,692);
         //setFixedSize(x*0.9, h*0.9);
         break;
     }

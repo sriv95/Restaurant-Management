@@ -10,14 +10,17 @@
 #include <cmath>
 #include <QTextFormat>
 #include <QScatterSeries>
+#include <QResizeEvent>
 
 using namespace std;
 
-analysis::analysis(QWidget *parent)
+analysis::analysis(QWidget *parent, int index)
     : QDialog(parent)
     , ui(new Ui::analysis)
 {
     ui->setupUi(this);
+    OpenScreen(index);
+
     this->setWindowTitle("Analysis");
     startUI_setup();
     Show_Chart();
@@ -1042,5 +1045,125 @@ void analysis::Summary()
     ui->Total_Order_in_range->setFont(Format_Fonnt_Bold_Center_16);
     ui->Total_Order_in_range->setAlignment(Qt::AlignCenter);
 
+
+}
+
+void analysis::OpenScreen(int index){
+    int w = 1024, h = 576;
+    int newWidth;
+    int newHeight;
+    double scale;
+
+    switch(index){
+    case 0:
+        scale = 3.5;
+        newWidth = w*scale;
+        newHeight = h*scale;
+        resize(newWidth, newHeight);
+        break;
+    case 1:
+        scale = 1.5;
+        newWidth = w*scale;
+        newHeight = h*scale;
+        resize(newWidth, newHeight);
+        break;
+    case 2:
+        scale = 1.25;
+        newWidth = w*scale;
+        newHeight = h*scale;
+        resize(newWidth, newHeight);
+        break;
+    case 3:
+        scale = 1.0;
+        newWidth = w*scale;
+        newHeight = h*scale;
+        resize(newWidth, newHeight);
+        break;
+    case 4:
+        scale = 0.9;
+        newWidth = w*scale;
+        newHeight = h*scale;
+        resize(newWidth, newHeight);
+        break;
+    }
+
+    qDebug() << "scale: "<< scale;
+    resizeFont(scale);
+
+}
+
+void analysis::resizeFont(double perScale)
+{
+    // setFont NO_DATA ---------------------------------------------------------------------------------------------------------------
+
+    int defaultlFontNO_DATA = 12;
+    int intFontNO_DATA = defaultlFontNO_DATA*perScale/100;
+    QString FontNO_DATA = QString::number(intFontNO_DATA);
+
+    ui->NO_DATA->setStyleSheet("font: 400 "+FontNO_DATA+"pt Segoe UI;");
+
+    qDebug() <<"FontNO_DATA: "  << ui->NO_DATA->font();
+
+
+    // setFront widget_Calendar -----------------------------------------------------------------------------------------------------------------------
+
+    int defaultFrontwidget_Calendar = 9;
+    int intFrontwidget_Calendar = defaultFrontwidget_Calendar*perScale/100;
+    QFont Frontwidget_Calendar("Segoe UI", max(intFrontwidget_Calendar, 8));
+    ui->widget_2->setFont(Frontwidget_Calendar);
+    qDebug() <<"Fontwidget_Calendar: "  << ui->widget_2->font();
+
+    //setFont text_Summary-----------------------------------------------------------------------------------------------------------------------
+
+    int defaultFontText_Summary = 16;
+    int intFontText_Summary = defaultFontText_Summary*perScale/100;
+    QFont FontText_Summary("Segoe UI", intFontText_Summary, QFont::Bold);
+    ui->text_Summary->setFont(FontText_Summary);
+    //setFont Top_Dished & Top_Drinks-----------------------------------------------------------------------------------------------------------------------
+
+    int defaultTableFont = 10;
+    int intTableFont = defaultTableFont*perScale/100;
+
+    QString FontLabel_3 = QString::number(intTableFont);
+
+
+
+    QFont HeaderFont("Segoe UI", intTableFont, QFont::Bold);
+
+    ui->Top_Dished->horizontalHeader()->setFont(HeaderFont);
+    ui->Top_Drinks->horizontalHeader()->setFont(HeaderFont);
+    qDebug() <<"Top_Dished_HeaderFont: "  << ui->Top_Dished->horizontalHeader()->font();
+    qDebug() <<"Top_Drinks_HeaderFont: "  << ui->Top_Drinks->horizontalHeader()->font();
+
+    QFont FontTable("Segoe UI", intTableFont);
+
+    ui->Top_Dished->setFont(FontTable);
+    ui->Top_Drinks->setFont(FontTable);
+    qDebug() <<"Top_Dished: "  << ui->Top_Dished->font();
+    qDebug() <<"Top_Drinks: "  << ui->Top_Drinks->font();
+
+
+
+    // setFont Summary -----------------------------------------------------------------------------------------------------------------------
+
+    int defaultFontSummary = 13;
+    int intFontSummary = defaultFontSummary*perScale/100;
+    QFont FontSummary("Segoe UI", intFontSummary, QFont::Bold);
+    ui->Summary->setFont(FontSummary);
+    qDebug() <<"Widget_Button: "  << ui->Summary->font();
+
+}
+
+void analysis::resizeEvent(QResizeEvent *event){
+    QSize newSize = event->size();
+    int newWidth = newSize.width();
+    int newHeight = newSize.height();
+    qDebug() << "-------------------Statement-------------------";
+    qDebug() << "New Width:" << newWidth << ", New Height:" << newHeight;
+
+    // int defaultWidth = 1024;
+    // int perScale = newWidth*100/defaultWidth;
+    // double Scale = perScale/100.0;
+    // qDebug() <<"perScale: " << perScale <<" Scale: "<< Scale;
 
 }
