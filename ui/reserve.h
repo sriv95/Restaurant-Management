@@ -13,7 +13,7 @@ class reserve : public QDialog
     Q_OBJECT
 
 public:
-    explicit reserve(int tableNo,QWidget *parent = nullptr);
+    explicit reserve(int tableNo,QWidget *parent = nullptr, int index = 2);
     ~reserve();
 
 signals:
@@ -24,6 +24,10 @@ private slots:
     void on_btnReserve_clicked();
 
     void on_Cancelbtn_clicked();
+
+    void resizeEvent(QResizeEvent *event) override ;
+
+    void OpenScreen(int index);
 
 private:
     Ui::reserve *ui;

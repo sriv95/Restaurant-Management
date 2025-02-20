@@ -345,7 +345,7 @@ void RestuarantManagement::on_ReserveBtn_clicked()
         removeReservation(tableNo);
         ui.ReserveBtn->setText("Reserve");
     } else {
-        reserve reserve(tableNo);
+        reserve reserve(tableNo,this,ScreensizeComboBox);
         reserve.setModal(true);
         reserve.setWindowTitle("Reserve");
         reserve.exec();
