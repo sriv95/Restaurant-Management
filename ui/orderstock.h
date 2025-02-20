@@ -2,6 +2,7 @@
 #define ORDERSTOCK_H
 
 #include <QDialog>
+#include "header/json.h"
 
 namespace Ui {
 class OrderStock;
