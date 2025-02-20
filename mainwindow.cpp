@@ -208,7 +208,7 @@ void RestuarantManagement::on_CheckBills_clicked()
         getBills(Bills, restaurantData["Menus"], billNames, billPrices);
 
         QString currentDate = QDateTime::currentDateTime().toString("dd-MM-yyyy");
-        QString currentTime = QDateTime::currentDateTime().toString("hh:mm");
+        QString currentTime = QDateTime::currentDateTime().toString("hh:mm:ss:ms");
 
         for (size_t i = 0; i < billNames.size(); ++i) {
             json statementItem = json::array();
