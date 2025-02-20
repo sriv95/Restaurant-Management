@@ -42,6 +42,9 @@ Statement::Statement(QWidget *parent)
     for (int year : yearList) {
         Year_Input->addItem(QString::number(year));
     }
+    //Initial Input
+    Year_Input->setCurrentText(QString::number(QDate::currentDate().year())); //Year
+    ui->Month_ComboBox->setCurrentIndex(QDate::currentDate().month()-1); //Month
     //Connect Function
     connect(ui->Month_ComboBox, &QComboBox::currentTextChanged, this, &Statement::loadData);
     connect(Year_Input, &QComboBox::currentTextChanged, this, &Statement::loadData);
