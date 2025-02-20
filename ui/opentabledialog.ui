@@ -34,8 +34,8 @@
      <property name="styleSheet">
       <string notr="true"/>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <item>
+     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,1">
+      <item alignment="Qt::AlignmentFlag::AlignHCenter">
        <widget class="QWidget" name="widget" native="true">
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <property name="spacing">
@@ -72,32 +72,29 @@
           </widget>
          </item>
          <item>
-          <widget class="QPlainTextEdit" name="TextInput">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QLineEdit" name="TextInput">
            <property name="maximumSize">
             <size>
-             <width>30</width>
+             <width>40</width>
              <height>30</height>
+            </size>
+           </property>
+           <property name="sizeIncrement">
+            <size>
+             <width>0</width>
+             <height>0</height>
             </size>
            </property>
            <property name="font">
             <font>
-             <pointsize>14</pointsize>
+             <pointsize>20</pointsize>
             </font>
            </property>
-           <property name="verticalScrollBarPolicy">
-            <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
-           </property>
-           <property name="horizontalScrollBarPolicy">
-            <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
-           </property>
-           <property name="plainText">
+           <property name="text">
             <string>1</string>
+           </property>
+           <property name="maxLength">
+            <number>2</number>
            </property>
           </widget>
          </item>

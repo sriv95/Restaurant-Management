@@ -27,17 +27,17 @@ void OpenTableDialog::on_numBtn_clicked()
 {
     QPushButton *buttonSender = qobject_cast<QPushButton*>(sender());
     QString buttonText = buttonSender->text();
-    ui->TextInput->setPlainText(buttonText);
+    ui->TextInput->setText(buttonText);
 }
 
 void OpenTableDialog::on_buttonBox_accepted()
 {
     bool testvalue;
-    int seat = ui->TextInput->toPlainText().trimmed().toInt(&testvalue);
+    int seat = ui->TextInput->text().trimmed().toInt(&testvalue);
     qDebug()<< testvalue;
     if(testvalue == true and seat > 0)
     {
-        emit returnValue(ui->TextInput->toPlainText());
+        emit returnValue(ui->TextInput->text());
         this->close();
     }
     else
@@ -62,9 +62,13 @@ void OpenTableDialog::resizeEvent(QResizeEvent *event){
 
     // setStyleSheetFrame -----------------------------------------------------------------------------------------------------------------------
 
+
+
     int newSizeFont = newWidth/20;
     QString FontOpenTableDialog = QString::number(newSizeFont);
     qDebug() <<"newSizeFont: " << newSizeFont;
+
+    ui->TextInput->setMaximumSize(newSizeFont*2,newSizeFont*1.5);
 
     QDialog OpenTableDialog;
     ui->frame->setStyleSheet("font: 400 "+FontOpenTableDialog+"pt Segoe UI;");
@@ -77,6 +81,8 @@ void OpenTableDialog::resizeEvent(QResizeEvent *event){
     int intFrontbuttonBoxsize = newWidth/40;
     QString FrontbuttonBoxsize = QString::number(intFrontbuttonBoxsize);
     ui->buttonBox->setStyleSheet("font: 400 "+FrontbuttonBoxsize+"pt Segoe UI;");
+
+
 }
 
 void OpenTableDialog::OpenScreen(int index){
