@@ -17,6 +17,7 @@
 #include <ui/orderfood.h>
 #include <ui/analysis.h>
 #include "ui/jsoncheck.h"
+#include "ui/orderstock.h"
 
 json restaurantData;
 
@@ -551,3 +552,11 @@ void RestuarantManagement::on_backtosetup_clicked()
         on_backtosetup_clicked();
     }
 }
+
+void RestuarantManagement::on_OrderStock_clicked()
+{
+    OrderStock *orderstock = new OrderStock(this);
+    orderstock->setWindowTitle("Order Stock");
+    orderstock->exec();
+}
+
