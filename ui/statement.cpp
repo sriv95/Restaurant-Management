@@ -5,6 +5,7 @@
 #include <QHeaderView>
 #include <QDateTime>
 
+json statementData;
 
 Statement::Statement(QWidget *parent)
     : QDialog(parent)
@@ -29,10 +30,9 @@ Statement::Statement(QWidget *parent)
 
     //Add Year Input
     QComboBox *Year_Input = ui->Year_Input;
-    json Statement;
-    getData(Statement, "Statement");
+    getData(statementData, "Statement");
     QSet<int> yearSet;
-    for (auto item : Statement) {
+    for (auto item : statementData) {
         QDate date = QDate::fromString(QString::fromStdString(item[3]), "dd-MM-yyyy");
         yearSet.insert(date.year());
     }
@@ -56,14 +56,6 @@ Statement::~Statement()
 
 void Statement::loadData()
 {
-    json data;
-    getAllData(data);
-
-    if (!data.contains("Statement")) {
-        QMessageBox::warning(this, "Error", "No Statement data found in JSON");
-        return;
-    }
-
     QString selectedMonth = QString::number(ui->Month_ComboBox->currentIndex()+1);
     QString selectedYear = ui->Year_Input->currentText();
     int IntMonth=ui->Month_ComboBox->currentIndex()+1;
@@ -72,8 +64,6 @@ void Statement::loadData()
         QMessageBox::warning(this, "Error", "Please select a month");
         return;
     }
-
-    json statementData = data["Statement"];
     ui->Statement_Table->setRowCount(0);
     ui->Income_Table->setRowCount(0);
     ui->Expense_Table->setRowCount(0);
