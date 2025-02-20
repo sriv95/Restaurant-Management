@@ -51,53 +51,6 @@
     <string>📅  Select Month :</string>
    </property>
   </widget>
-  <widget class="QTableWidget" name="Statement_Table">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>130</y>
-     <width>821</width>
-     <height>361</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="editTriggers">
-    <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
-   </property>
-   <column>
-    <property name="text">
-     <string>Date</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Time</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Item</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Quantity</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Price</string>
-    </property>
-   </column>
-  </widget>
   <widget class="QComboBox" name="Month_ComboBox">
    <property name="geometry">
     <rect>
@@ -324,6 +277,196 @@
    <property name="insertPolicy">
     <enum>QComboBox::InsertPolicy::InsertAtTop</enum>
    </property>
+  </widget>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>130</y>
+     <width>751</width>
+     <height>371</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="Alltab">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <attribute name="title">
+     <string>All</string>
+    </attribute>
+    <widget class="QTableWidget" name="Statement_Table">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>750</width>
+       <height>340</height>
+      </rect>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>750</width>
+       <height>340</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+     </property>
+     <column>
+      <property name="text">
+       <string>Date</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Time</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Item</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Quantity</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Price</string>
+      </property>
+     </column>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="InTab">
+    <attribute name="title">
+     <string>Income</string>
+    </attribute>
+    <widget class="QTableWidget" name="Income_Table">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>750</width>
+       <height>340</height>
+      </rect>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>750</width>
+       <height>340</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+     </property>
+     <column>
+      <property name="text">
+       <string>Date</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Time</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Item</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Quantity</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Price</string>
+      </property>
+     </column>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="ExTab">
+    <attribute name="title">
+     <string>Expense</string>
+    </attribute>
+    <widget class="QTableWidget" name="Expense_Table">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>750</width>
+       <height>340</height>
+      </rect>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>750</width>
+       <height>340</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+     </property>
+     <column>
+      <property name="text">
+       <string>Date</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Time</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Item</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Quantity</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Price</string>
+      </property>
+     </column>
+    </widget>
+   </widget>
   </widget>
  </widget>
  <resources/>
