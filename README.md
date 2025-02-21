@@ -88,6 +88,7 @@ On the main UI, there are a total of 9 clickable icons related to **Table Manage
   - `Open Table`: Opens the "Open Table" window.
     - Seats can be selected by clicking icons (1-4 seats) or manually entering a number (can exceed 4).
     - Clicking `OK` confirms and completes the table opening process.
+      - Amount of seats opened shown in the `table` icon.
 
   - `Change seat`: Opens the "Open Table" window.
     - Appears in place of `Open Table` after that said table has seats selected.
@@ -107,6 +108,7 @@ The `Reserve` button appears once a `Table` icon is selected.
       - `Customer Name`
       - `Phone Number`
     - Clicking `Reserve` confirms and completes the process.
+      - `Reservation Time`, `Customer Name`, and `Phone Number` are shown in the `table` icon.
       
   - `Unreserve`: Appears in place of `Reserve` after clicking on the reserved `table` icon. Revokes the reservation.
 
@@ -128,7 +130,7 @@ The `Check Bills` button appears once a `Table` icon is selected.
 ---
 
 ### 📦 **Stock Management**
-On the main UI, there is a button called `Stocks`.
+On the main UI, there are buttons called `Stocks` and `Order Stock`.
 
 #### **Features**
 
@@ -150,8 +152,15 @@ On the main UI, there is a button called `Stocks`.
       - Can multi-delete by using `ctrl` and `shift` operations.
 
     - `Save`: Saves all the texts/data in the "table" to the .json file.
-      - Reopening the "Stock" window after clicking `Save` makes everything in the "table" return. 
-
+      - Reopening the "Stock" window after clicking `Save` makes everything in the "table" return.
+      - 
+  - `Order Stock`: Opens the "Order Stock" window.
+    - Three types of boxes you can order:
+      - `Stock`: Clicking its box, you can choose from all the given stocks shown.
+      - `Quantity` and `Price`: You can either use mouse scroll or click the up and down arrows.
+        
+    - `Add To Statement`: Changes all data related to the changes made.
+      
 ---
 
 ### 👥 **Employee Management**
@@ -197,7 +206,9 @@ On the main UI, there is a button called `Edit Menu`.
       
     - `Save`: Saves all the texts/data in the "table" to the .json file.
 
-- ##### **Edit Menu**:
+- ##### **Edit Menu Window**
+  There are two tables: Edit Menu and Edit Ingredients.
+  - ###### **Edit Menu**:
   - Left side "table"
   - Six columns are shown:
       - `No.` (invisible header)
@@ -211,38 +222,79 @@ On the main UI, there is a button called `Edit Menu`.
       - `Edit Ingredients`
         - Shows the ingredients of that menu you clicked with on the right side "table".
           
-  - ###### **Edit Menu Buttons**:
+    - ###### **Edit Menu Buttons**:
   
-    - `Add Menu`: Creates a new row in the left "table."
-      - `No.` column has a value added by 1 each time `Add Menu` is clicked.
-      - `Menu` and `Ingredients` have an empty value as default.
-      - `Price` has "0" value as default.'
-      - `Type` has the `Not Selected` as default.
-        
-    - `Delete Menu`: Deletes a row.
-      - Selecting any slot and clicking `Delete` will delete the row the slot is associated with.
+      - `Add Menu`: Creates a new row in the left "table."
+        - `No.` column has a value added by 1 each time `Add Menu` is clicked.
+        - `Menu` has an empty value as default.
+        - `Price` and `Ingredients` have "0" value as default.'
+        - `Type` has the `Not Selected` as default.
+          
+      - `Delete Menu`: Deletes a row.
+        - Selecting any slot and clicking `Delete` will delete the row the slot is associated with.
 
-- ##### **Edit Ingredients**:
-  - Right side "table"
-  - Data/texts are shown after clicking `Edit Ingredients` from the `Edit Menu` side.
-  - Four columns are shown:
-    - `No.` (invisible header)
-    - `Ingredients`
-      - Clicking its slot, you can choose from all the given ingredients.
-    - `Quantity`
-      - You can both click to edit and type or manually click the up and down icons or you can even use your scroll mouse to either increase or decrease the price.
-    - `Del`
-      - Appears as a big red X cross icon in each row. Delete the row X icon is associated with.
+  - ###### **Edit Ingredients**:
+    - Right side "table"
+    - Data/texts are shown after clicking `Edit Ingredients` from the `Edit Menu` side.
+    - Four columns are shown:
+      - `No.` (invisible header)
+      - `Ingredients`
+        - Clicking its slot, you can choose from all the given ingredients shown.
+      - `Quantity`
+        - You can both click to edit and type or manually click the up and down icons or you can even use your scroll mouse to either increase or decrease the price.
+      - `Del`
+        - Appears as a big red X cross icon in each row. Delete the row X icon is associated with.
         
   - ###### **Edit Ingredients Buttons**:
     - `Add Ingredients`: - Creates a new row in the "table."
       - `No.` column has a value added by 1 each time `Add` is clicked.
       - `Ingredients` has "-" as a default value.
-      - `Quantity` has "0" as a default value.
+      - `Quantity` has "0.00" as a default value.
 
 
 ---
 
+### 🍽️ **Order Food**
+On the main UI, `Order Food` button appears after clicking a `table` icon.
+
+#### **Features**
+- Works only if the table is opened.
+  
+- ##### **Buttons**:
+  - `Order Food`: Opens the `Order Food` window.
+    - First box: You can choose food or drinks when it's clicked.
+      - Price: Changes according to their "price".
+    - Second box: You can change the amount of the said order by editing or scrolling.
+    - Third box: Extra serving.
+      - Additional spices, dishes, food, and etc, which are not included in the original menu.
+
+---
+
+### 📊 **Financial Statements**
+On the main UI, there is a button called `Statement`.
+
+#### **Features**
+
+- ##### **Buttons**:
+  - `Statement`: Opens the `Statement` window.
+    - Displays data including `Date`, `Time`, `Item`, `Quantity`, and `Price`.
+      - Price: Green color if it's an income. Red if it's an expense.
+    - There are two boxes above the "table" where you can choose to see which month and year's statement.
+    - On the top left corner of the "table", you can choose to see `All` or only `Income` and `Expense` individually.
+      
+---
+
+-------------------------------------------------UNFINISHED-------------------------------------------------
+### 📈 **Business Analysis**
+On the main UI, there is a button called `Analysis`.
+
+#### **Features**
+Shows the trend of a time range
+
+- ##### **Buttons**:
+  - `Analysis`: Opens the `Analysis` window.
+
+---
 -------------------------------------------------UNFINISHED-------------------------------------------------
 
 
@@ -254,19 +306,7 @@ On the main UI, there is a button called `Edit Menu`.
 
 
 
-### 🍽️ **Order Food**
-- Click `New Order`.
-- Select menu items and confirm.
-- Order will be saved and linked to billing.
 
-### 📊 **Financial Statements**
-- Click `Reports` to generate sales reports.
-- Choose between `Daily`, `Weekly`, or `Monthly`.
-- Sales data will be calculated and displayed.
 
-### 📈 **Business Analysis**
-- Click `Analytics` to view business insights.
-- Analyze trends like best-selling items or peak hours.
-- Data is sourced from `data.json`.
 
----
+
