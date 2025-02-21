@@ -51,22 +51,22 @@ QPalette RedTheme;
     RedTheme.setColor(QPalette::Window, QColor("#350a0e"));
     RedTheme.setColor(QPalette::WindowText, QColor("#e9c5b5"));
     RedTheme.setColor(QPalette::Base, QColor("#3c3c3c"));
-    RedTheme.setColor(QPalette::Text, Qt::white);
+    RedTheme.setColor(QPalette::Text, QColor("#ffffff"));
     RedTheme.setColor(QPalette::Button, QColor("#e1bb3e"));
     RedTheme.setColor(QPalette::ButtonText,  QColor("#350a0e"));
-    RedTheme.setColor(QPalette::Highlight, QColor("#d9d9d9"));
-    RedTheme.setColor(QPalette::HighlightedText, Qt::black);
+    RedTheme.setColor(QPalette::Highlight, QColor("#ffffff"));
+    RedTheme.setColor(QPalette::HighlightedText, QColor("#000000"));
 
 
 QPalette CMUTheme;
     CMUTheme.setColor(QPalette::Window, QColor("#6b69b1"));
-    CMUTheme.setColor(QPalette::WindowText, QColor("#ffffff"));
+    CMUTheme.setColor(QPalette::WindowText, QColor("#000000"));
     CMUTheme.setColor(QPalette::Base, QColor("#ccd6d8"));
-    CMUTheme.setColor(QPalette::Text, Qt::white);
+    CMUTheme.setColor(QPalette::Text, QColor("#000000"));
     CMUTheme.setColor(QPalette::Button, QColor("#faab1d"));
     CMUTheme.setColor(QPalette::ButtonText, QColor("#000000"));
-    darkPalette.setColor(QPalette::Highlight, QColor("#d9d9d9"));
-    darkPalette.setColor(QPalette::HighlightedText, QColor("#d9d9d9"));
+    darkPalette.setColor(QPalette::Highlight, QColor("#838384"));
+    darkPalette.setColor(QPalette::HighlightedText, QColor("#000000"));
 
 
 

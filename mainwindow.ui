@@ -1039,10 +1039,10 @@ font: 800 10pt &quot;Segoe UI&quot;;</string>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>1160</x>
+      <x>1150</x>
       <y>10</y>
-      <width>101</width>
-      <height>101</height>
+      <width>108</width>
+      <height>108</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -1056,6 +1056,28 @@ font: 800 10pt &quot;Segoe UI&quot;;</string>
     </property>
     <property name="pixmap">
      <pixmap>C:/Users/worap/Downloads/Icon.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>900</x>
+      <y>20</y>
+      <width>241</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>C:/Users/worap/Downloads/cmu-sub-logo-1.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
