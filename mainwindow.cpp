@@ -6,6 +6,8 @@
 #include <header/json.h>
 #include <QTimer>
 #include <QDateTime>
+#include <QMediaPlayer>
+#include <QAudioOutput>
 
 #include <ui/reserve.h>
 #include <ui/employee.h>
@@ -59,9 +61,23 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
     ui.OrderFoodBtn->hide();
     setMainBtnVisible(false);
 
+    buttonSound = new QMediaPlayer(this);
+    audioOutput = new QAudioOutput(this);
+    buttonSound->setAudioOutput(audioOutput);
+    buttonSound->setSource(QUrl("qrc:/Sounds/Button.mp3"));
+
     QTimer *timer=new QTimer(this);
     connect (timer ,SIGNAL(timeout()),this,SLOT(showTime()));
     timer->start();
+}
+
+void RestuarantManagement::playButtonSound()
+{
+    if (buttonSound->playbackState() == QMediaPlayer::PlayingState) {
+        buttonSound->setPosition(0);
+    } else {
+        buttonSound->play();
+    }
 }
 
 void  RestuarantManagement::showTime()
@@ -393,12 +409,14 @@ void RestuarantManagement::removeReservation(int tableNo) {
 
 void RestuarantManagement::on_Employee_clicked()
 {
+    playButtonSound();
     employee employee(this);
     employee.exec();
 }
 
 void RestuarantManagement::on_Stocks_clicked()
 {
+    playButtonSound();
     StockWindow *stockWin = new StockWindow(this);
 
 
@@ -412,6 +430,7 @@ void RestuarantManagement::on_Stocks_clicked()
 
 void RestuarantManagement::on_EditMenu_clicked()
 {
+    playButtonSound();
     editmenu editmenu(this);
     editmenu.exec();
 }
@@ -419,6 +438,7 @@ void RestuarantManagement::on_EditMenu_clicked()
 
 void RestuarantManagement::on_Statement_clicked()
 {
+    playButtonSound();
     Statement stateWin(this);
     stateWin.setWindowTitle("Statement");
     stateWin.exec();
@@ -530,6 +550,7 @@ void RestuarantManagement::on_Analysis_clicked()
     // if(Data["Statements"].size()<=0&&Data["Menus"].size()<=0) {
     //     showError(".json file data Statements or Menus is empty");
     //     return;}
+    playButtonSound();
     analysis analysis(this);
     analysis.exec();
 }

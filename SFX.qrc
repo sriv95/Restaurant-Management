@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/Sounds">
+        <file>Button.mp3</file>
+    </qresource>
+</RCC>

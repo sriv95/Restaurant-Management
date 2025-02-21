@@ -3,6 +3,8 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_mainwindow.h"
 #include <ui/opentabledialog.h>
+#include <QMediaPlayer>
+#include <QAudioOutput>
 
 class RestuarantManagement : public QMainWindow
 {
@@ -61,9 +63,12 @@ private slots:
 
     void showError(QString);
 
+
 private:
 
     Ui::RestuarantManagementClass ui;
     OpenTableDialog *openTableDialog; // Declare OpenTableDialog as a member
-
+    QMediaPlayer *buttonSound;
+    QAudioOutput *audioOutput;
+    void playButtonSound();
 };
