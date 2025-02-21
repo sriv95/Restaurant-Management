@@ -278,7 +278,7 @@ On the main UI, there is a button called `Statement`.
 - ##### **Buttons**:
   - `Statement`: Opens the `Statement` window.
     - Displays data including `Date`, `Time`, `Item`, `Quantity`, and `Price`.
-      - Price: Green color if it's an income. Red if it's an expense.
+      - Price: `Green` color if it's an income. `Red` if it's an expense.
     - There are two boxes above the "table" where you can choose to see which month and year's statement.
     - On the top left corner of the "table", you can choose to see `All` or only `Income` and `Expense` individually.
       
@@ -289,10 +289,23 @@ On the main UI, there is a button called `Statement`.
 On the main UI, there is a button called `Analysis`.
 
 #### **Features**
-Shows the trend of a time range
+Shows the trend of `Income` and `Expenses` of the time range chosen. Includes summaries of the top `dishes` and `drinks`, `total income`, `expenses`, and `total order`.
 
 - ##### **Buttons**:
   - `Analysis`: Opens the `Analysis` window.
+    - Hover the mouse over a dot shows info.
+    - There is an area where there are two calendars, which is the main place we will operate on.
+      - The left calendar is the main one, whereas the right one is used when we select the view `Range`.
+      - Click on "Month name" and "Year" to change them or use mouse scroll or click the arrows.
+      - The leftmost column shows the number of the weeks out of a year.
+     
+      - There are two boxes:
+        - The first box: You can choose to view how detailed the data is in `Auto`, `Scale`, or `Not Scale` modes.
+          -
+          
+        - The second box: You can choose to view how large the data is in `All`, `Range`, `Day`, `Week`, `Month`, `Year` modes.
+          -
+        
 
 ---
 -------------------------------------------------UNFINISHED-------------------------------------------------
