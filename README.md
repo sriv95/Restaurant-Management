@@ -4,7 +4,7 @@
   
 
   **My Restaurant Manager** is an application that is designed to help restaurant owners streamline daily operations. It manages table reservations, orders, billing, stock, employees, and financial reports. All data is stored in JSON format for easy import/export.
-  **My Restaurant Manager** uses C++, Qt 6 and [nlohmann-json](https://github.com/nlohmann/json). 
+  **My Restaurant Manager** uses C++, Qt 6(includes QMultimedia and QChart) and [nlohmann-json](https://github.com/nlohmann/json). 
 
   
 
@@ -36,7 +36,7 @@
 
 ## 🛠**Usage**
 ### ⚙  **First-Time Setup**
-1. Launch the application.
+1. Launch `MyRestaurantManager.exe`.
 2. The File Configuration window will pop up. If no `data.json` is detected, you can:
 
    -  Click `New` to create a new `data.json` file with default keys compatible with the program.
