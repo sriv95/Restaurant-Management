@@ -107,7 +107,7 @@ The `Reserve` button appears once a `Table` icon is selected.
 
 - ##### **Main Buttons**:
   - `Reserve`: Opens the "Reserve" window where you fill in:
-    - `Table Number` - fixed (no edit).
+    - `Table Number` (non-editable)
       
     - `Reservation Time`
       
