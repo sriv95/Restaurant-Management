@@ -18,10 +18,79 @@
 #include <ui/analysis.h>
 #include "ui/jsoncheck.h"
 #include "ui/orderstock.h"
+#include <QSettings>
 
 json restaurantData;
 
 int Table_Count = 9;
+
+bool isDarkMode() {
+    QSettings settings(R"(HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize)", QSettings::NativeFormat);
+    bool isDarkMode = settings.value("AppsUseLightTheme", 1).toInt() == 0;  // ถ้าเป็น 0 แสดงว่าใช้ Dark Mode
+    qDebug()<<"isDarkMode = "<<isDarkMode<<")";
+    return isDarkMode;
+}
+
+void SetPalette(bool darkmode_on){
+
+QPalette darkPalette;
+    vector <QPalette> Palette;
+
+
+    // darkPalette.setColor(QPalette::Window, QColor("#381136"));        // สีพื้นหลังหลัก
+    // darkPalette.setColor(QPalette::WindowText, Qt::white);            // สีตัวอักษร
+    // darkPalette.setColor(QPalette::Base, QColor("#ad7b07"));         // สีพื้นหลังของ input
+    // darkPalette.setColor(QPalette::Text, Qt::white);                  // สีข้อความใน input
+    // darkPalette.setColor(QPalette::Button, QColor("#f77e28"));       // สีปุ่ม
+    // darkPalette.setColor(QPalette::ButtonText, Qt::white);            // สีข้อความบนปุ่ม
+    // darkPalette.setColor(QPalette::Highlight, QColor("#d9d9d9"));  // สีไฮไลต์
+    // darkPalette.setColor(QPalette::HighlightedText, Qt::black);       // สีข้อความที่ถูกไฮไลต์
+
+
+
+darkPalette.setColor(QPalette::Window, QColor("#350a0e"));
+darkPalette.setColor(QPalette::WindowText, QColor("#e9c5b5"));
+darkPalette.setColor(QPalette::Base, QColor("#3c3c3c"));
+darkPalette.setColor(QPalette::Button, QColor("#e1bb3e"));
+darkPalette.setColor(QPalette::ButtonText,  QColor("#350a0e"));
+
+//CMU Theme
+// darkPalette.setColor(QPalette::Window, QColor("#6b69b1"));
+// darkPalette.setColor(QPalette::WindowText, QColor("#ffffff"));
+// darkPalette.setColor(QPalette::Base, QColor("#ccd6d8"));
+// darkPalette.setColor(QPalette::Button, QColor("#faab1d"));
+// darkPalette.setColor(QPalette::ButtonText, Qt::white);
+
+QPalette lightPalette;
+    // lightPalette.setColor(QPalette::Window, QColor("#fe90f8"));        // สีพื้นหลังหลัก
+    // lightPalette.setColor(QPalette::WindowText, Qt::white);            // สีตัวอักษร
+    // lightPalette.setColor(QPalette::Base, QColor("#f77e28"));         // สีพื้นหลังของ input
+    // lightPalette.setColor(QPalette::Text, Qt::white);                  // สีข้อความใน input
+    // lightPalette.setColor(QPalette::Button, QColor("#fe90f8"));       // สีปุ่ม
+    // lightPalette.setColor(QPalette::ButtonText, Qt::white);            // สีข้อความบนปุ่ม
+    // lightPalette.setColor(QPalette::Highlight, QColor("#170117"));  // สีไฮไลต์
+    // lightPalette.setColor(QPalette::HighlightedText, Qt::black);       // สีข้อความที่ถูกไฮไลต์
+
+// lightPalette.setColor(QPalette::Window, QColor("#d9531e"));
+// lightPalette.setColor(QPalette::WindowText, QColor("#442c1d"));
+// lightPalette.setColor(QPalette::Base, QColor("#fae0c3"));
+// lightPalette.setColor(QPalette::Button, QColor("#d9531e"));
+// lightPalette.setColor(QPalette::ButtonText, Qt::white);
+
+lightPalette.setColor(QPalette::Window, QColor("#6b69b1"));
+lightPalette.setColor(QPalette::WindowText, QColor("#ffffff"));
+lightPalette.setColor(QPalette::Base, QColor("#ccd6d8"));
+lightPalette.setColor(QPalette::Button, QColor("#faab1d"));
+lightPalette.setColor(QPalette::ButtonText, Qt::white);
+
+    if(darkmode_on == false) QApplication::setPalette(lightPalette); // ตั้งค่า Palette ให้กับทั้งแอป
+    else QApplication::setPalette(darkPalette); // ตั้งค่า Palette ให้กับทั้งแอป
+
+
+
+}
+
+
 
 void RestuarantManagement::showError(QString text){
     QMessageBox Error;
@@ -42,6 +111,7 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
 {
     ui.setupUi(this);
     on_backtosetup_clicked();
+    SetPalette(isDarkMode());
     updateTablesStatus();
     for(int i=1;i<=Table_Count;++i){
         QString btnName = QString("Table_").append(QString::number(i));
@@ -50,7 +120,7 @@ RestuarantManagement::RestuarantManagement(QWidget *parent)
                               "background-color: #535455;"  // background-color
                               "color: white;"               // text-color
                               "border-radius: 12px;"        // Rounded corners
-                              "font-size: 16px;"            // Font size
+                              //"font-size: 16px;"            // Font size
                               "}");
         if(button) connect(button, &QPushButton::clicked, this, &RestuarantManagement::on_TableBtn_clicked);
         else  qDebug()<<"Error: Button Not Found (Button Name: "<<btnName<<")";
@@ -90,7 +160,7 @@ void RestuarantManagement::SetSelectingTable(QString no){
                               "background-color: #535455;"  // background-color
                               "color: white;"               // text-color
                               "border-radius: 12px;"        // Rounded corners
-                              "font-size: 16px;"            // Font size
+                             // "font-size: 16px;"            // Font size
                               "}");
     }
     if (ui.Receipt->isVisible() && ui.CheckBills->text() == "Confirm Payment") {
@@ -111,7 +181,7 @@ void RestuarantManagement::SetSelectingTable(QString no){
                               "color: white;"               // White text
                               "border-radius: 12px;"        // Rounded corners
                               //"border:5px solid "
-                              "font-size: 16px;"            // Font size
+                              //"font-size: 16px;"            // Font size
                               "}");
     }
     else {
